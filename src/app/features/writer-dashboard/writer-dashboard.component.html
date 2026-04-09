@@ -1,0 +1,335 @@
+<div class="wdash">
+  <aside class="sb">
+    <div class="sb-brand"><span class="bi">✦</span><span class="bt">EduAssist</span><span class="wbadge">Writer</span></div>
+    <div class="sb-profile" *ngIf="profile()">
+      <div class="av">{{ profile()?.fullName?.charAt(0) || 'W' }}</div>
+      <div>
+        <strong>{{ profile()?.fullName || 'Writer' }}</strong>
+        <span>Expert Writer</span>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <button [class.active]="activeTab()==='overview'"     (click)="activeTab.set('overview')">🏠 Overview</button>
+      <button [class.active]="activeTab()==='enrollments'"  (click)="activeTab.set('enrollments')">
+        📚 My Classes <span class="nb" *ngIf="enrollments().length">{{ enrollments().length }}</span>
+      </button>
+      <button [class.active]="activeTab()==='invitations'"  (click)="activeTab.set('invitations')">
+        ✉️ Invitations <span class="nb new" *ngIf="pendingInvCount()">{{ pendingInvCount() }}</span>
+      </button>
+    </nav>
+    <div class="sb-privacy">🔒 Student identity protected</div>
+    <button class="sb-out" (click)="logout()">🚪 Logout</button>
+  </aside>
+
+  <main class="main">
+    <div class="welcome-notice" *ngIf="enrollments().length > 0 && activeTab()==='overview'">
+      🔔 You have <strong>{{ enrollments().length }}</strong> class{{ enrollments().length > 1 ? 'es' : '' }} assigned.
+      <button class="wn-link" (click)="activeTab.set('enrollments')">View Classes →</button>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div *ngIf="activeTab()==='overview'" class="tab">
+      <div class="ph"><h1>Writer Dashboard</h1><p>Upload assignments for each class throughout the class duration</p></div>
+      <div class="sgrid">
+        <div class="sc"><div class="si">📚</div><div><div class="sv">{{ enrollments().length }}</div><div class="sl">Total Classes</div></div></div>
+        <div class="sc"><div class="si">🚀</div><div><div class="sv">{{ countByStatus('IN_PROGRESS') }}</div><div class="sl">In Progress</div></div></div>
+        <div class="sc"><div class="si">🔍</div><div><div class="sv">{{ countByStatus('UNDER_ADMIN_REVIEW') }}</div><div class="sl">Under Review</div></div></div>
+        <div class="sc hi"><div class="si">✅</div><div><div class="sv">{{ countByStatus('DELIVERED') }}</div><div class="sl">Delivered</div></div></div>
+      </div>
+
+      <!-- Tracker widget -->
+      <div class="tracker-widget" *ngIf="myTasks().length>0">
+        <div class="tw-head">
+          <div class="tw-title">📅 Upcoming Tasks</div>
+          <div class="tw-filters">
+            <button [class.active]="taskFilter()==='today'"    (click)="taskFilter.set('today')">Today</button>
+            <button [class.active]="taskFilter()==='upcoming'" (click)="taskFilter.set('upcoming')">Upcoming</button>
+            <button [class.active]="taskFilter()==='all'"      (click)="taskFilter.set('all')">All</button>
+          </div>
+        </div>
+        <div class="tw-empty" *ngIf="filteredTasks().length===0">No tasks in this view.</div>
+        <div class="tw-list">
+          <div class="tw-row" *ngFor="let t of filteredTasks().slice(0,5)">
+            <div class="twr-date"><div class="twd-day">{{ t.dueDate|date:'d' }}</div><div class="twd-mon">{{ t.dueDate|date:'MMM' }}</div></div>
+            <div class="twr-body">
+              <div class="twr-title">{{ t.assignmentTitle }}</div>
+              <div class="twr-meta">{{ t.courseName }}</div>
+            </div>
+            <div class="twr-right">
+              <span class="tw-chip" [class]="taskStatusClass(t.status)">{{ t.status }}</span>
+              <span class="tw-days" [class.urgent]="taskDaysLeft(t.dueDate)<=1&&t.status==='PENDING'">
+                {{ taskDaysLeft(t.dueDate)===0?'Today':taskDaysLeft(t.dueDate)<0?(taskDaysLeft(t.dueDate)*-1)+'d ago':'In '+taskDaysLeft(t.dueDate)+'d' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acard">
+        <div class="ach"><h3>Assigned Classes</h3><button class="lnk" (click)="activeTab.set('enrollments')">View All →</button></div>
+        <div class="empty" *ngIf="enrollments().length===0"><div>📚</div><p>No classes assigned yet.</p></div>
+        <div class="arow" *ngFor="let e of enrollments().slice(0,5)" (click)="select(e); activeTab.set('enrollments')">
+          <div class="ainfo">
+            <strong>{{ e.courseName }}</strong>
+            <span>{{ e.institutionName }} · {{ e.subject }}</span>
+            <span *ngIf="e.classStartDate" class="date-range">📅 {{ e.classStartDate | date:'MMM d' }} → {{ e.classEndDate | date:'MMM d, y' }}</span>
+          </div>
+          <span class="chip" [class]="statusClass(e.status)">{{ statusLabel(e.status) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVITATIONS -->
+    <div *ngIf="activeTab()==='invitations'" class="tab">
+      <div class="ph"><h1>Class Invitations</h1><p>Admin has invited you to handle these classes. Accept or decline each invitation.</p></div>
+      <div class="alert-ok" *ngIf="invResponse()">{{ invResponse() }}</div>
+      <div class="empty" *ngIf="invitations().length===0"><div>📨</div><h3>No invitations yet</h3><p>Admin will send invitations when a class is available for you.</p></div>
+
+      <div class="inv-list">
+        <div class="inv-card-w" *ngFor="let inv of invitations()" [class]="'icw-' + inv.status?.toLowerCase()">
+          <div class="icw-head">
+            <div class="icw-course">
+              <strong>{{ inv.courseName }}</strong>
+              <span>{{ inv.institutionName }}</span>
+            </div>
+            <span class="inv-chip-w" [class]="'ic-' + inv.status?.toLowerCase()">
+              {{ inv.status==='PENDING'?'⏳ Awaiting your response':inv.status==='ACCEPTED'?'✅ Accepted':'❌ Declined' }}
+            </span>
+          </div>
+          <div class="icw-body">
+            <div class="icw-msg" *ngIf="inv.message"><span>Admin note:</span> {{ inv.message }}</div>
+            <div class="icw-sent">Sent {{ inv.createdAt | date:'MMM d, y' }}</div>
+          </div>
+
+          <!-- Credential status (shown after acceptance + admin approval) -->
+          <div class="icw-creds" *ngIf="inv.status==='ACCEPTED'">
+            <span *ngIf="!inv.credentialsApproved" class="creds-pending-badge">🔒 Portal access pending admin approval</span>
+            <span *ngIf="inv.credentialsApproved" class="creds-ok-badge">🔓 Portal access approved — check class details in My Classes</span>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="icw-actions" *ngIf="inv.status==='PENDING'">
+            <button class="accept-btn" (click)="accept(inv.id)">✅ Accept</button>
+            <button class="decline-btn" (click)="decline(inv.id)">❌ Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENROLLMENTS -->
+    <div *ngIf="activeTab()==='enrollments'" class="tab">
+      <div class="ph"><h1>My Assigned Classes</h1></div>
+      <div *ngIf="loading()" class="loading">Loading...</div>
+      <div *ngIf="!loading() && enrollments().length===0" class="empty"><div>📚</div><h3>No classes yet</h3><p>Admin will assign classes after first payment.</p></div>
+
+      <div class="assign-layout" *ngIf="!loading() && enrollments().length>0">
+        <div class="assign-list">
+          <div class="assign-card" *ngFor="let e of enrollments()"
+               [class.selected]="selected()?.id===e.id" (click)="select(e)">
+            <div class="ac-head">
+              <div class="ac-left">
+                <div class="order-id">Enrollment #{{ e.id }}</div>
+                <strong>{{ e.courseName }}</strong>
+                <div class="ac-meta">
+                  <span>🏛 {{ e.institutionName }}</span>
+                  <span>📚 {{ e.subject }}</span>
+                  <span *ngIf="e.classStartDate">📅 {{ e.classStartDate | date:'MMM d' }} → {{ e.classEndDate | date:'MMM d, y' }}</span>
+                </div>
+              </div>
+              <div class="ac-right">
+                <span class="chip" [class]="statusClass(e.status)">{{ statusLabel(e.status) }}</span>
+                <span class="expand-arrow">{{ selected()?.id===e.id ? '▲' : '▼' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-panel" *ngIf="selected()">
+          <div class="dp-header">
+            <div><h2>{{ selected()?.courseName }}</h2><div class="dp-sub">{{ selected()?.institutionName }}</div></div>
+            <button class="close-btn" (click)="selected.set(null)">✕</button>
+          </div>
+          <div class="panel-tabs">
+            <button [class.active]="panelTab()==='details'" (click)="panelTab.set('details')">📋 Details</button>
+            <button [class.active]="panelTab()==='submit'"  (click)="panelTab.set('submit')">📤 Upload</button>
+            <button [class.active]="panelTab()==='history'" (click)="panelTab.set('history')">📜 History</button>
+            <button [class.active]="panelTab()==='tracker'" (click)="panelTab.set('tracker')">📅 Tracker</button>
+            <button [class.active]="panelTab()==='chat'"    (click)="panelTab.set('chat')">💬 Chat</button>
+          </div>
+
+          <!-- DETAILS -->
+          <div class="panel-body" *ngIf="panelTab()==='details'">
+            <div class="info-grid">
+              <div class="ig"><span>Subject</span><strong>{{ selected()?.subject }}</strong></div>
+              <div class="ig"><span>Start Date</span><strong>{{ selected()?.classStartDate | date:'MMM d, y' }}</strong></div>
+              <div class="ig"><span>End Date</span><strong>{{ selected()?.classEndDate | date:'MMM d, y' }}</strong></div>
+              <div class="ig"><span>Status</span><strong><span class="chip" [class]="statusClass(selected()?.status)">{{ statusLabel(selected()?.status) }}</span></strong></div>
+            </div>
+            <div class="detail-sec"><h4>📚 Course Description</h4><p>{{ selected()?.courseDescription }}</p></div>
+            <div class="detail-sec" *ngIf="selected()?.studentNotes"><h4>📝 Instructions</h4><p>{{ selected()?.studentNotes }}</p></div>
+            <!-- Credentials: only shown when admin has approved -->
+            <div class="creds-panel" *ngIf="selected()?.credentialsApproved">
+              <div class="cp-header">🔐 Portal Login Credentials <span class="cp-granted">Admin Approved</span></div>
+              <div class="cp-row"><span>URL</span><a [href]="selected()?.portalUrl" target="_blank" class="cp-link">{{ selected()?.portalUrl||'–' }}</a></div>
+              <div class="cp-row"><span>Username</span><strong>{{ selected()?.portalUsername }}</strong></div>
+              <div class="cp-row"><span>Password</span><strong class="cp-pwd">{{ selected()?.portalPassword }}</strong></div>
+            </div>
+            <div class="creds-locked" *ngIf="!selected()?.credentialsApproved">
+              🔒 Portal credentials will be unlocked once admin approves your access. Accept the invitation and wait for approval.
+            </div>
+            <div class="doc-row" *ngIf="selected()?.referenceDocPath">
+              <span class="doc-label">📎 Reference Document</span>
+              <button class="view-file-btn" (click)="downloadFile('enrollment-doc', selected()?.id, 'reference_doc')">⬇ Download Doc</button>
+            </div>
+          </div>
+
+          <!-- UPLOAD — multiple uploads allowed -->
+          <div class="panel-body" *ngIf="panelTab()==='submit'">
+            <div class="submit-header">
+              <h4>📤 Upload Assignment ZIP</h4>
+              <p>You can upload multiple times throughout the class duration — each weekend, after every major assignment, or whenever the institution assigns new work. Every upload is tracked in history.</p>
+            </div>
+            <div class="alert-ok" *ngIf="uploadSuccess()">{{ uploadSuccess() }}</div>
+            <div class="alert-er" *ngIf="uploadError()">⚠️ {{ uploadError() }}</div>
+
+            <!-- Note for this submission -->
+            <div class="upload-note-field">
+              <label>📝 Submission Note <small>(optional — describe what's included)</small></label>
+              <textarea [(ngModel)]="uploadNote" rows="2" placeholder="e.g. Week 3 assignments — Chapter 5 quiz and essay submission"></textarea>
+            </div>
+
+            <div class="upload-zone" [class.uploading]="uploadingId()===selected()?.id">
+              <label class="upload-btn-label" *ngIf="uploadingId()!==selected()?.id">
+                <input type="file" hidden (change)="uploadZip($event, selected()?.id)"
+                       accept=".zip,.pdf,.docx,.doc" />
+                <div class="upload-icon">📦</div>
+                <div>
+                  <strong>Choose Assignment File</strong>
+                  <small>ZIP, PDF, DOCX — max 50MB · Upload as many times as needed</small>
+                </div>
+              </label>
+              <div class="uploading-state" *ngIf="uploadingId()===selected()?.id">
+                <div class="upload-spinner"></div><span>Uploading...</span>
+              </div>
+            </div>
+
+            <div class="upload-history-teaser" *ngIf="submissions().length > 0">
+              <strong>{{ submissions().length }}</strong> upload{{ submissions().length > 1 ? 's' : '' }} so far this class.
+              <button class="view-hist-btn" (click)="panelTab.set('history')">View History →</button>
+            </div>
+          </div>
+
+          <!-- UPLOAD HISTORY -->
+          <div class="panel-body" *ngIf="panelTab()==='history'">
+            <h4>📜 Upload History for This Class</h4>
+            <p class="hist-sub">All your submissions for this class — admin reviews each one before it reaches the student.</p>
+
+            <div *ngIf="submissions().length===0" class="empty-hist">
+              <div>📭</div><p>No uploads yet. Go to "Upload Assignment" to submit.</p>
+            </div>
+
+            <div class="hist-list" *ngIf="submissions().length>0">
+              <div class="hist-card" *ngFor="let s of submissions(); let i=index">
+                <div class="hc-head">
+                  <div class="hc-num">Upload #{{ submissions().length - i }}</div>
+                  <span class="sub-chip" [class]="submissionStatusClass(s.status)">
+                    {{ s.status === 'PENDING_REVIEW' ? '⏳ Pending Review' : s.status === 'APPROVED' ? '✅ Approved' : '❌ Rejected' }}
+                  </span>
+                </div>
+                <div class="hc-body">
+                  <div class="hc-row"><span>File</span><strong>{{ s.fileName || 'Assignment ZIP' }}</strong></div>
+                  <div class="hc-row"><span>Uploaded</span><strong>{{ s.uploadedAt | date:'MMM d, y · h:mm a' }}</strong></div>
+                  <div class="hc-row" *ngIf="s.description"><span>Note</span><strong>{{ s.description }}</strong></div>
+                  <div class="hc-row" *ngIf="s.adminNote"><span>Admin Note</span><strong class="admin-note">{{ s.adminNote }}</strong></div>
+                  <div class="hc-row" *ngIf="s.reviewedAt"><span>Reviewed</span><strong>{{ s.reviewedAt | date:'MMM d, y' }}</strong></div>
+                </div>
+                <div class="hc-actions">
+                  <button *ngIf="s.id" class="view-file-btn" (click)="downloadFile('submission', s.id, s.fileName)">⬇ Download</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRACKER -->
+          <div class="panel-body" *ngIf="panelTab()==='tracker'">
+            <div class="tracker-head"><h4>📅 Assignment Schedule</h4><p>View tasks and upload your work for each. Admin reviews and delivers to student.</p></div>
+
+            <!-- Writer can also add tasks -->
+            <div class="task-form-box">
+              <h5>+ Add Task</h5>
+              <div class="alert-ok" *ngIf="taskSuccess()">{{ taskSuccess() }}</div>
+              <div class="alert-er" *ngIf="taskError()">⚠️ {{ taskError() }}</div>
+              <div class="wtr-form-grid">
+                <div class="wff"><label>Title *</label><input type="text" [(ngModel)]="newTask.assignmentTitle" placeholder="e.g. Week 2 Essay" /></div>
+                <div class="wff"><label>Type</label>
+                  <select [(ngModel)]="newTask.assignmentType">
+                    <option value="assignment">Assignment</option><option value="quiz">Quiz</option>
+                    <option value="essay">Essay</option><option value="project">Project</option><option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="wff"><label>Due Date *</label><input type="date" [(ngModel)]="newTask.dueDate" /></div>
+              </div>
+              <div class="wff full"><label>Notes</label><input type="text" [(ngModel)]="newTask.description" placeholder="Brief description..." /></div>
+              <button class="add-task-btn" (click)="createTask(selected()?.id)">➕ Add Task</button>
+            </div>
+
+            <div class="tp-empty-w" *ngIf="enrollmentTasks().length===0"><div>📭</div><p>No tasks yet. Add above or wait for admin to add tasks.</p></div>
+            <div class="wr-task-list" *ngIf="enrollmentTasks().length>0">
+              <div class="wr-task-full" *ngFor="let t of enrollmentTasks()" [class]="'wtf-' + t.status?.toLowerCase()">
+                <!-- Task header -->
+                <div class="wtf-head">
+                  <div class="wtr-date"><div class="wtd-d">{{ t.dueDate|date:'d' }}</div><div class="wtd-m">{{ t.dueDate|date:'MMM' }}</div></div>
+                  <div class="wtf-info">
+                    <div class="wtr-title">{{ t.assignmentTitle }}</div>
+                    <div class="wtr-meta"><span class="wtr-type">{{ t.assignmentType }}</span><span *ngIf="t.description">{{ t.description }}</span></div>
+                    <div class="wtr-upload-by" *ngIf="t.uploadDeadline">⏰ Upload by: <strong>{{ t.uploadDeadline | date:'MMM d, y' }}</strong></div>
+                  </div>
+                  <div class="wtf-status">
+                    <span class="tk-chip" [class]="taskStatusClass(t.status)">{{ t.status==='PENDING'?'⏳ Pending':t.status==='UPLOADED'?'📤 Under Review':t.status==='APPROVED'?'✅ Approved':'❌ Rejected' }}</span>
+                    <span class="wtr-days" [class.wtr-urgent]="taskDaysLeft(t.dueDate)<=1&&t.status==='PENDING'" [class.wtr-over]="taskDaysLeft(t.dueDate)<0&&t.status==='PENDING'">
+                      {{ taskDaysLeft(t.dueDate)===0?'Due Today':taskDaysLeft(t.dueDate)<0?(taskDaysLeft(t.dueDate)*-1)+'d ago':'In '+taskDaysLeft(t.dueDate)+'d' }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Files section -->
+                <div class="wtf-files">
+                  <!-- Task instructions from admin -->
+                  <div class="wtf-file-row" *ngIf="t.hasTaskDoc">
+                    <span class="wtf-file-label">📎 Instructions:</span>
+                    <span class="wtf-file-name">{{ t.taskDocName }}</span>
+                    <button class="wtf-dl-btn" (click)="downloadFile('doc', t.id, t.taskDocName)">⬇ Download</button>
+                  </div>
+
+                  <!-- Writer uploads file for this task -->
+                  <div class="wtf-upload-row">
+                    <div *ngIf="t.hasWriterFile" class="wtf-uploaded">
+                      <span class="wtf-file-label">📤 Your upload:</span>
+                      <span class="wtf-file-name">{{ t.writerFileName }}</span>
+                      <span class="wtf-upload-date">{{ t.writerUploadedAt | date:'MMM d' }}</span>
+                    </div>
+                    <div class="wtf-upload-ctrl" *ngIf="t.status !== 'APPROVED'">
+                      <input type="text" [(ngModel)]="uploadNotes[t.id]" placeholder="Upload note (optional)" class="wtf-note-inp" />
+                      <label class="wtf-upload-btn" [class.uploading]="uploadingTaskId()===t.id">
+                        <input type="file" hidden [disabled]="uploadingTaskId()===t.id"
+                               (change)="uploadTaskFile($event, t.id)" />
+                        {{ uploadingTaskId()===t.id ? '⏳ Uploading...' : t.hasWriterFile ? '🔄 Re-upload' : '📤 Upload File' }}
+                      </label>
+                    </div>
+                    <div class="wtf-approved-note" *ngIf="t.status === 'APPROVED'">✅ Approved — student can download</div>
+                    <div class="wtf-reject-note" *ngIf="t.status === 'REJECTED'">❌ Rejected — please re-upload<span *ngIf="t.adminNote">: {{ t.adminNote }}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAT -->
+          <div class="panel-body chat-body" *ngIf="panelTab()==='chat'">
+            <app-chat [enrollmentId]="selected()?.id" context="ADMIN_WRITER" title="Chat with Admin"></app-chat>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

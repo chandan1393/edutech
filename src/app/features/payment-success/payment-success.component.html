@@ -1,0 +1,72 @@
+<div class="ps-page">
+  <div class="ps-bg">
+    <div class="psb-orb o1"></div>
+    <div class="psb-orb o2"></div>
+  </div>
+
+  <!-- VERIFYING -->
+  <div class="ps-card" *ngIf="state()==='verifying'">
+    <div class="ps-spinner"></div>
+    <h2>Verifying Payment...</h2>
+    <p>Please wait while we confirm your payment with Stripe.</p>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="ps-card success" *ngIf="state()==='success'">
+    <div class="ps-icon-wrap success-icon">
+      <div class="success-ring"></div>
+      <div class="ps-checkmark">✓</div>
+    </div>
+    <h1>Payment Successful! 🎉</h1>
+    <p class="ps-sub">Your installment has been confirmed and recorded.</p>
+
+    <div class="ps-details" *ngIf="details()">
+      <div class="psd-row">
+        <span>Installment</span>
+        <strong>#{{ details().installmentNumber }}</strong>
+      </div>
+      <div class="psd-row">
+        <span>Amount Paid</span>
+        <strong class="psd-amount">${{ details().amount }} {{ details().currency }}</strong>
+      </div>
+      <div class="psd-row" *ngIf="details().paidAt">
+        <span>Date & Time</span>
+        <strong>{{ details().paidAt | date:'MMM d, y · h:mm a' }}</strong>
+      </div>
+      <div class="psd-row">
+        <span>Status</span>
+        <strong class="psd-ok">✅ {{ details().enrollmentStatus?.replace('_',' ') }}</strong>
+      </div>
+    </div>
+
+    <div class="ps-next">
+      <div class="psn-icon">✍️</div>
+      <div>
+        <strong>What happens next?</strong>
+        <p>Our admin team has been notified. {{ details()?.enrollmentStatus === 'PARTIALLY_PAID' ? 'Pay remaining installments to get your expert assigned.' : 'An expert writer will be assigned to your class shortly.' }}</p>
+      </div>
+    </div>
+
+    <div class="ps-countdown">Redirecting to dashboard in <strong>{{ countdown() }}s</strong></div>
+    <button class="ps-btn" (click)="goToDashboard()">Go to Dashboard Now →</button>
+  </div>
+
+  <!-- CANCELED -->
+  <div class="ps-card canceled" *ngIf="state()==='canceled'">
+    <div class="ps-icon-wrap cancel-icon">⚠️</div>
+    <h2>Payment Canceled</h2>
+    <p>You canceled the payment. No charge was made.</p>
+    <p class="ps-sub">You can try again anytime from your dashboard.</p>
+    <div class="ps-countdown">Redirecting in <strong>{{ countdown() }}s</strong></div>
+    <button class="ps-btn outline" (click)="goToDashboard()">Back to Dashboard →</button>
+  </div>
+
+  <!-- ERROR -->
+  <div class="ps-card error" *ngIf="state()==='error'">
+    <div class="ps-icon-wrap error-icon">❌</div>
+    <h2>Verification Failed</h2>
+    <p>{{ message() }}</p>
+    <p class="ps-sub">If you were charged, please contact our support team immediately with your Stripe receipt.</p>
+    <button class="ps-btn outline" (click)="goToDashboard()">← Back to Dashboard</button>
+  </div>
+</div>

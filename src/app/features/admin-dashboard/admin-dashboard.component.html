@@ -1,0 +1,724 @@
+<div class="adm">
+  <aside class="sb">
+    <div class="sb-brand"><div class="sb-logo">E</div><span>EduAssist</span><span class="sbadge">Admin</span></div>
+    <nav class="sb-nav">
+      <button [class.active]="activeTab()==='overview'"    (click)="activeTab.set('overview')">📊 Overview</button>
+      <button [class.active]="activeTab()==='enrollments'" (click)="activeTab.set('enrollments')">📚 Enrollments <span class="nb">{{ enrollments().length }}</span></button>
+      <button [class.active]="activeTab()==='payments'"    (click)="activeTab.set('payments')">💳 Payments</button>
+      <button [class.active]="activeTab()==='stats'"       (click)="activeTab.set('stats')">📈 Statistics</button>
+      <button [class.active]="activeTab()==='students'"    (click)="activeTab.set('students')">👥 Students</button>
+      <button [class.active]="activeTab()==='writers'"     (click)="activeTab.set('writers')">✍️ Writers</button>
+      <button [class.active]="activeTab()==='queries'"     (click)="activeTab.set('queries')">💬 Queries <span class="nb new" *ngIf="queries().length">{{ queries().length }}</span></button>
+      <button [class.active]="activeTab()==='create-user'" (click)="activeTab.set('create-user')">➕ Create User</button>
+      <button [class.active]="activeTab()==='feedback'"    (click)="activeTab.set('feedback'); loadFeedback()">⭐ Feedback <span class="nb" *ngIf="feedbackList().length">{{ feedbackList().length }}</span></button>
+      <button [class.active]="activeTab()==='bugs'"        (click)="activeTab.set('bugs'); loadBugReports()">🐛 Bug Reports <span class="nb new" *ngIf="bugReports().length">{{ bugReports().length }}</span></button>
+      <button [class.active]="activeTab()==='analytics'"   (click)="activeTab.set('analytics'); loadAnalytics()">📊 Analytics</button>
+    </nav>
+    <button class="sb-logout" (click)="logout()">🚪 Logout</button>
+  </aside>
+
+  <main class="main">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div *ngIf="activeTab()==='overview'" class="tab">
+      <div class="ph"><h1>Dashboard Overview</h1><p>Online class management platform</p></div>
+      <div class="sgrid">
+        <div class="sc teal"> <div class="sci">📚</div><div><div class="sv">{{ enrollStats()?.totalEnrollments||0 }}</div><div class="sl">Total Enrollments</div></div></div>
+        <div class="sc amber"><div class="sci">⏳</div><div><div class="sv">{{ enrollStats()?.submitted||0 }}</div><div class="sl">Awaiting Review</div></div></div>
+        <div class="sc blue"> <div class="sci">🚀</div><div><div class="sv">{{ enrollStats()?.inProgress||0 }}</div><div class="sl">In Progress</div></div></div>
+        <div class="sc green"><div class="sci">✅</div><div><div class="sv">{{ enrollStats()?.delivered||0 }}</div><div class="sl">Delivered</div></div></div>
+        <div class="sc orange"><div class="sci">💳</div><div><div class="sv">{{ getTotalRevenue().toFixed(0) }}</div><div class="sl">$ Revenue Collected</div></div></div>
+        <div class="sc purple"><div class="sci">⏰</div><div><div class="sv">{{ getPendingRevenue().toFixed(0) }}</div><div class="sl">$ Pending</div></div></div>
+      </div>
+      <div class="ogrid">
+        <div class="card">
+          <div class="ch"><h3>Recent Enrollments</h3><button class="lnk" (click)="activeTab.set('enrollments')">View All →</button></div>
+          <div class="mr" *ngFor="let e of enrollments().slice(0,6)" (click)="openEnrollment(e); activeTab.set('enrollments')">
+            <div><strong>{{ e.courseName }}</strong><span>{{ e.studentName }} · {{ e.institutionName }}</span></div>
+            <span class="chip" [class]="sc(e.status)">{{ statusLabel(e.status) }}</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><h3>Upcoming Payments (7 days)</h3><button class="lnk" (click)="activeTab.set('payments')">View All →</button></div>
+          <div class="mr" *ngFor="let i of getUpcomingInstallments().slice(0,6)">
+            <div><strong>{{ i.courseName }}</strong><span>{{ i.studentName }} · ${{ i.amount }}</span></div>
+            <div class="due-badge" [class.urgent]="getDaysUntilDue(i.dueDate) <= 2">
+              {{ getDaysUntilDue(i.dueDate) === 0 ? 'Due today' : getDaysUntilDue(i.dueDate) === 1 ? 'Tomorrow' : 'In '+getDaysUntilDue(i.dueDate)+' days' }}
+            </div>
+          </div>
+          <div class="empty-sm" *ngIf="getUpcomingInstallments().length === 0">No upcoming payments</div>
+        </div>
+      </div>
+
+      <!-- Admin Tracker Widget -->
+      <div class="adm-tracker-widget" *ngIf="myTasks().length > 0">
+        <div class="atw-head"><h3>📅 Assignment Tracker — All Classes</h3><span class="atw-count">{{ myTasks().length }} tasks total</span></div>
+        <div class="atw-list">
+          <div class="atw-row" *ngFor="let t of myTasks().slice(0,8)" [class]="'atwr-' + t.status?.toLowerCase()">
+            <div class="atwr-date">
+              <div class="atwd-d">{{ t.dueDate | date:'d' }}</div>
+              <div class="atwd-m">{{ t.dueDate | date:'MMM' }}</div>
+            </div>
+            <div class="atwr-body">
+              <div class="atwr-title">{{ t.assignmentTitle }}</div>
+              <div class="atwr-course">{{ t.courseName }} · {{ t.institutionName }}</div>
+            </div>
+            <div class="atwr-right">
+              <span class="tk-chip" [class]="taskStatusClass(t.status)">{{ t.status }}</span>
+              <span class="atwr-days" [class.tk-urgent]="taskDaysLeft(t.dueDate)<=1&&t.status==='PENDING'">
+                {{ taskDaysLeft(t.dueDate)===0?'Today':taskDaysLeft(t.dueDate)<0?(taskDaysLeft(t.dueDate)*-1)+'d ago':'In '+taskDaysLeft(t.dueDate)+'d' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ENROLLMENTS ══ -->
+    <div *ngIf="activeTab()==='enrollments'" class="tab">
+      <div class="ph"><h1>All Enrollments</h1></div>
+
+      <!-- List -->
+      <div class="tbl" *ngIf="!selEnrollment()">
+        <div class="th th-enroll"><span>Course / Student</span><span>Institution</span><span>Price</span><span>Payments</span><span>Status</span><span>Action</span></div>
+        <div class="tr tr-enroll" *ngFor="let e of enrollments()">
+          <div class="tc"><strong>{{ e.courseName }}</strong><small>{{ e.studentName }} · {{ e.classStartDate | date:'MMM d' }} → {{ e.classEndDate | date:'MMM d, y' }}</small></div>
+          <span class="tm">{{ e.institutionName }}</span>
+          <span class="tm">{{ e.totalPrice ? '$'+e.totalPrice : '–' }}</span>
+          <span class="tm">{{ getConfirmedInstallments(e.installments) }}/{{ (e.installments||[]).length }}</span>
+          <span><span class="chip" [class]="sc(e.status)">{{ statusLabel(e.status) }}</span></span>
+          <span><button class="abtn" (click)="openEnrollment(e)">Manage →</button></span>
+        </div>
+      </div>
+
+      <!-- Manage Panel -->
+      <div class="mng-panel" *ngIf="selEnrollment()">
+        <div class="mp-head">
+          <button class="back-btn" (click)="selEnrollment.set(null)">← Back</button>
+          <div class="mp-title">
+            <h2>{{ selEnrollment()?.courseName }}</h2>
+            <span class="mp-sub">{{ selEnrollment()?.institutionName }} · {{ selEnrollment()?.studentName }}</span>
+          </div>
+          <span class="chip" [class]="sc(selEnrollment()?.status)">{{ statusLabel(selEnrollment()?.status) }}</span>
+        </div>
+
+        <div class="mp-tabs">
+          <button [class.active]="enrollPanelTab()==='info'"   (click)="enrollPanelTab.set('info')">📋 Class Info</button>
+          <button [class.active]="enrollPanelTab()==='plan'"   (click)="enrollPanelTab.set('plan')">⚙️ Plan, Update &amp; Writer</button>
+          <button [class.active]="enrollPanelTab()==='tracker'"(click)="enrollPanelTab.set('tracker')">📅 Tracker</button>
+          <button [class.active]="enrollPanelTab()==='invite'" (click)="enrollPanelTab.set('invite')">✉️ Invite Writers</button>
+          <button [class.active]="enrollPanelTab()==='chat'"   (click)="enrollPanelTab.set('chat')">💬 Chat</button>
+        </div>
+
+        <!-- INFO TAB -->
+        <div class="mp-body" *ngIf="enrollPanelTab()==='info'">
+          <div class="info-grid">
+            <div class="ig"><span>Student</span><strong>{{ selEnrollment()?.studentName }}</strong></div>
+            <div class="ig"><span>Email</span><strong>{{ selEnrollment()?.studentEmail }}</strong></div>
+            <div class="ig"><span>Phone</span><strong>{{ selEnrollment()?.studentPhone||'–' }}</strong></div>
+            <div class="ig"><span>Institution</span><strong>{{ selEnrollment()?.institutionName }}</strong></div>
+            <div class="ig"><span>Subject</span><strong>{{ selEnrollment()?.subject }}</strong></div>
+            <div class="ig"><span>Class Start</span><strong>{{ selEnrollment()?.classStartDate | date:'MMM d, y' }}</strong></div>
+            <div class="ig"><span>Class End</span><strong>{{ selEnrollment()?.classEndDate | date:'MMM d, y' }}</strong></div>
+            <div class="ig"><span>Total Price</span><strong>{{ selEnrollment()?.totalPrice ? '$'+selEnrollment()?.totalPrice : 'Not set' }}</strong></div>
+            <div class="ig"><span>Writer</span><strong>{{ selEnrollment()?.assignedWriterName||'Not assigned' }}</strong></div>
+          </div>
+          <div class="info-desc"><h4>📚 Course Description</h4><p>{{ selEnrollment()?.courseDescription }}</p></div>
+          <div class="info-desc" *ngIf="selEnrollment()?.studentNotes"><h4>📝 Student Notes</h4><p>{{ selEnrollment()?.studentNotes }}</p></div>
+          <div class="creds-box">
+            <div class="cb-header">🔐 Portal Login Credentials</div>
+            <div class="cb-row"><span>Portal URL</span><a [href]="selEnrollment()?.portalUrl" target="_blank">{{ selEnrollment()?.portalUrl||'–' }}</a></div>
+            <div class="cb-row"><span>Username</span><strong>{{ selEnrollment()?.portalUsername }}</strong></div>
+            <div class="cb-row"><span>Password</span><code>{{ selEnrollment()?.portalPassword }}</code></div>
+          </div>
+          <div class="doc-row" *ngIf="selEnrollment()?.referenceDocPath">
+            <span>📎 Reference Doc</span>
+            <button class="view-btn" (click)="downloadFile('enrollment-doc', selEnrollment()?.id, 'reference_doc')">⬇ Download Doc</button>
+          </div>
+          <!-- WRITER SUBMISSIONS — per-file approve/reject, APPROVED = immutable -->
+          <div class="submissions-section">
+
+            <div class="ss-header">
+              <h4>📦 Writer Submissions
+                <span class="ss-count" *ngIf="enrollmentSubmissions().length">{{ enrollmentSubmissions().length }} upload{{ enrollmentSubmissions().length > 1 ? 's' : '' }}</span>
+              </h4>
+              <div class="ss-pills">
+                <span class="ss-pill approved" *ngIf="getApprovedCount() > 0">✅ {{ getApprovedCount() }} delivered</span>
+                <span class="ss-pill pending"  *ngIf="getPendingCount() > 0">⏳ {{ getPendingCount() }} pending review</span>
+                <span class="ss-pill rejected" *ngIf="getRejectedCount() > 0">❌ {{ getRejectedCount() }} rejected</span>
+              </div>
+            </div>
+
+            <div class="sub-banner ok" *ngIf="submissionSuccess()">{{ submissionSuccess() }}</div>
+            <div class="sub-banner er" *ngIf="submissionError()">⚠️ {{ submissionError() }}</div>
+
+            <div *ngIf="enrollmentSubmissions().length === 0" class="no-subs">
+              📭 No submissions yet. Writer will upload assignment files here.
+            </div>
+
+            <div class="sub-card"
+                 *ngFor="let sub of enrollmentSubmissions(); let i = index"
+                 [class.sub-approved]="sub.status === 'APPROVED'"
+                 [class.sub-pending]="sub.status === 'PENDING_REVIEW'"
+                 [class.sub-rejected]="sub.status === 'REJECTED'">
+
+              <!-- HEAD -->
+              <div class="sub-head">
+                <div class="sub-left">
+                  <span class="sub-num">Upload #{{ enrollmentSubmissions().length - i }}</span>
+                  <span class="sub-badge badge-approved" *ngIf="sub.status === 'APPROVED'">✅ Approved & Delivered</span>
+                  <span class="sub-badge badge-pending"  *ngIf="sub.status === 'PENDING_REVIEW'">⏳ Awaiting Review</span>
+                  <span class="sub-badge badge-rejected" *ngIf="sub.status === 'REJECTED'">❌ Rejected</span>
+                  <span class="lock-chip" *ngIf="sub.status === 'APPROVED'">🔒 Immutable</span>
+                </div>
+                <div class="sub-right">
+                  <span class="sub-date">{{ sub.uploadedAt | date:'MMM d, y · h:mm a' }}</span>
+                  <button class="sub-preview-btn" (click)="downloadFile('submission', sub.id, sub.fileName)">⬇ Download</button>
+                </div>
+              </div>
+
+              <!-- FILE DETAILS -->
+              <div class="sub-body">
+                <div class="sub-info-row"><span>📄 File</span><strong>{{ sub.fileName || 'Assignment File' }}</strong></div>
+                <div class="sub-info-row" *ngIf="sub.description"><span>📝 Note</span><strong>{{ sub.description }}</strong></div>
+                <div class="sub-info-row" *ngIf="sub.writerName"><span>✍️ Writer</span><strong>{{ sub.writerName }}</strong></div>
+                <div class="sub-info-row" *ngIf="sub.adminNote"><span>💬 Admin Note</span><strong class="admin-note-text">{{ sub.adminNote }}</strong></div>
+                <div class="sub-info-row" *ngIf="sub.reviewedAt"><span>📅 Reviewed</span><strong>{{ sub.reviewedAt | date:'MMM d, y' }}</strong></div>
+              </div>
+
+              <!-- APPROVED: FULLY LOCKED — no actions at all -->
+              <div class="sub-locked" *ngIf="sub.status === 'APPROVED'">
+                <div class="sl-icon">🔒</div>
+                <div class="sl-text">
+                  <strong>Permanently delivered to student</strong>
+                  <span>Approved {{ sub.reviewedAt | date:'MMM d, y' }} · Now in student's download list · No further action possible</span>
+                </div>
+              </div>
+
+              <!-- PENDING: show approve/reject -->
+              <div class="sub-actions" *ngIf="sub.status === 'PENDING_REVIEW'">
+                <div class="sub-payment-gate" *ngIf="!isFullyPaid()">
+                  🔒 Cannot approve — student has unpaid installments. Full payment required first.
+                </div>
+                <ng-container *ngIf="isFullyPaid()">
+                  <div class="sub-reject-input">
+                    <input type="text"
+                           [(ngModel)]="rejectNotes[sub.id]"
+                           placeholder="Rejection reason (required before rejecting)…"
+                           class="reject-note-inp" />
+                  </div>
+                  <div class="sub-action-btns">
+                    <button class="sub-approve-btn"
+                            [disabled]="submissionActionId() === sub.id"
+                            (click)="approveSubmission(sub.id)">
+                      {{ submissionActionId() === sub.id ? '⏳ Approving...' : '✅ Approve & Deliver to Student' }}
+                    </button>
+                    <button class="sub-reject-btn"
+                            [disabled]="submissionActionId() === sub.id"
+                            (click)="rejectSubmission(sub.id)">
+                      {{ submissionActionId() === sub.id ? '⏳...' : '❌ Reject' }}
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+
+              <!-- REJECTED -->
+              <div class="sub-rejected-notice" *ngIf="sub.status === 'REJECTED'">
+                ❌ Rejected — writer has been notified and can upload a revised file.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- PLAN + UPDATE + WRITER TAB — MERGED, ONE SUBMIT BUTTON -->
+        <div class="mp-body plan-body" *ngIf="enrollPanelTab()==='plan'">
+
+          <!-- Single validation / success banner -->
+          <div class="plan-banner error"   *ngIf="planValidation()">⚠️ {{ planValidation() }}</div>
+          <div class="plan-banner success" *ngIf="planSuccess()">{{ planSuccess() }}</div>
+          <div class="plan-banner error"   *ngIf="enrollUpdateError()">⚠️ {{ enrollUpdateError() }}</div>
+
+          <div class="plan-cols">
+            <!-- LEFT: status + installments -->
+            <div class="plan-left">
+              <h4 class="section-sub-head">📊 Status &amp; Pricing</h4>
+              <div class="fg"><label>Status</label>
+                <select [formControl]="enrollUpdateForm.get('status')!">
+                  <option *ngFor="let s of enrollStatusOptions" [value]="s">{{ s.replace('_',' ') }}</option>
+                </select>
+              </div>
+              <div class="fg"><label>Total Price ($)</label>
+                <input type="number" [formControl]="enrollUpdateForm.get('totalPrice')!" placeholder="e.g. 500" />
+                <span class="field-hint" *ngIf="enrollUpdateForm.value.totalPrice">Must equal sum of all installments</span>
+              </div>
+              <div class="fg"><label>Reply to Student</label>
+                <textarea [formControl]="enrollUpdateForm.get('adminReply')!" rows="3" placeholder="Visible to student in their dashboard..."></textarea>
+              </div>
+              <div class="fg"><label>Internal Notes</label>
+                <textarea [formControl]="enrollUpdateForm.get('adminNotes')!" rows="2" placeholder="Private admin notes..."></textarea>
+              </div>
+
+              <h4 class="section-sub-head" style="margin-top:18px">💳 Payment Plan</h4>
+              <p class="plan-hint">Set installments — students pay via Stripe. Confirmed payments cannot be deleted.</p>
+
+              <!-- Existing confirmed payments summary -->
+              <div class="confirmed-inst" *ngIf="(selEnrollment()?.installments||[]).length > 0">
+                <div class="ci-row" *ngFor="let inst of selEnrollment()?.installments">
+                  <div class="cir-info">
+                    <strong>#{{ inst.installmentNumber }} — ${{ inst.amount }}</strong>
+                    <span>{{ inst.dueDate | date:'MMM d, y' }}</span>
+                  </div>
+                  <div class="cir-acts">
+                    <span class="inst-chip" [class]="installmentClass(inst.status)">{{ inst.status }}</span>
+                    <button *ngIf="inst.status==='RECEIPT_UPLOADED'" class="confirm-btn" (click)="confirmInstallmentPayment(inst.id)">✅ Confirm</button>
+                    <span *ngIf="inst.status==='CONFIRMED'" class="paid-ok">✅ Paid</span>
+                    <button class="receipt-dl-btn" *ngIf="inst.status==='CONFIRMED'" (click)="downloadReceipt(inst.id)">📄 Receipt</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Draft rows -->
+              <div class="inst-builder">
+                <div class="ib-header-row">
+                  <span>#</span><span>Amount ($)</span><span>Due Date</span><span>Notes</span><span></span>
+                </div>
+                <div class="ib-row" *ngFor="let row of installmentDrafts; let i=index"
+                     [class.row-paid]="row.confirmed">
+                  <span class="ib-num" [class.paid-mark]="row.confirmed">{{ row.confirmed ? '✓' : i+1 }}</span>
+                  <input type="number" [(ngModel)]="row.amount" placeholder="100" class="ib-inp"
+                         [class.inp-disabled]="row.confirmed && row.status==='CONFIRMED'"
+                         [attr.title]="row.confirmed ? 'Amount of confirmed payment — cannot change' : null" />
+                  <input type="date"   [(ngModel)]="row.dueDate" class="ib-inp"
+                         [attr.disabled]="row.confirmed ? true : null" />
+                  <input type="text"   [(ngModel)]="row.notes"   placeholder="e.g. Month 1" class="ib-inp" />
+                  <button class="rm-row" (click)="removeInstallmentRow(i)"
+                          *ngIf="installmentDrafts.length > 1"
+                          [disabled]="row.confirmed"
+                          [title]="row.confirmed ? 'Cannot delete paid installment' : 'Remove'">
+                    {{ row.confirmed ? '🔒' : '✕' }}
+                  </button>
+                </div>
+                <div class="ib-total-row">
+                  <span>Total</span>
+                  <strong [class.total-mismatch]="isTotalMismatch()">
+                    ${{ getDraftTotal() }}
+                    <span class="total-match" *ngIf="!isTotalMismatch() && enrollUpdateForm.value.totalPrice">✓ Matches total</span>
+                    <span class="total-warn"  *ngIf="isTotalMismatch()">⚠ Must equal ${{ enrollUpdateForm.value.totalPrice }}</span>
+                  </strong>
+                </div>
+                <button class="add-row-btn" (click)="addInstallmentRow()">+ Add Installment</button>
+              </div>
+            </div>
+
+            <!-- RIGHT: assign writer -->
+            <div class="plan-right">
+              <h4 class="section-sub-head">✍️ Assign Expert Writer</h4>
+              <div class="alert-ok" *ngIf="assignWriterSuccess()">✅ {{ assignWriterSuccess() }}</div>
+              <div class="alert-er" *ngIf="assignWriterError()">⚠️ {{ assignWriterError() }}</div>
+              <div class="payment-gate" *ngIf="getConfirmedInstallments(selEnrollment()?.installments||[])==0">
+                🔒 Writer assignment locked — confirm at least the 1st installment first.
+              </div>
+              <div *ngIf="getConfirmedInstallments(selEnrollment()?.installments||[])>0">
+                <p class="writer-hint">{{ getConfirmedInstallments(selEnrollment()?.installments||[]) }} payment(s) confirmed.</p>
+                <div class="writer-list" *ngIf="writers().length>0">
+                  <div class="wi" *ngFor="let w of writers()" [class.wi-assigned]="w.fullName === selEnrollment()?.assignedWriterName">
+                    <div class="wi-left">
+                      <div class="wi-av">{{ w.fullName?.charAt(0) }}</div>
+                      <div><strong>{{ w.fullName }}</strong><small>{{ w.expertise||'General' }}</small></div>
+                    </div>
+                    <button class="assign-btn" (click)="assignEnrollmentWriter(w.userId)"
+                            [disabled]="w.fullName === selEnrollment()?.assignedWriterName">
+                      {{ w.fullName === selEnrollment()?.assignedWriterName ? '✓ Assigned' : 'Assign' }}
+                    </button>
+                  </div>
+                </div>
+                <div class="no-writers" *ngIf="writers().length===0">No writers. Add in Writers tab.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SINGLE SAVE BUTTON — saves everything at once -->
+          <div class="save-all-row">
+            <button class="save-all-btn" (click)="saveAll()">💾 Save Everything &amp; Notify Student</button>
+            <span class="save-note">Updates status, price, reply, payment plan and notifies student in one click.</span>
+          </div>
+        </div>
+
+        <!-- TRACKER TAB -->
+        <div class="mp-body" *ngIf="enrollPanelTab()==='tracker'">
+          <div class="tracker-admin-head">
+            <h4>📅 Assignment Schedule Tracker</h4>
+            <p>Add tasks with due dates. Writer uploads file per task. Admin reviews and approves. Student downloads approved files.</p>
+          </div>
+
+          <!-- Add task form -->
+          <div class="task-form-box">
+            <h5>+ Add New Task</h5>
+            <div class="alert-ok" *ngIf="taskSuccess()">{{ taskSuccess() }}</div>
+            <div class="alert-er" *ngIf="taskError()">⚠️ {{ taskError() }}</div>
+            <div class="tf-grid">
+              <div class="fg"><label>Assignment Title *</label><input type="text" [(ngModel)]="newTask.assignmentTitle" placeholder="e.g. Week 3 Quiz" /></div>
+              <div class="fg"><label>Type</label>
+                <select [(ngModel)]="newTask.assignmentType">
+                  <option value="assignment">Assignment</option><option value="quiz">Quiz</option><option value="essay">Essay</option>
+                  <option value="project">Project</option><option value="discussion">Discussion</option><option value="exam">Exam</option><option value="other">Other</option>
+                </select>
+              </div>
+              <div class="fg"><label>Student Due Date *</label><input type="date" [(ngModel)]="newTask.dueDate" /></div>
+              <div class="fg"><label>Writer Upload By</label><input type="date" [(ngModel)]="newTask.uploadDeadline" /></div>
+            </div>
+            <div class="fg"><label>Notes / Instructions</label><textarea [(ngModel)]="newTask.description" rows="2" placeholder="Details, rubric, requirements..."></textarea></div>
+            <button class="btn" (click)="createTask()">➕ Add Task</button>
+          </div>
+
+          <!-- Task cards with full file management -->
+          <div class="task-list" *ngIf="enrollmentTasks().length > 0">
+            <div class="task-item-full" *ngFor="let t of enrollmentTasks()" [class]="'tif-' + t.status?.toLowerCase()">
+
+              <!-- Task header row -->
+              <div class="tif-head">
+                <div class="tif-date">
+                  <div class="tid-d">{{ t.dueDate | date:'d' }}</div>
+                  <div class="tid-m">{{ t.dueDate | date:'MMM' }}</div>
+                </div>
+                <div class="tif-info">
+                  <div class="tif-title">{{ t.assignmentTitle }}</div>
+                  <div class="tif-meta">
+                    <span class="ti-type">{{ t.assignmentType }}</span>
+                    <span *ngIf="t.description">{{ t.description }}</span>
+                    <span *ngIf="t.uploadDeadline" class="tif-deadline">Writer uploads by: {{ t.uploadDeadline | date:'MMM d' }}</span>
+                    <span class="tif-by">by {{ t.createdBy }}</span>
+                  </div>
+                </div>
+                <div class="tif-controls">
+                  <span class="tk-chip" [class]="taskStatusClass(t.status)">{{ t.status }}</span>
+                  <span class="tk-days" [class.tk-urgent]="taskDaysLeft(t.dueDate)<=1">
+                    {{ taskDaysLeft(t.dueDate)===0?'Today':taskDaysLeft(t.dueDate)<0?(taskDaysLeft(t.dueDate)*-1)+'d ago':'In '+taskDaysLeft(t.dueDate)+'d' }}
+                  </span>
+                  <button class="del-task-btn" (click)="deleteTask(t.id)" title="Delete task">✕</button>
+                </div>
+              </div>
+
+              <!-- File management row -->
+              <div class="tif-files">
+                <!-- Admin uploads task reference doc -->
+                <div class="tif-file-col">
+                  <div class="tfc-label">📎 Task Instructions</div>
+                  <div *ngIf="t.hasTaskDoc" class="tfc-file-info">
+                    <span class="tfc-name">{{ t.taskDocName }}</span>
+                    <button class="tfc-dl-btn" (click)="downloadFile('doc', t.id, t.taskDocName)">⬇ Download</button>
+                  </div>
+                  <label class="tfc-upload-btn" *ngIf="!t.hasTaskDoc">
+                    <input type="file" hidden (change)="uploadTaskDoc($event, t.id)" />
+                    📎 Upload Instructions
+                  </label>
+                  <label class="tfc-replace-btn" *ngIf="t.hasTaskDoc">
+                    <input type="file" hidden (change)="uploadTaskDoc($event, t.id)" />
+                    🔄 Replace
+                  </label>
+                </div>
+
+                <!-- Writer-uploaded file -->
+                <div class="tif-file-col">
+                  <div class="tfc-label">📤 Writer's Submission</div>
+                  <div *ngIf="!t.hasWriterFile" class="tfc-empty">Awaiting writer upload</div>
+                  <div *ngIf="t.hasWriterFile">
+                    <div class="tfc-file-info">
+                      <span class="tfc-name">{{ t.writerFileName }}</span>
+                      <span class="tfc-date">{{ t.writerUploadedAt | date:'MMM d, y' }}</span>
+                    </div>
+                    <div class="tfc-writer-note" *ngIf="t.writerNote">Note: {{ t.writerNote }}</div>
+                    <div class="tfc-actions">
+                      <button class="tfc-dl-btn" (click)="downloadFile('writer', t.id, t.writerFileName)">⬇ Download</button>
+                      <button class="tfc-approve-btn" *ngIf="t.status === 'UPLOADED'" [disabled]="taskActionId()===t.id" (click)="approveTask(t.id)">
+                        {{ taskActionId()===t.id ? '...' : '✅ Approve → Student' }}
+                      </button>
+                      <button class="tfc-reject-btn" *ngIf="t.status === 'UPLOADED'" [disabled]="taskActionId()===t.id" (click)="rejectTask(t.id)">
+                        ❌ Reject
+                      </button>
+                      <span class="tfc-approved-badge" *ngIf="t.status === 'APPROVED'">✅ Approved — Student can download</span>
+                      <span class="tfc-rejected-badge" *ngIf="t.status === 'REJECTED'">❌ Rejected — Writer re-uploading</span>
+                    </div>
+                    <div class="tfc-note-row" *ngIf="t.status === 'UPLOADED'">
+                      <input type="text" [(ngModel)]="taskNotes[t.id]" placeholder="Review note (optional)" class="tfc-note-inp" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tif-admin-note" *ngIf="t.adminNote">💬 Admin note: {{ t.adminNote }}</div>
+            </div>
+          </div>
+          <div class="tp-empty" *ngIf="enrollmentTasks().length===0"><span>📭</span><p>No tasks yet. Add the first one above.</p></div>
+        </div>
+
+        <!-- INVITE WRITERS TAB -->
+        <div class="mp-body" *ngIf="enrollPanelTab()==='invite'">
+          <div class="invite-head">
+            <h4>✉️ Invite Expert Writers</h4>
+            <p>Invite multiple writers for this class. They accept or decline. Once accepted you can approve their credentials access and assign them.</p>
+          </div>
+
+          <div class="alert-ok" *ngIf="inviteSuccess()">{{ inviteSuccess() }}</div>
+          <div class="alert-er" *ngIf="inviteError()">⚠️ {{ inviteError() }}</div>
+
+          <!-- Invite from writer list -->
+          <div class="invite-writer-list">
+            <div class="iw-row" *ngFor="let w of writers()">
+              <div class="iw-info">
+                <div class="iw-av">{{ w.fullName?.charAt(0) }}</div>
+                <div><strong>{{ w.fullName }}</strong><small>{{ w.expertise || 'General' }}</small></div>
+              </div>
+              <div class="iw-actions">
+                <input type="text" [(ngModel)]="inviteMsgs[w.userId]" placeholder="Optional message (unique per writer)..." class="invite-msg-inp" />
+                <button class="invite-btn" (click)="inviteWriterById(w.userId)">📨 Invite</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Current invitations status -->
+          <div class="invitations-board" *ngIf="invitations().length > 0">
+            <h5>📋 Invitation Status</h5>
+            <div class="inv-card" *ngFor="let inv of invitations()" [class]="'ic-' + inv.status?.toLowerCase()">
+              <div class="inv-head">
+                <span class="inv-name">✍️ {{ inv.writerName }}</span>
+                <span class="inv-chip" [class]="invStatusClass(inv.status)">
+                  {{ inv.status === 'PENDING' ? '⏳ Awaiting Response' : inv.status === 'ACCEPTED' ? '✅ Accepted' : '❌ Declined' }}
+                </span>
+              </div>
+              <div class="inv-meta" *ngIf="inv.writerNote"><small>Writer note: {{ inv.writerNote }}</small></div>
+              <div class="inv-meta" *ngIf="inv.respondedAt"><small>Responded {{ inv.respondedAt | date:'MMM d' }}</small></div>
+
+              <!-- Actions for accepted writers -->
+              <div class="inv-actions" *ngIf="inv.status === 'ACCEPTED'">
+                <button class="cred-approve-btn"
+                        *ngIf="!inv.credentialsApproved"
+                        [disabled]="invitationLoading()===inv.id"
+                        (click)="approveCredentialsForInvitation(inv.id)">
+                  🔓 Approve Credential Access
+                </button>
+                <span class="creds-approved-badge" *ngIf="inv.credentialsApproved">🔓 Portal Access Granted</span>
+                <button class="assign-from-inv-btn" (click)="assignFromAccepted(inv.writerId)">
+                  ✍️ Assign as Main Writer
+                </button>
+                <span class="assign-ok-badge" *ngIf="assignFromAcceptedSuccess()">{{ assignFromAcceptedSuccess() }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="tp-empty" *ngIf="invitations().length===0"><span>📨</span><p>No invitations sent yet. Invite writers above.</p></div>
+        </div>
+
+        <!-- CHAT TAB -->
+        <div class="mp-body chat-mb" *ngIf="enrollPanelTab()==='chat'">
+          <app-chat [enrollmentId]="selEnrollment()?.id" context="STUDENT_ADMIN" title="Chat with Student"></app-chat>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PAYMENTS — upcoming with filters ══ -->
+    <div *ngIf="activeTab()==='payments'" class="tab">
+      <div class="ph"><h1>Upcoming Payments</h1><p>Track all pending installments across enrollments</p></div>
+
+      <!-- Filter buttons -->
+      <div class="pay-filters">
+        <button [class.active]="paymentFilter()==='all'"   (click)="paymentFilter.set('all')">All Upcoming</button>
+        <button [class.active]="paymentFilter()==='1-5'"   (click)="paymentFilter.set('1-5')">⚡ 1–5 Days</button>
+        <button [class.active]="paymentFilter()==='5-10'"  (click)="paymentFilter.set('5-10')">⏳ 5–10 Days</button>
+        <button [class.active]="paymentFilter()==='10-30'" (click)="paymentFilter.set('10-30')">📅 10–30 Days</button>
+      </div>
+
+      <div class="pay-table">
+        <div class="pt-head">
+          <span>Course / Student</span><span>Installment</span><span>Amount</span><span>Due Date</span><span>Days Left</span><span>Status</span><span>Receipt</span>
+        </div>
+        <div class="pt-row" *ngFor="let i of getUpcomingInstallments()">
+          <div class="ptc">
+            <strong>{{ i.courseName }}</strong><small>{{ i.studentName }}</small>
+          </div>
+          <span class="ptm">#{{ i.installmentNumber }}</span>
+          <span class="ptm amt">${{ i.amount }}</span>
+          <span class="ptm">{{ i.dueDate | date:'MMM d, y' }}</span>
+          <span class="ptm">
+            <span class="days-chip" [class.urgent]="getDaysUntilDue(i.dueDate)<=2" [class.soon]="getDaysUntilDue(i.dueDate)>2&&getDaysUntilDue(i.dueDate)<=5">
+              {{ getDaysUntilDue(i.dueDate) === 0 ? 'Today' : getDaysUntilDue(i.dueDate)+' days' }}
+            </span>
+          </span>
+          <span><span class="inst-chip" [class]="installmentClass(i.status)">{{ i.status }}</span></span>
+          <span>
+            <button *ngIf="i.status==='RECEIPT_UPLOADED'" class="confirm-btn" (click)="confirmInstallmentPayment(i.id)">✅ Confirm</button>
+            <button *ngIf="i.status==='CONFIRMED'" class="receipt-dl-btn" (click)="downloadReceipt(i.id)">📄 Receipt</button>
+          </span>
+        </div>
+        <div class="empty-sm" *ngIf="getUpcomingInstallments().length===0">No payments match this filter.</div>
+      </div>
+    </div>
+
+    <!-- ══ STATISTICS ══ -->
+    <div *ngIf="activeTab()==='stats'" class="tab">
+      <div class="ph"><h1>Payment Statistics</h1></div>
+      <div class="sgrid">
+        <div class="sc green"><div class="sci">✅</div><div><div class="sv">${{ getTotalRevenue().toFixed(0) }}</div><div class="sl">Total Collected</div></div></div>
+        <div class="sc amber"><div class="sci">⏳</div><div><div class="sv">${{ getPendingRevenue().toFixed(0) }}</div><div class="sl">Pending</div></div></div>
+        <div class="sc teal"><div class="sci">📋</div><div><div class="sv">{{ getAllInstallments().length }}</div><div class="sl">Total Installments</div></div></div>
+        <div class="sc blue"><div class="sci">✓</div><div><div class="sv">{{ getConfirmedCount() }}</div><div class="sl">Paid</div></div></div>
+        <div class="sc orange"><div class="sci">⚠️</div><div><div class="sv">{{ getOverdueCount() }}</div><div class="sl">Overdue</div></div></div>
+        <div class="sc purple"><div class="sci">📚</div><div><div class="sv">{{ enrollments().length }}</div><div class="sl">Active Classes</div></div></div>
+      </div>
+
+      <!-- Revenue per enrollment -->
+      <div class="stats-table-card">
+        <h3>Revenue by Enrollment</h3>
+        <div class="st-table">
+          <div class="stt-head"><span>Course</span><span>Student</span><span>Total</span><span>Collected</span><span>Remaining</span><span>Progress</span></div>
+          <div class="stt-row" *ngFor="let e of enrollments()">
+            <div class="stc"><strong>{{ e.courseName }}</strong><small>{{ e.institutionName }}</small></div>
+            <span class="stm">{{ e.studentName }}</span>
+            <span class="stm">${{ e.totalPrice||0 }}</span>
+            <span class="stm ok">${{ getCollectedForEnrollment(e) }}</span>
+            <span class="stm muted">${{ (Number(e.totalPrice||0) - getCollectedForEnrollment(e)).toFixed(2) }}</span>
+            <div class="stm">
+              <div class="prog-bar">
+                <div class="prog-fill" [style.width]="getProgressForEnrollment(e)+'%'"></div>
+              </div>
+              <span class="prog-pct">{{ getProgressForEnrollment(e) }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ STUDENTS ══ -->
+    <div *ngIf="activeTab()==='students'" class="tab">
+      <div class="ph"><h1>Students</h1><button class="btn" (click)="activeTab.set('create-user')">+ Add Student</button></div>
+      <div class="tbl">
+        <div class="th"><span>Name / Email</span><span>Phone</span><span>Joined</span><span>Status</span><span>Action</span></div>
+        <div class="tr" *ngFor="let s of students()">
+          <div class="tc"><strong>{{ s.fullName }}</strong><small>{{ s.email }}</small></div>
+          <span class="tm">{{ s.phone||'–' }}</span>
+          <span class="tm">{{ s.createdAt | date:'MMM d, y' }}</span>
+          <span><span class="chip" [class]="s.enabled ? 's-delivered' : 's-closed'">{{ s.enabled ? 'Active' : 'Disabled' }}</span></span>
+          <span><button class="abtn" [class.danger]="s.enabled" (click)="toggleUser(s.id)">{{ s.enabled ? 'Disable' : 'Enable' }}</button></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ WRITERS ══ -->
+    <div *ngIf="activeTab()==='writers'" class="tab">
+      <div class="ph"><h1>Writers</h1></div>
+      <div class="tbl" *ngIf="writers().length>0">
+        <div class="th"><span>Name / Email</span><span>Expertise</span><span>Rating</span></div>
+        <div class="tr" *ngFor="let w of writers()">
+          <div class="tc"><strong>{{ w.fullName }}</strong><small>{{ w.email }}</small></div>
+          <span class="tm">{{ w.expertise||'–' }}</span>
+          <span class="tm">⭐ {{ w.rating||'5.0' }}/5</span>
+        </div>
+      </div>
+      <div class="fcard">
+        <h3>➕ Add New Writer</h3>
+        <div class="alert-ok" *ngIf="writerSuccess()">✅ {{ writerSuccess() }}</div>
+        <div class="alert-er" *ngIf="writerError()">⚠️ {{ writerError() }}</div>
+        <form [formGroup]="writerForm" (ngSubmit)="createWriter()">
+          <div class="frow"><div class="fg"><label>Full Name *</label><input type="text" formControlName="fullName" /></div><div class="fg"><label>Email *</label><input type="email" formControlName="email" /></div></div>
+          <div class="frow"><div class="fg"><label>Phone</label><app-phone-input (valueChange)="onWriterPhone($event)" [defaultCountry]="'US'"></app-phone-input></div><div class="fg"><label>Expertise</label><input type="text" formControlName="expertise" placeholder="e.g. Business, CS" /></div></div>
+          <div class="fg"><label>Bio</label><textarea formControlName="bio" rows="2"></textarea></div>
+          <div class="info-note">ℹ️ Writer receives login credentials. They see class portal credentials but never student identity.</div>
+          <button type="submit" class="btn">Create Writer Account</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ══ QUERIES ══ -->
+    <div *ngIf="activeTab()==='queries'" class="tab">
+      <div class="ph"><h1>Queries</h1></div>
+      <div class="tbl">
+        <div class="th"><span>From</span><span>Subject</span><span>Date</span><span>Status</span><span>Action</span></div>
+        <div class="tr" *ngFor="let q of queries()">
+          <div class="tc"><strong>{{ q.name }}</strong><small>{{ q.email }}</small></div>
+          <span class="tm">{{ q.subject }}</span>
+          <span class="tm">{{ q.createdAt | date:'MMM d' }}</span>
+          <span><span class="chip" [class]="sc(q.status)">{{ q.status }}</span></span>
+          <span><button class="abtn" (click)="selQuery.set(q)">Reply</button></span>
+        </div>
+      </div>
+      <div class="query-panel" *ngIf="selQuery()">
+        <div class="qp-head"><h3>Query from {{ selQuery()?.name }}</h3><button (click)="selQuery.set(null)">✕</button></div>
+        <div class="qp-body">
+          <div class="info-grid">
+            <div class="ig"><span>From</span><strong>{{ selQuery()?.name }}</strong></div>
+            <div class="ig"><span>Email</span><strong>{{ selQuery()?.email }}</strong></div>
+          </div>
+          <div class="info-desc"><h4>Message</h4><p>{{ selQuery()?.message }}</p></div>
+          <div class="info-desc" *ngIf="selQuery()?.adminReply"><h4>Last Reply</h4><p>{{ selQuery()?.adminReply }}</p></div>
+          <form [formGroup]="replyForm" (ngSubmit)="submitReply()">
+            <div class="fg"><label>Reply</label><textarea formControlName="reply" rows="4"></textarea></div>
+            <button type="submit" class="btn">Send Reply</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CREATE USER ══ -->
+    <div *ngIf="activeTab()==='create-user'" class="tab">
+      <div class="ph"><h1>Create User</h1></div>
+      <div class="fcard">
+        <div class="alert-ok" *ngIf="cuSuccess()">✅ {{ cuSuccess() }}</div>
+        <div class="alert-er" *ngIf="cuError()">⚠️ {{ cuError() }}</div>
+        <form [formGroup]="cuForm" (ngSubmit)="createUser()">
+          <div class="frow"><div class="fg"><label>Full Name *</label><input type="text" formControlName="fullName" /></div><div class="fg"><label>Role *</label><select formControlName="role"><option value="ROLE_STUDENT">Student</option><option value="ROLE_ADMIN">Admin</option></select></div></div>
+          <div class="frow"><div class="fg"><label>Email *</label><input type="email" formControlName="email" /></div><div class="fg"><label>Phone</label><input type="tel" formControlName="phone" /></div></div>
+          <button type="submit" class="btn">Create &amp; Send Credentials</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ══ FEEDBACK ══ -->
+    <div *ngIf="activeTab()==='feedback'" class="tab">
+      <div class="ph"><h1>Student Feedback</h1><p>Average rating: <strong>{{ avgRating() }}⭐</strong> from {{ feedbackList().length }} reviews</p></div>
+      <div class="tbl" *ngIf="feedbackList().length">
+        <div class="th" style="grid-template-columns:1fr 1fr .5fr 1fr"><span>Student</span><span>Comment</span><span>Rating</span><span>Date</span></div>
+        <div class="tr" style="grid-template-columns:1fr 1fr .5fr 1fr" *ngFor="let f of feedbackList()">
+          <div class="tc"><strong>{{ f.anonymous ? 'Anonymous' : f.studentName }}</strong><small *ngIf="f.courseName">{{ f.courseName }}</small></div>
+          <span class="tm">{{ f.comment || '—' }}</span>
+          <span class="tm"><span *ngFor="let s of [1,2,3,4,5]" [style.color]="s<=f.rating?'#f59e0b':'#e2e8f0'">★</span></span>
+          <span class="tm">{{ f.createdAt | date:'MMM d, y' }}</span>
+        </div>
+      </div>
+      <div class="empty" *ngIf="!feedbackList().length"><div>⭐</div><h3>No feedback yet</h3><p>Students will see a feedback widget in their dashboard.</p></div>
+    </div>
+
+    <!-- ══ BUG REPORTS ══ -->
+    <div *ngIf="activeTab()==='bugs'" class="tab">
+      <div class="ph"><h1>Bug Reports</h1></div>
+      <div class="tbl" *ngIf="bugReports().length">
+        <div class="th" style="grid-template-columns:2fr 1fr .6fr .8fr 1fr"><span>Title / Reporter</span><span>Category</span><span>Severity</span><span>Status</span><span>Actions</span></div>
+        <div class="tr" style="grid-template-columns:2fr 1fr .6fr .8fr 1fr" *ngFor="let b of bugReports()">
+          <div class="tc"><strong>{{ b.title }}</strong><small>{{ b.reporterEmail }}</small></div>
+          <span class="tm">{{ b.category }}</span>
+          <span class="tm"><span class="chip" [class]="b.severity==='CRITICAL'?'s-revision':b.severity==='HIGH'?'s-partial':b.severity==='MEDIUM'?'s-plan':'s-pending'">{{ b.severity }}</span></span>
+          <span class="tm"><span class="chip" [class]="b.status==='RESOLVED'?'s-delivered':b.status==='IN_PROGRESS'?'s-progress':'s-pending'">{{ b.status }}</span></span>
+          <span class="tm">
+            <select class="fg-sel" (change)="updateBugStatus(b.id, $any($event.target).value)" [value]="b.status">
+              <option value="OPEN">Open</option><option value="IN_PROGRESS">In Progress</option>
+              <option value="RESOLVED">Resolved</option><option value="WONT_FIX">Won't Fix</option>
+            </select>
+          </span>
+        </div>
+      </div>
+      <div class="empty" *ngIf="!bugReports().length"><div>🐛</div><h3>No bug reports</h3><p>Users can report bugs via the bug report button in their dashboards.</p></div>
+    </div>
+
+    <!-- ══ ANALYTICS ══ -->
+    <div *ngIf="activeTab()==='analytics'" class="tab">
+      <div class="ph"><h1>Platform Analytics</h1></div>
+      <div class="sgrid" *ngIf="analytics()">
+        <div class="sc teal"><div class="sci">👁️</div><div><div class="sv">{{ analytics().pageViews }}</div><div class="sl">Page Views</div></div></div>
+        <div class="sc blue"><div class="sci">🔐</div><div><div class="sv">{{ analytics().logins }}</div><div class="sl">Logins</div></div></div>
+        <div class="sc green"><div class="sci">💳</div><div><div class="sv">{{ analytics().paymentEvents }}</div><div class="sl">Payment Events</div></div></div>
+        <div class="sc amber"><div class="sci">📊</div><div><div class="sv">{{ analytics().totalEvents }}</div><div class="sl">Total Events</div></div></div>
+      </div>
+      <div class="empty" *ngIf="!analytics()"><div>📊</div><h3>Loading analytics...</h3></div>
+      <div class="info-note" style="margin-top:24px">ℹ️ Analytics tracks anonymous usage events. No PII is tracked in event logs. Student actions are linked by session ID only.</div>
+    </div>
+
+  </main>
+</div>

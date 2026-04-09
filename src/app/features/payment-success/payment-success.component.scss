@@ -1,0 +1,50 @@
+$teal:#0d9488;$teal2:#0f766e;$teal3:#ccfbf1;$amber:#f59e0b;$er:#ef4444;$blue:#0369a1;
+$ok:#10b981;$tx:#0f172a;$muted:#64748b;$bd:#e2e8f0;$bg:#f8fafc;
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes ringPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+@keyframes checkPop{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+
+*{box-sizing:border-box;margin:0;padding:0}
+.ps-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f0fdf9,#f8fafc,#eff6ff);padding:28px;font-family:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;position:relative;overflow:hidden}
+.ps-bg{position:absolute;inset:0;pointer-events:none}
+.psb-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;
+  &.o1{width:500px;height:500px;background:radial-gradient(circle,rgba($teal,.3),transparent);top:-100px;right:-80px;animation:orbFloat 14s ease-in-out infinite}
+  &.o2{width:350px;height:350px;background:radial-gradient(circle,rgba($amber,.2),transparent);bottom:-60px;left:-60px;animation:orbFloat 18s ease-in-out infinite reverse}}
+
+.ps-card{position:relative;z-index:1;background:white;border:1.5px solid $bd;border-radius:24px;padding:48px 40px;max-width:480px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.1);animation:fadeUp .55s ease both;
+  h1{font-size:1.7rem;font-weight:800;color:$tx;margin-bottom:8px}
+  h2{font-size:1.4rem;font-weight:700;color:$tx;margin-bottom:10px}
+  p{font-size:.9rem;color:$muted;line-height:1.65;margin-bottom:8px}
+  .ps-sub{font-size:.84rem;color:$muted}}
+
+// Spinner (verifying)
+.ps-spinner{width:56px;height:56px;border:4px solid rgba($teal,.15);border-top-color:$teal;border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px}
+
+// Icon wrap
+.ps-icon-wrap{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;
+  &.success-icon{background:linear-gradient(135deg,$teal,$ok)}
+  &.cancel-icon,&.error-icon{background:$bg;border:1.5px solid $bd;font-size:2.4rem}}
+.success-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid $teal;animation:ringPulse 1.8s ease-out infinite}
+.ps-checkmark{font-size:2rem;font-weight:900;color:white;animation:checkPop .5s cubic-bezier(.22,.61,.36,1) both .1s}
+
+// Details card
+.ps-details{background:$bg;border:1.5px solid $bd;border-radius:14px;padding:18px;margin:24px 0;text-align:left;display:flex;flex-direction:column;gap:0}
+.psd-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid $bd;&:last-child{border-bottom:none}span{font-size:.82rem;color:$muted}strong{font-size:.88rem;color:$tx;font-weight:600}}
+.psd-amount{font-size:1.1rem !important;font-weight:800 !important;color:$teal !important}
+.psd-ok{color:$ok !important}
+
+// Next steps
+.ps-next{background:rgba($teal,.05);border:1.5px solid $teal3;border-radius:12px;padding:16px;display:flex;align-items:flex-start;gap:12px;text-align:left;margin:0 0 20px;
+  .psn-icon{font-size:1.6rem;flex-shrink:0}
+  strong{display:block;font-size:.87rem;color:$tx;font-weight:700;margin-bottom:4px}
+  p{font-size:.82rem;color:$muted;margin:0;line-height:1.5}}
+
+// Countdown
+.ps-countdown{font-size:.83rem;color:$muted;margin-bottom:16px;strong{color:$teal}}
+
+// Buttons
+.ps-btn{width:100%;padding:13px;background:linear-gradient(135deg,$teal,$blue);color:white;border:none;border-radius:11px;font-size:.93rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba($teal,.3);&:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba($teal,.4)}
+  &.outline{background:none;border:1.5px solid $bd;color:$muted;box-shadow:none;&:hover{border-color:$teal;color:$teal;transform:none}}}

@@ -1,0 +1,101 @@
+<div class="rg-page">
+  <div class="rg-bg"><div class="orb o1"></div><div class="orb o2"></div><div class="dot-grid"></div></div>
+  <div class="rg-wrap">
+
+    <!-- Brand -->
+    <a routerLink="/" class="rg-brand">
+      <div class="brand-mark">E</div>
+      <span>EduAssist</span>
+    </a>
+
+    <!-- Success -->
+    <div class="rg-card" *ngIf="success()">
+      <div class="success-state">
+        <div class="s-icon">🎉</div>
+        <h2>Account Created!</h2>
+        <p>Your student account is ready. You'll be redirected to login in a moment.</p>
+        <a routerLink="/login" class="s-btn">Login Now →</a>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="rg-card" *ngIf="!success()">
+      <div class="rg-header">
+        <div class="rg-tag">Student Registration</div>
+        <h1>Create Your <span>Account</span></h1>
+        <p>Already have an account? <a routerLink="/login">Sign in →</a></p>
+      </div>
+
+      <div class="alert-er" *ngIf="error()">⚠️ {{ error() }}</div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <!-- Full Name -->
+        <div class="fld">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" formControlName="fullName" placeholder="Your legal full name"
+                 [class.is-invalid]="err('fullName','required') || err('fullName','minlength') || err('fullName','pattern')" />
+          <div class="fe" *ngIf="err('fullName','required')">Full name is required.</div>
+          <div class="fe" *ngIf="err('fullName','minlength')">Name must be at least 2 characters.</div>
+          <div class="fe" *ngIf="err('fullName','pattern')">Name may only contain letters, spaces, hyphens, and apostrophes.</div>
+        </div>
+
+        <!-- Email -->
+        <div class="fld">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" formControlName="email" placeholder="your@email.com"
+                 [class.is-invalid]="err('email','required') || err('email','email')" />
+          <div class="fe" *ngIf="err('email','required')">Email is required.</div>
+          <div class="fe" *ngIf="err('email','email')">Please enter a valid email address.</div>
+        </div>
+
+        <!-- WhatsApp / Phone -->
+        <div class="fld">
+          <label>WhatsApp / Phone <span class="opt">(optional)</span></label>
+          <app-phone-input (valueChange)="onPhone($event)" [defaultCountry]="'US'"></app-phone-input>
+          <div class="fe" *ngIf="phoneTouched && phoneData.phone && !phoneData.valid">
+            Please enter a valid {{ phoneData.dial }} number. Example: {{ phoneData.dial }} XXXXXXXXXX
+          </div>
+          <div class="fhint">Used for WhatsApp updates about your class. Never shared.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="fld">
+          <label>Password <span class="req">*</span></label>
+          <input type="password" formControlName="password" placeholder="Create a strong password"
+                 [class.is-invalid]="err('password','required') || err('password','weak')" />
+          <div class="fe" *ngIf="err('password','required')">Password is required.</div>
+          <div class="fe" *ngIf="err('password','weak') && !err('password','required')">Password must have uppercase, lowercase, and a number.</div>
+          <!-- Strength bar -->
+          <div class="strength-bar" *ngIf="pwd">
+            <div class="sb-fill" [class]="strengthClass"></div>
+          </div>
+          <div class="strength-label" *ngIf="pwd">{{ strengthLabel }}</div>
+          <div class="pwd-rules">
+            <span [class.ok]="hasMin">✓ 8+ characters</span>
+            <span [class.ok]="hasUpper">✓ Uppercase</span>
+            <span [class.ok]="hasLower">✓ Lowercase</span>
+            <span [class.ok]="hasNum">✓ Number</span>
+          </div>
+        </div>
+
+        <!-- Confirm -->
+        <div class="fld">
+          <label>Confirm Password <span class="req">*</span></label>
+          <input type="password" formControlName="confirm" placeholder="Repeat your password"
+                 [class.is-invalid]="e('confirm')?.touched && form.hasError('mismatch')" />
+          <div class="fe" *ngIf="e('confirm')?.touched && form.hasError('mismatch')">Passwords do not match.</div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="rg-btn" [disabled]="loading()">
+          {{ loading() ? 'Creating Account...' : 'Create Student Account →' }}
+        </button>
+
+        <p class="rg-terms">By registering you agree to our
+          <a routerLink="/terms">Terms &amp; Conditions</a> and
+          <a routerLink="/privacy-policy">Privacy Policy</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

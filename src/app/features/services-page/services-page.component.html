@@ -1,0 +1,110 @@
+<div class="page">
+  <!-- Hero -->
+  <div class="page-header">
+    <div class="orb o1"></div><div class="orb o2"></div>
+    <div class="container">
+      <a routerLink="/" class="back">← Back to Home</a>
+      <span class="ptag">What We Offer</span>
+      <h1>Our <span class="grad">Services</span></h1>
+      <p>Expert academic assistance across every subject. Each class is handled by a verified specialist.</p>
+    </div>
+  </div>
+
+  <!-- Sticky tab row -->
+  <div class="svc-tabs">
+    <div class="container">
+      <div class="tabs-row">
+        <button class="tab-btn" *ngFor="let s of services; let i = index"
+          [class.active]="activeService === i" (click)="activeService = i" [style.--c]="s.color">
+          <span>{{ s.icon }}</span> {{ s.title }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active service detail -->
+  <div class="svc-detail" *ngIf="current">
+    <div class="container">
+      <div class="detail-layout">
+        <!-- Left: info -->
+        <div class="detail-main">
+          <div class="detail-header">
+            <div class="svc-icon-lg" [style.background]="current.color + '18'">{{ current.icon }}</div>
+            <div>
+              <div class="svc-tag-lg">{{ current.tag }}</div>
+              <h2>{{ current.title }}</h2>
+            </div>
+          </div>
+
+          <p class="detail-intro">{{ current.intro }}</p>
+
+          <div class="meta-chips">
+            <div class="chip"><span class="icon">⏱</span>{{ current.turnaround }}</div>
+            <div class="chip"><span class="icon">🌍</span>All Timezones</div>
+            <div class="chip"><span class="icon">🔒</span>100% Confidential</div>
+          </div>
+
+          <div class="features-list">
+            <h4>What's Included</h4>
+            <div class="feature-item" *ngFor="let f of current.features">
+              <div class="fi-check">✓</div>
+              <span>{{ f }}</span>
+            </div>
+          </div>
+
+          <div class="process-section">
+            <h4>How It Works</h4>
+            <div class="process-step" *ngFor="let p of current.process; let i = index">
+              <div class="ps-num">{{ i + 1 }}</div>
+              <span>{{ p }}</span>
+            </div>
+          </div>
+
+          <div class="subjects-section">
+            <h4>Covered Subjects</h4>
+            <div class="subject-tags">
+              <span class="subject-tag" *ngFor="let s of current.subjects">{{ s }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: enroll card -->
+        <div class="detail-card">
+          <div class="dc-header">
+            <h3>Ready to Get Started?</h3>
+            <p>Submit your class details — get a custom quote within 24 hours</p>
+          </div>
+          <div class="dc-body">
+            <div class="dc-row"><span>Turnaround</span><strong>{{ current.turnaround }}</strong></div>
+            <div class="dc-row"><span>Revisions</span><strong>Unlimited (7 days)</strong></div>
+            <div class="dc-row"><span>Payment</span><strong>Installments via Stripe</strong></div>
+            <div class="dc-row"><span>Delivery</span><strong>Secure ZIP download</strong></div>
+            <div class="dc-row"><span>Privacy</span><strong>100% confidential</strong></div>
+            <a routerLink="/" fragment="query" class="dc-cta">🚀 Get a Free Quote →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All services grid -->
+  <div class="all-services">
+    <div class="container">
+      <div class="as-head">
+        <h2>All Services</h2>
+        <p>Click any service to see full details, inclusions, and pricing guide</p>
+      </div>
+      <div class="services-grid">
+        <div class="svc-mini-card" *ngFor="let s of services; let i = index"
+          [class.active]="activeService === i"
+          [style.--c]="s.color"
+          (click)="activeService = i; scrollToTop()">
+          <div class="sm-icon">{{ s.icon }}</div>
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.intro.slice(0, 80) }}...</p>
+          <span class="sm-tag" [style.background]="s.color + '15'" [style.color]="s.color">{{ s.tag }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

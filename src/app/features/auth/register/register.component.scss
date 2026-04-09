@@ -1,0 +1,34 @@
+$teal:#0d9488;$teal2:#0f766e;$teal3:#ccfbf1;$teal4:#f0fdf9;
+$blue:#0369a1;$er:#ef4444;$ok:#10b981;$gold:#f59e0b;$ink:#0a0f1e;
+$tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$bg:#f8fafc;
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orbFloat{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.1) translate(25px,-18px)}}
+*{box-sizing:border-box;margin:0;padding:0}
+
+.rg-page{min-height:100vh;background:$bg;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:24px;font-family:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif}
+.rg-bg{position:absolute;inset:0;pointer-events:none;
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.4;
+    &.o1{width:600px;height:600px;background:radial-gradient(circle,rgba($teal,.25),transparent);top:-200px;right:-150px;animation:orbFloat 16s ease-in-out infinite}
+    &.o2{width:400px;height:400px;background:radial-gradient(circle,rgba($blue,.15),transparent);bottom:-100px;left:-100px;animation:orbFloat 22s ease-in-out infinite reverse}}
+  .dot-grid{position:absolute;inset:0;background-image:radial-gradient(rgba($teal,.12) 1px,transparent 1px);background-size:36px 36px;opacity:.7}}
+.rg-wrap{position:relative;z-index:1;width:100%;max-width:500px}
+.rg-brand{display:flex;align-items:center;gap:9px;font-size:1.1rem;font-weight:800;color:$tx;text-decoration:none;margin-bottom:24px;
+  .brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,$teal,$blue);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;box-shadow:0 4px 12px rgba($teal,.3)}}
+.rg-card{background:white;border:1.5px solid $bd;border-radius:22px;padding:32px;box-shadow:0 8px 40px rgba(0,0,0,.08);animation:fadeUp .5s ease}
+.rg-header{margin-bottom:24px;
+  .rg-tag{display:inline-block;background:$teal4;color:$teal2;border:1px solid $teal3;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:4px 13px;border-radius:20px;margin-bottom:12px}
+  h1{font-size:1.7rem;font-weight:800;color:$tx;letter-spacing:-.03em;margin-bottom:6px;span{color:$teal}}
+  p{font-size:.85rem;color:$muted;a{color:$teal;font-weight:600;text-decoration:none;&:hover{text-decoration:underline}}}}
+.alert-er{background:rgba($er,.07);border:1.5px solid rgba($er,.2);color:#991b1b;border-radius:9px;padding:11px 14px;font-size:.84rem;margin-bottom:16px}
+.fld{margin-bottom:16px;display:flex;flex-direction:column;gap:5px;
+  label{font-size:.74rem;font-weight:700;color:$tx2;text-transform:uppercase;letter-spacing:.05em;.req{color:$er;margin-left:2px}.opt{color:$muted;font-weight:400;text-transform:none;letter-spacing:0}}
+  input{background:$bg;border:1.5px solid $bd;border-radius:9px;padding:11px 14px;color:$tx;font-size:.9rem;outline:none;font-family:inherit;width:100%;transition:all .15s;&::placeholder{color:$muted}&:focus{border-color:$teal;background:white;box-shadow:0 0 0 3px rgba($teal,.08)}&.is-invalid{border-color:$er;&:focus{box-shadow:0 0 0 3px rgba($er,.08)}}}}
+.fe{font-size:.76rem;color:$er;padding-top:2px}
+.fhint{font-size:.75rem;color:$muted;padding-top:2px}
+.strength-bar{height:4px;background:$bd;border-radius:2px;margin-top:8px;overflow:hidden;.sb-fill{height:100%;border-radius:2px;transition:all .3s;&.s1{width:25%;background:$er}&.s2{width:50%;background:$gold}&.s3{width:75%;background:$blue}&.s4{width:100%;background:$ok}}}
+.strength-label{font-size:.76rem;font-weight:600;color:$muted;margin-top:4px}
+.pwd-rules{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;span{font-size:.73rem;color:$muted;background:$bg;border:1px solid $bd;padding:3px 9px;border-radius:12px;transition:all .2s;&.ok{color:$ok;background:rgba($ok,.06);border-color:rgba($ok,.25)}}}
+.rg-btn{width:100%;background:linear-gradient(135deg,$teal,$blue);color:white;border:none;padding:14px;border-radius:11px;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba($teal,.3);transition:all .2s;margin-top:4px;font-family:inherit;&:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba($teal,.4)}&:disabled{opacity:.6;cursor:not-allowed;transform:none}}
+.rg-terms{text-align:center;font-size:.76rem;color:$muted;margin-top:14px;a{color:$teal;text-decoration:none;font-weight:600;&:hover{text-decoration:underline}}}
+.success-state{text-align:center;padding:20px 0;.s-icon{font-size:3rem;margin-bottom:14px}h2{font-size:1.5rem;font-weight:800;color:$tx;margin-bottom:8px}p{font-size:.9rem;color:$muted;margin-bottom:20px}.s-btn{background:linear-gradient(135deg,$teal,$blue);color:white;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem;display:inline-block}}

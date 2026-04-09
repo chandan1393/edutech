@@ -1,0 +1,40 @@
+<div class="chat-box">
+  <div class="chat-header">
+    <span class="chat-icon">💬</span>
+    <span class="chat-title">{{ title }}</span>
+    <span class="chat-badge" *ngIf="messages().length > 0">{{ messages().length }} messages</span>
+  </div>
+
+  <div class="chat-messages" #chatScroll>
+    <div *ngIf="loading()" class="chat-loading">Loading messages...</div>
+    <div *ngIf="!loading() && messages().length === 0" class="chat-empty">
+      No messages yet. Start the conversation!
+    </div>
+
+    <div class="msg-group" *ngFor="let msg of messages()">
+      <div class="msg" [class.msg-me]="isMe(msg)" [class.msg-them]="!isMe(msg)">
+        <div class="msg-meta" *ngIf="!isMe(msg)">
+          <span class="msg-sender">{{ msg.senderName }}</span>
+          <span class="msg-role role-{{ msg.senderRole | lowercase }}">{{ msg.senderRole === 'ROLE_ADMIN' ? 'Admin' : msg.senderRole === 'ROLE_WRITER' ? 'Writer' : 'Student' }}</span>
+        </div>
+        <div class="msg-bubble">{{ msg.message }}</div>
+        <div class="msg-time">{{ formatTime(msg.createdAt) }}</div>
+      </div>
+    </div>
+    <div #messagesEnd></div>
+  </div>
+
+  <div class="chat-input-area">
+    <textarea
+      class="chat-input"
+      [value]="newMessage()"
+      (input)="newMessage.set($any($event.target).value)"
+      (keydown)="onKeydown($event)"
+      placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
+      rows="2"
+    ></textarea>
+    <button class="send-btn" (click)="sendMessage()" [disabled]="sending() || !newMessage().trim()">
+      {{ sending() ? '⏳' : '➤' }}
+    </button>
+  </div>
+</div>

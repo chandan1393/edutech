@@ -1,0 +1,554 @@
+<div class="dash">
+  <aside class="sidebar">
+    <div class="sb-brand"><span class="bi">✦</span><span class="bt">EduAssist</span></div>
+    <div class="sb-profile" *ngIf="profile()">
+      <div class="av">{{ profile()?.fullName?.charAt(0) }}</div>
+      <div><strong>{{ profile()?.fullName }}</strong><span>Student</span></div>
+    </div>
+    <nav class="sb-nav">
+      <button [class.active]="activeTab()==='overview'"     (click)="activeTab.set('overview')">🏠 Overview</button>
+      <button [class.active]="activeTab()==='enrollments'"  (click)="activeTab.set('enrollments')">
+        📚 My Classes <span class="nb" *ngIf="enrollments().length">{{ enrollments().length }}</span>
+      </button>
+      <button [class.active]="activeTab()==='new'"          (click)="activeTab.set('new')">➕ Enroll New Class</button>
+      <button [class.active]="activeTab()==='stats'"         (click)="activeTab.set('stats')">📊 Payment Stats</button>
+      <button [class.active]="activeTab()==='notifications'"(click)="activeTab.set('notifications')">
+        🔔 Notifications <span class="nb unread" *ngIf="unreadCount()>0">{{ unreadCount() }}</span>
+      </button>
+    </nav>
+    <button class="sb-logout" (click)="logout()">🚪 Logout</button>
+  </aside>
+
+  <main class="main">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div *ngIf="activeTab()==='overview'" class="tab">
+      <div class="ph">
+        <div><h1>Welcome back, {{ profile()?.fullName?.split(' ')[0] }} 👋</h1>
+        <p>Your online class assignments — managed, completed and delivered.</p></div>
+        <button class="btn" (click)="activeTab.set('new')">+ Enroll New Class</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="sc"><div class="si">📚</div><div><div class="sv">{{ enrollments().length }}</div><div class="sl">Total Classes</div></div></div>
+        <div class="sc"><div class="si">🚀</div><div><div class="sv">{{ getActiveEnrollments().length }}</div><div class="sl">In Progress</div></div></div>
+        <div class="sc"><div class="si">💳</div><div><div class="sv">{{ getPendingPayments().length }}</div><div class="sl">Payment Pending</div></div></div>
+        <div class="sc hi"><div class="si">✅</div><div><div class="sv">{{ enrollments() | statusCount:'DELIVERED' }}</div><div class="sl">Delivered</div></div></div>
+      </div>
+
+      <!-- Payment alerts -->
+      <div class="payment-alert" *ngIf="getPendingPayments().length > 0">
+        💳 You have <strong>{{ getPendingPayments().length }}</strong> class(es) with pending installments.
+        <button class="pa-link" (click)="activeTab.set('enrollments')">View & Pay →</button>
+      </div>
+
+
+      <!-- Tracker Widget -->
+      <div class="tracker-widget">
+        <div class="tw-head">
+          <div class="tw-title">📅 Assignment Tracker</div>
+          <div class="tw-filters">
+            <button [class.active]="taskFilter()==='today'"    (click)="taskFilter.set('today')">Today</button>
+            <button [class.active]="taskFilter()==='upcoming'" (click)="taskFilter.set('upcoming')">Upcoming</button>
+            <button [class.active]="taskFilter()==='overdue'"  (click)="taskFilter.set('overdue')">Overdue</button>
+            <button [class.active]="taskFilter()==='all'"      (click)="taskFilter.set('all')">All</button>
+          </div>
+        </div>
+        <div *ngIf="filteredTasks().length===0" class="tw-empty">No tasks in this view.</div>
+        <div class="tw-list">
+          <div class="tw-row" *ngFor="let t of filteredTasks().slice(0,6)">
+            <div class="twr-date">
+              <div class="twd-day">{{ t.dueDate | date:'d' }}</div>
+              <div class="twd-mon">{{ t.dueDate | date:'MMM' }}</div>
+            </div>
+            <div class="twr-body">
+              <div class="twr-title">{{ t.assignmentTitle }}</div>
+              <div class="twr-meta">{{ t.courseName }} · {{ t.assignmentType }}</div>
+              <div class="twr-desc" *ngIf="t.description">{{ t.description }}</div>
+            </div>
+            <div class="twr-right">
+              <span class="tw-chip" [class]="taskStatusClass(t.status)">{{ t.status }}</span>
+              <span class="tw-days" [class.urgent]="taskDaysLeft(t.dueDate)<=1 && t.status==='PENDING'">
+                {{ taskDaysLeft(t.dueDate)===0 ? 'Today' : taskDaysLeft(t.dueDate)<0 ? taskDaysLeft(t.dueDate)+'d' : 'In '+taskDaysLeft(t.dueDate)+'d' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>My Enrolled Classes</h3><button class="lnk" (click)="activeTab.set('enrollments')">View All →</button></div>
+        <div *ngIf="enrollments().length===0" class="empty">
+          <div>📚</div><p>No classes enrolled yet.</p>
+          <button class="btn" (click)="activeTab.set('new')">Enroll Your First Class →</button>
+        </div>
+        <div class="arow" *ngFor="let e of enrollments().slice(0,5)" (click)="openEnrollment(e); activeTab.set('enrollments')">
+          <div class="ainfo">
+            <strong>{{ e.courseName }}</strong>
+            <span>{{ e.institutionName }} · {{ e.subject }}</span>
+            <span *ngIf="e.classStartDate">{{ e.classStartDate | date:'MMM d, y' }} → {{ e.classEndDate | date:'MMM d, y' }}</span>
+          </div>
+          <div class="ameta">
+            <span class="chip" [class]="statusClass(e.status)">{{ statusLabel(e.status) }}</span>
+            <span class="price-tag" *ngIf="e.totalPrice">${{ e.totalPrice }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ENROLLMENTS ══ -->
+    <div *ngIf="activeTab()==='enrollments'" class="tab">
+      <div class="ph">
+        <h1>My Enrolled Classes</h1>
+        <button class="btn" (click)="activeTab.set('new')">+ Enroll New Class</button>
+      </div>
+      <div *ngIf="loading()" class="loading">Loading...</div>
+      <div *ngIf="!loading() && enrollments().length===0" class="empty">
+        <div>📚</div><h3>No classes enrolled yet</h3>
+        <button class="btn" (click)="activeTab.set('new')">Enroll a Class</button>
+      </div>
+
+      <div class="enroll-layout" *ngIf="!loading() && enrollments().length>0">
+        <!-- Left: class list -->
+        <div class="enroll-list">
+          <div class="enroll-card" *ngFor="let e of enrollments()"
+               [class.selected]="selectedEnrollment()?.id===e.id" (click)="openEnrollment(e)">
+            <div class="ec-head">
+              <div class="ec-left">
+                <strong>{{ e.courseName }}</strong>
+                <div class="ec-meta">
+                  <span>🏛 {{ e.institutionName }}</span>
+                  <span>📚 {{ e.subject }}</span>
+                </div>
+                <div class="ec-dates" *ngIf="e.classStartDate">
+                  📅 {{ e.classStartDate | date:'MMM d, y' }} → {{ e.classEndDate | date:'MMM d, y' }}
+                </div>
+              </div>
+              <div class="ec-right">
+                <span class="chip" [class]="statusClass(e.status)">{{ statusLabel(e.status) }}</span>
+                <span class="price-tag" *ngIf="e.totalPrice">${{ e.totalPrice }}</span>
+              </div>
+            </div>
+            <!-- Installment mini-progress -->
+            <div class="inst-mini" *ngIf="e.installments?.length > 0">
+              <div class="im-dot" *ngFor="let i of e.installments"
+                   [class]="installmentClass(i.status)"
+                   [title]="'#' + i.installmentNumber + ' — $' + i.amount + ' — ' + i.status">
+              </div>
+              <span class="im-label">{{ e.installments | paidCount }} / {{ e.installments.length }} paid</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: detail panel -->
+        <div class="detail-panel" *ngIf="selectedEnrollment()">
+          <div class="dp-header">
+            <div>
+              <h2>{{ selectedEnrollment()?.courseName }}</h2>
+              <div class="dp-sub">{{ selectedEnrollment()?.institutionName }}</div>
+            </div>
+            <button class="close-btn" (click)="selectedEnrollment.set(null)">✕</button>
+          </div>
+          <div class="panel-tabs">
+            <button [class.active]="panelTab()==='details'"     (click)="panelTab.set('details')">📋 Details</button>
+            <button [class.active]="panelTab()==='payments'"    (click)="panelTab.set('payments')">💳 Payments</button>
+            <button [class.active]="panelTab()==='tracker'"     (click)="panelTab.set('tracker')">📅 Tracker</button>
+            <button [class.active]="panelTab()==='credentials'" (click)="panelTab.set('credentials')">🔐 Portal Login</button>
+            <button [class.active]="panelTab()==='chat'"        (click)="panelTab.set('chat')">💬 Support Chat</button>
+          </div>
+
+          <!-- DETAILS TAB -->
+          <div class="dp-body" *ngIf="panelTab()==='details'">
+            <div class="info-grid">
+              <div class="ig-item"><span>Subject</span><strong>{{ selectedEnrollment()?.subject }}</strong></div>
+              <div class="ig-item"><span>Status</span><strong><span class="chip" [class]="statusClass(selectedEnrollment()?.status)">{{ statusLabel(selectedEnrollment()?.status) }}</span></strong></div>
+              <div class="ig-item"><span>Class Start</span><strong>{{ selectedEnrollment()?.classStartDate | date:'MMM d, y' }}</strong></div>
+              <div class="ig-item"><span>Class End</span><strong>{{ selectedEnrollment()?.classEndDate | date:'MMM d, y' }}</strong></div>
+              <div class="ig-item" *ngIf="selectedEnrollment()?.totalPrice"><span>Total Price</span><strong>${{ selectedEnrollment()?.totalPrice }}</strong></div>
+              <div class="ig-item" *ngIf="selectedEnrollment()?.assignedWriterName"><span>Expert Assigned</span><strong>✅ Yes</strong></div>
+            </div>
+
+            <div class="dp-section" *ngIf="selectedEnrollment()?.courseDescription">
+              <h4>📚 Course Description</h4><p>{{ selectedEnrollment()?.courseDescription }}</p>
+            </div>
+            <div class="dp-section" *ngIf="selectedEnrollment()?.studentNotes">
+              <h4>📝 Your Notes</h4><p>{{ selectedEnrollment()?.studentNotes }}</p>
+            </div>
+            <div class="dp-section" *ngIf="selectedEnrollment()?.referenceDocPath">
+              <h4>📎 Your Reference Document</h4>
+              <button class="doc-link" (click)="downloadEnrollmentDoc(selectedEnrollment()?.id)">⬇ Download Document</button>
+            </div>
+
+            <!-- Admin reply -->
+            <div class="admin-reply-box" *ngIf="selectedEnrollment()?.adminReply">
+              <div class="arb-header">💬 Message from Our Team</div>
+              <p>{{ selectedEnrollment()?.adminReply }}</p>
+            </div>
+
+            <!-- All approved files — permanent cumulative list, newest at top -->
+            <div class="dl-section" *ngIf="selectedEnrollment()?.hasApprovedFiles">
+              <div class="dls-header">
+                <div class="dls-title">
+                  <span class="dls-icon">🎉</span>
+                  <div>
+                    <strong>Class Work Files Available</strong>
+                    <span>{{ selectedEnrollment()?.approvedSubmissions?.length }} file{{ selectedEnrollment()?.approvedSubmissions?.length > 1 ? 's' : '' }} ready to download</span>
+                  </div>
+                </div>
+              </div>
+              <p class="dls-sub">Each file was individually reviewed and approved by our admin team.</p>
+
+              <div class="dl-file-list">
+                <div class="dl-file-row" *ngFor="let sub of selectedEnrollment()?.approvedSubmissions; let i = index">
+                  <div class="dfr-left">
+                    <div class="dfr-num">{{ selectedEnrollment()?.approvedSubmissions?.length - i }}</div>
+                    <div class="dfr-icon">📦</div>
+                    <div class="dfr-info">
+                      <strong>{{ sub.fileName || ('Assignment File ' + (selectedEnrollment()?.approvedSubmissions?.length - i)) }}</strong>
+                      <span *ngIf="sub.description" class="dfr-desc">{{ sub.description }}</span>
+                      <span class="dfr-meta">✅ Approved {{ sub.reviewedAt | date:'MMM d, y' }}</span>
+                    </div>
+                  </div>
+                  <button class="dfr-dl-btn" (click)="downloadSubmissionFile(sub.id, sub.fileName)">📥 Download</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Writer submitted but admin hasn't approved anything yet -->
+            <div class="awaiting-box" *ngIf="!selectedEnrollment()?.hasApprovedFiles && selectedEnrollment()?.status === 'IN_PROGRESS'">
+              ✍️ Expert is working on your assignments. Files will appear here once each one is reviewed and approved.
+            </div>
+            <div class="awaiting-box" *ngIf="!selectedEnrollment()?.hasApprovedFiles && selectedEnrollment()?.status === 'UNDER_ADMIN_REVIEW'">
+              ⏳ Assignments submitted — under final review. Files will appear here once approved.
+            </div>
+          </div>
+
+          <!-- PAYMENTS TAB -->
+          <div class="dp-body" *ngIf="panelTab()==='payments'">
+            <div *ngIf="!selectedEnrollment()?.installments?.length" class="no-installments">
+              <div>💳</div>
+              <p>No payment plan set yet. Admin will create your installment plan after reviewing your enrollment.</p>
+            </div>
+
+            <div class="receipt-success" *ngIf="receiptSuccess()">✅ {{ receiptSuccess() }}</div>
+
+            <div class="installments-list" *ngIf="selectedEnrollment()?.installments?.length > 0">
+              <div class="installments-summary">
+                <div class="is-item"><span>Total Amount</span><strong>${{ selectedEnrollment()?.totalPrice }}</strong></div>
+                <div class="is-item"><span>Installments</span><strong>{{ selectedEnrollment()?.installments?.length }}</strong></div>
+                <div class="is-item"><span>Confirmed</span><strong class="ok">{{ (selectedEnrollment()?.installments || []) | paidCount }} paid</strong></div>
+              </div>
+
+              <div class="inst-card" *ngFor="let inst of selectedEnrollment()?.installments">
+                <!-- Card header -->
+                <div class="ic-head">
+                  <div class="ic-badge" [class]="installmentClass(inst.status)">
+                    <span *ngIf="inst.status==='CONFIRMED'">✅</span>
+                    <span *ngIf="inst.status==='RECEIPT_UPLOADED'">🔍</span>
+                    <span *ngIf="inst.status==='PENDING'">⏳</span>
+                    <span *ngIf="inst.status==='OVERDUE'">⚠️</span>
+                    Installment #{{ inst.installmentNumber }}
+                  </div>
+                  <div class="ic-due">Due {{ inst.dueDate | date:'MMM d, y' }}</div>
+                </div>
+
+                <!-- Amount display -->
+                <div class="ic-amount">
+                  <div class="ica-num">${{ inst.amount }}<span class="ica-cur">{{ inst.currency }}</span></div>
+                  <div class="ica-status" [class]="installmentClass(inst.status)">
+                    {{ inst.status === 'PENDING' ? 'Payment Due' : inst.status === 'RECEIPT_UPLOADED' ? 'Verifying...' : inst.status === 'CONFIRMED' ? 'Paid ✅' : 'Overdue!' }}
+                  </div>
+                </div>
+
+                <!-- PENDING: Stripe Checkout redirect button -->
+                <div class="ic-actions" *ngIf="inst.status === 'PENDING'">
+                  <!-- Global pay error -->
+                  <div class="pay-error-msg" *ngIf="payError() && payingInstallmentId()===inst.id">⚠️ {{ payError() }}</div>
+
+                  <!-- Stripe pay button — calls backend, redirects to Stripe Checkout -->
+                  <button class="stripe-pay-btn"
+                          (click)="payInstallment(inst.id)"
+                          [disabled]="payingInstallmentId()===inst.id">
+                    <span *ngIf="payingInstallmentId()!==inst.id" class="spb-inner">
+                      <svg viewBox="0 0 60 25" width="38" height="16" fill="none">
+                        <text x="0" y="20" font-family="Arial,sans-serif" font-weight="700" font-size="20" fill="white">stripe</text>
+                      </svg>
+                      Pay ${{ inst.amount }} {{ inst.currency }} with Stripe
+                    </span>
+                    <span *ngIf="payingInstallmentId()===inst.id" class="spb-inner">
+                      <div class="spb-spinner"></div> Redirecting to Stripe...
+                    </span>
+                  </button>
+
+                  <div class="ic-stripe-note">
+                    🔒 Secured by Stripe · You'll be redirected to Stripe's secure checkout.<br>
+                    After payment, you'll be automatically returned to your dashboard.
+                  </div>
+                </div>
+
+                <!-- RECEIPT UPLOADED: awaiting verification -->
+                <div class="ic-actions verifying" *ngIf="inst.status === 'RECEIPT_UPLOADED'">
+                  <div class="ic-verifying-row">
+                    <div class="verif-spinner"></div>
+                    <div>
+                      <strong>Receipt under review</strong>
+                      <span>Admin will confirm within 24 hours</span>
+                    </div>
+                  </div>
+                  <button *ngIf="inst.receiptPath" class="view-receipt-link" (click)="downloadReceiptFile(inst.id)">⬇ View/Download Receipt</button>
+                </div>
+
+                <!-- CONFIRMED: paid -->
+                <div class="ic-actions confirmed" *ngIf="inst.status === 'CONFIRMED'">
+                  <div class="ic-paid-row">
+                    <div class="paid-check">✓</div>
+                    <div>
+                      <strong>Payment Confirmed</strong>
+                      <span>{{ inst.paidAt | date:'MMM d, y · h:mm a' }}</span>
+                    </div>
+                  </div>
+                  <button class="dl-slip-btn" (click)="downloadReceiptByInstallmentId(inst.id)"
+                          [disabled]="slipDownloadingId()===inst.id">
+                    {{ slipDownloadingId()===inst.id ? '⏳...' : '📄 Download Receipt' }}
+                  </button>
+                </div>
+
+                <!-- OVERDUE -->
+                <div class="ic-actions overdue" *ngIf="inst.status === 'OVERDUE'">
+                  <div class="ic-overdue-warn">⚠️ This installment is overdue. Please pay immediately to continue service.</div>
+                  <button class="stripe-pay-btn urgent"
+                          (click)="payInstallment(inst.id)"
+                          [disabled]="payingInstallmentId()===inst.id">
+                    <span *ngIf="payingInstallmentId()!==inst.id">Pay ${{ inst.amount }} Now via Stripe →</span>
+                    <span *ngIf="payingInstallmentId()===inst.id" class="spb-inner"><div class="spb-spinner"></div> Redirecting...</span>
+                  </button>
+                </div>
+
+                <div *ngIf="inst.notes" class="inst-note">📌 {{ inst.notes }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAT TAB -->
+          <!-- TRACKER TAB -->
+          <div class="dp-body" *ngIf="panelTab()==='tracker'">
+            <div class="tracker-panel-head">
+              <h4>📅 Class Schedule &amp; Tracker</h4>
+              <p>Track every assignment for this class. Download approved files when ready.</p>
+            </div>
+            <div *ngIf="enrollmentTasks().length===0" class="tp-empty">
+              <div>📭</div><p>No tasks scheduled yet. Admin will add the assignment schedule.</p>
+            </div>
+            <div class="tracker-list" *ngIf="enrollmentTasks().length > 0">
+              <div class="tracker-row" *ngFor="let t of enrollmentTasks()" [class]="'tr-' + t.status?.toLowerCase()">
+                <div class="trow-date">
+                  <div class="td-day">{{ t.dueDate | date:'d' }}</div>
+                  <div class="td-mon">{{ t.dueDate | date:'MMM' }}</div>
+                  <div class="td-yr">{{ t.dueDate | date:'y' }}</div>
+                </div>
+                <div class="trow-body">
+                  <div class="trow-title">{{ t.assignmentTitle }}</div>
+                  <div class="trow-meta">
+                    <span class="trow-type">{{ t.assignmentType }}</span>
+                    <span *ngIf="t.description">{{ t.description }}</span>
+                  </div>
+                  <div class="trow-upload" *ngIf="t.uploadDeadline">Writer uploads by: <strong>{{ t.uploadDeadline | date:'MMM d, y' }}</strong></div>
+                  <!-- Task instructions doc -->
+                  <div class="trow-doc-row" *ngIf="t.hasTaskDoc">
+                    <span>📎 Instructions:</span>
+                    <button class="trow-dl-doc" (click)="downloadTaskFile('doc', t.id, t.taskDocName)">⬇ {{ t.taskDocName }}</button>
+                  </div>
+                </div>
+                <div class="trow-right">
+                  <span class="tk-chip" [class]="taskStatusClass(t.status)">
+                    {{ t.status==='PENDING'?'⏳ Pending':t.status==='UPLOADED'?'🔍 Under Review':t.status==='APPROVED'?'✅ Ready':t.status==='REJECTED'?'🔄 Revising':'❌ Missed' }}
+                  </span>
+                  <span class="tk-days" [class.tk-urgent]="taskDaysLeft(t.dueDate)<=1&&t.status==='PENDING'" [class.tk-overdue]="taskDaysLeft(t.dueDate)<0&&t.status==='PENDING'">
+                    {{ taskDaysLeft(t.dueDate)===0?'Due Today':taskDaysLeft(t.dueDate)<0?(taskDaysLeft(t.dueDate)*-1)+'d ago':'In '+taskDaysLeft(t.dueDate)+'d' }}
+                  </span>
+                  <!-- Download approved file -->
+                  <button class="trow-dl-btn" *ngIf="t.status==='APPROVED' && t.hasWriterFile"
+                          (click)="downloadTaskFile('writer', t.id, t.writerFileName)">
+                    📥 Download
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CREDENTIALS TAB -->
+          <div class="dp-body" *ngIf="panelTab()==='credentials'">
+            <div class="creds-section-head">
+              <h4>🔐 Portal Login Credentials</h4>
+              <p>Update your institution portal credentials here if they change. The assigned writer will be notified automatically.</p>
+            </div>
+            <div class="alert-ok" *ngIf="credSuccess()">{{ credSuccess() }}</div>
+            <div class="alert-er" *ngIf="credError()">⚠️ {{ credError() }}</div>
+
+            <div class="cred-current" *ngIf="!credForm()">
+              <div class="cc-row"><span>Portal URL</span><a [href]="selectedEnrollment()?.portalUrl" target="_blank">{{ selectedEnrollment()?.portalUrl || '–' }}</a></div>
+              <div class="cc-row"><span>Username</span><strong>{{ selectedEnrollment()?.portalUsername || '–' }}</strong></div>
+              <div class="cc-row"><span>Password</span><code>{{ selectedEnrollment()?.portalPassword || '–' }}</code></div>
+              <button class="edit-cred-btn" (click)="openCredForm(selectedEnrollment())">✏️ Update Credentials</button>
+            </div>
+
+            <div class="cred-form" *ngIf="credForm()">
+              <div class="hff"><label>Portal URL</label><input type="url" [(ngModel)]="credForm().portalUrl" placeholder="https://lms.institution.edu" /></div>
+              <div class="hff"><label>Username / Student ID</label><input type="text" [(ngModel)]="credForm().portalUsername" /></div>
+              <div class="hff"><label>Password</label><input type="text" [(ngModel)]="credForm().portalPassword" /></div>
+              <div class="cred-form-btns">
+                <button class="btn-save-cred" (click)="saveCredentials()">Save &amp; Notify Writer</button>
+                <button class="btn-cancel-cred" (click)="credForm.set(null)">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-wrapper" *ngIf="panelTab()==='chat'">
+            <app-chat [enrollmentId]="selectedEnrollment()?.id" context="STUDENT_ADMIN" title="Chat with Support Team"></app-chat>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NEW ENROLLMENT ══ -->
+    <div *ngIf="activeTab()==='new'" class="tab">
+      <div class="ph"><h1>Enroll a New Class</h1><p>Provide your class details and login credentials — our experts will handle all assignments.</p></div>
+
+      <div class="how-strip">
+        <div class="hs-step"><span class="hs-n">1</span><div><strong>Submit Details</strong><small>Class info + credentials</small></div></div>
+        <div class="hs-arr">→</div>
+        <div class="hs-step"><span class="hs-n">2</span><div><strong>Get Payment Plan</strong><small>Admin sets installments</small></div></div>
+        <div class="hs-arr">→</div>
+        <div class="hs-step"><span class="hs-n">3</span><div><strong>Pay 1st Installment</strong><small>Expert assigned</small></div></div>
+        <div class="hs-arr">→</div>
+        <div class="hs-step"><span class="hs-n">4</span><div><strong>Assignments Done</strong><small>Download ZIP</small></div></div>
+      </div>
+
+      <div class="fcard">
+        <div class="alert-ok" *ngIf="formSuccess()">✅ {{ formSuccess() }}</div>
+        <div class="alert-er" *ngIf="formError()">⚠️ {{ formError() }}</div>
+
+        <form [formGroup]="enrollForm" (ngSubmit)="submitEnrollment()" *ngIf="!formSuccess()">
+          <!-- Class Details -->
+          <div class="form-section">
+            <h4>📚 Class Information</h4>
+            <div class="frow">
+              <div class="fg"><label>Course Name *</label><input type="text" formControlName="courseName" placeholder="e.g. MBA Marketing - Semester 3" /><span class="fe" *ngIf="enrollForm.get('courseName')?.touched && enrollForm.get('courseName')?.invalid">Required</span></div>
+              <div class="fg"><label>Institution Name *</label><input type="text" formControlName="institutionName" placeholder="e.g. University of Delhi" /></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Subject *</label><input type="text" formControlName="subject" placeholder="e.g. Marketing Management" /></div>
+              <div class="fg"></div>
+            </div>
+            <div class="frow">
+              <div class="fg"><label>Class Start Date *</label><input type="date" formControlName="classStartDate" /></div>
+              <div class="fg"><label>Class End Date *</label><input type="date" formControlName="classEndDate" /></div>
+            </div>
+            <div class="fg"><label>Course Description & Syllabus *</label><textarea formControlName="courseDescription" rows="5" placeholder="Describe the course: topics covered, assignment types (quizzes, essays, projects), deadlines, professor instructions, grading weight..."></textarea><span class="fe" *ngIf="enrollForm.get('courseDescription')?.touched && enrollForm.get('courseDescription')?.invalid">Min. 20 characters</span></div>
+          </div>
+
+          <!-- Portal Credentials -->
+          <div class="form-section credentials-section">
+            <h4>🔐 Portal Login Credentials</h4>
+            <div class="cred-notice">
+              🔒 Your credentials are stored securely and only used by our assigned expert to complete assignments on your behalf.
+            </div>
+            <div class="fg"><label>Portal / LMS URL</label><input type="url" formControlName="portalUrl" placeholder="https://your-university-lms.edu/login" /></div>
+            <div class="frow">
+              <div class="fg"><label>Username / Student ID *</label><input type="text" formControlName="portalUsername" placeholder="Your login username or student ID" /></div>
+              <div class="fg"><label>Password *</label><input type="text" formControlName="portalPassword" placeholder="Your portal password" /></div>
+            </div>
+          </div>
+
+          <!-- Notes & Document -->
+          <div class="form-section">
+            <h4>📎 Additional Information</h4>
+            <div class="fg"><label>Special Instructions</label><textarea formControlName="studentNotes" rows="3" placeholder="Any extra instructions: e.g. 'Professor prefers APA format', 'All assignments due Fridays', 'Must score at least 80%'..."></textarea></div>
+            <div class="upload-zone">
+              <label class="upload-label">
+                <span class="upload-icon">📁</span>
+                <div><strong>Attach Syllabus or Reference Document</strong><small>Optional — PDF, DOC, DOCX (max 10MB)</small></div>
+                <input type="file" (change)="onDocSelected($event)" accept=".pdf,.doc,.docx" hidden />
+              </label>
+              <div class="file-preview" *ngIf="selectedDoc">📄 {{ selectedDoc.name }}<button type="button" class="rm-file" (click)="selectedDoc=null">✕</button></div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="cbtn" (click)="activeTab.set('overview')">Cancel</button>
+            <button type="submit" class="btn" [disabled]="submitting()">{{ submitting() ? 'Submitting...' : '🚀 Submit Enrollment' }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ══ STATS ══ -->
+    <div *ngIf="activeTab()==='stats'" class="tab">
+      <div class="ph"><h1>📊 Payment Statistics</h1><p>Your complete payment history for all enrolled classes</p></div>
+
+      <!-- Top stat cards -->
+      <div class="stats-grid">
+        <div class="sc"><div class="si">📚</div><div><div class="sv">{{ enrollments().length }}</div><div class="sl">Total Classes</div></div></div>
+        <div class="sc"><div class="si">💳</div><div><div class="sv">{{ getTotalPaid() | number:'1.0-0' }}</div><div class="sl">$ Total Paid</div></div></div>
+        <div class="sc"><div class="si">⏳</div><div><div class="sv">{{ getPendingTotal() | number:'1.0-0' }}</div><div class="sl">$ Pending</div></div></div>
+        <div class="sc hi"><div class="si">✅</div><div><div class="sv">{{ getTotalPaidCount() }}</div><div class="sl">Installments Paid</div></div></div>
+      </div>
+
+      <!-- Upcoming payments filter -->
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-head"><h3>⏰ Upcoming Payment Schedule</h3></div>
+        <div class="pay-filter-row">
+          <button [class.active]="studentPayFilter()==='all'"   (click)="studentPayFilter.set('all')">All</button>
+          <button [class.active]="studentPayFilter()==='1-5'"   (click)="studentPayFilter.set('1-5')">1–5 Days</button>
+          <button [class.active]="studentPayFilter()==='5-10'"  (click)="studentPayFilter.set('5-10')">5–10 Days</button>
+          <button [class.active]="studentPayFilter()==='10-30'" (click)="studentPayFilter.set('10-30')">10–30 Days</button>
+        </div>
+        <div *ngIf="getUpcomingPayments().length === 0" class="empty-row">No upcoming payments in this range</div>
+        <div class="upcoming-row" *ngFor="let item of getUpcomingPayments()">
+          <div class="ur-info">
+            <strong>{{ item.courseName }}</strong>
+            <span>Installment #{{ item.installmentNumber }} · ${{ item.amount }}</span>
+          </div>
+          <div class="ur-right">
+            <span class="days-badge" [class.urgent]="getDaysUntil(item.dueDate)<=2" [class.soon]="getDaysUntil(item.dueDate)>2&&getDaysUntil(item.dueDate)<=5">
+              {{ getDaysUntil(item.dueDate)===0?'Due Today':getDaysUntil(item.dueDate)===1?'Tomorrow':'In '+getDaysUntil(item.dueDate)+' days' }}
+            </span>
+            <span class="ur-date">{{ item.dueDate | date:'MMM d, y' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment history table -->
+      <div class="card">
+        <div class="card-head"><h3>💳 Payment History</h3></div>
+        <div *ngIf="paidInstallments().length===0" class="empty"><div>💳</div><p>No confirmed payments yet.</p></div>
+        <div class="pay-hist-table" *ngIf="paidInstallments().length>0">
+          <div class="pht-head"><span>Course</span><span>Installment</span><span>Amount</span><span>Date Paid</span><span>Receipt</span></div>
+          <div class="pht-row" *ngFor="let item of paidInstallments()">
+            <div class="pht-c"><strong>{{ item.courseName }}</strong><small>{{ item.institutionName }}</small></div>
+            <span class="pht-m">#{{ item.installmentNumber }}</span>
+            <span class="pht-m amt">${{ item.amount }}</span>
+            <span class="pht-m">{{ item.paidAt | date:'MMM d, y' }}</span>
+            <span class="pht-m">
+              <button class="dl-slip-btn" (click)="downloadReceiptByInstallmentId(item.id)" [disabled]="slipDownloadingId()===item.id">
+                {{ slipDownloadingId()===item.id ? '...' : '📄 Receipt' }}
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NOTIFICATIONS ══ -->
+    <div *ngIf="activeTab()==='notifications'" class="tab">
+      <div class="ph"><h1>Notifications</h1><button class="gbtn" (click)="markAllRead()" *ngIf="unreadCount()>0">Mark all read</button></div>
+      <div *ngIf="notifications().length===0" class="empty"><div>🔕</div><p>No notifications yet</p></div>
+      <div class="nlist">
+        <div class="ni" *ngFor="let n of notifications()" [class.unread]="!n.read">
+          <div class="nd" [class.active]="!n.read"></div>
+          <div class="nc"><strong>{{ n.title }}</strong><p>{{ n.message }}</p><small>{{ n.createdAt | date:'MMM d, y h:mm a' }}</small></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

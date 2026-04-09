@@ -1,0 +1,105 @@
+<div class="page">
+  <!-- Hero -->
+  <div class="hero-sec">
+    <div class="orb o1"></div><div class="orb o2"></div>
+    <div class="container">
+      <a routerLink="/" class="back">← Back to Home</a>
+      <div class="ptag">Who We Are</div>
+      <h1>About <span class="grad">EduAssist</span></h1>
+      <p>A dedicated team of academic experts, educators, and technologists helping students worldwide manage their online classes — confidentially and professionally.</p>
+    </div>
+  </div>
+
+  <!-- Mission -->
+  <div class="mission-sec">
+    <div class="container">
+      <div class="mission-layout">
+        <div class="mission-text">
+          <div class="mtag">Our Mission</div>
+          <h2>Your Online Class, <span>Handled by Experts</span></h2>
+          <p>EduAssist was founded with one clear purpose: to give students access to verified expert support for their online classes — regardless of subject, institution, or timezone.</p>
+          <p>We are not a generic writing service. We manage the entire class experience — from logging into your portal on day one to delivering the final completed ZIP file. Every task, every deadline, every submission — handled.</p>
+          <a routerLink="/services" class="btn-primary">Explore Our Services →</a>
+        </div>
+        <div class="mission-stats">
+          <div class="mstat" *ngFor="let s of stats">
+            <div class="mstat-icon">{{ s.icon }}</div>
+            <div class="mstat-val">{{ s.value }}</div>
+            <div class="mstat-lbl">{{ s.label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="process-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="stag">The Process</div>
+        <h2>How EduAssist Works</h2>
+        <p>From enrollment to delivery — simple, transparent, guaranteed</p>
+      </div>
+      <div class="process-grid">
+        <div class="proc-card" *ngFor="let p of process; let i = index">
+          <div class="pc-num">Step 0{{ i + 1 }}</div>
+          <span class="pc-icon">{{ p.icon }}</span>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.desc }}</p>
+          <div class="pc-line" *ngIf="i < 3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Our Values -->
+  <div class="values-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="stag">Our Commitments</div>
+        <h2>What We Stand For</h2>
+        <p>Every decision we make is guided by these six principles</p>
+      </div>
+      <div class="values-grid">
+        <div class="val-card" *ngFor="let v of values">
+          <span class="vc-icon">{{ v.icon }}</span>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="team-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="stag">The Team</div>
+        <h2>Meet the People Behind EduAssist</h2>
+        <p>Academics, professionals, and technologists who make every class delivery possible</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card" *ngFor="let m of team">
+          <div class="tc-av">{{ m.avatar }}</div>
+          <h3>{{ m.name }}</h3>
+          <div class="tc-role">{{ m.role }}</div>
+          <div class="tc-exp">{{ m.expertise }}</div>
+          <div class="tc-bio">{{ m.bio }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-sec">
+    <div class="cta-orb"></div>
+    <div class="container">
+      <h2>Ready to Hand Over Your Online Class?</h2>
+      <p>Submit your class details in 3 minutes — get a custom payment plan within 24 hours. No obligation.</p>
+      <div class="cta-btns">
+        <a routerLink="/" class="btn-teal">🚀 Get a Free Quote →</a>
+        <a routerLink="/services" class="btn-ghost">Browse Services</a>
+      </div>
+    </div>
+  </div>
+</div>
