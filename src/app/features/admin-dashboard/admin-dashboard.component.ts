@@ -385,10 +385,6 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  subStatusClass(s: string): string {
-    return { PENDING_REVIEW:'sub-chip-pending', APPROVED:'sub-chip-approved', REJECTED:'sub-chip-rejected' }[s] || '';
-  }
-
   // ── Submission helpers ───────────────────────────────────────────────────
   getApprovedCount(): number {
     return this.enrollmentSubmissions().filter(s => s.status === 'APPROVED').length;
@@ -407,7 +403,9 @@ export class AdminDashboardComponent implements OnInit {
     return insts.every((i: any) => i.status === 'CONFIRMED');
   }
 
- 
+  subStatusClass(s: string): string {
+    return { APPROVED: 'badge-approved', PENDING_REVIEW: 'badge-pending', REJECTED: 'badge-rejected' }[s] || '';
+  }
 
   // ── Tracker ─────────────────────────────────────────────────────────────
   enrollmentTasks = signal<any[]>([]);

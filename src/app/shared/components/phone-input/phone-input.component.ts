@@ -26,7 +26,7 @@ import { CountryService, Country } from '../../../core/services/country.service'
            (input)="onInput($event)"
            (keydown)="onKeyDown($event)"
            (blur)="onBlur()"
-           />
+           [attr.maxlength]="selected().maxLen" />
   </div>
 
   <!-- Dropdown — rendered outside phi-row to avoid overflow clip -->

@@ -75,7 +75,7 @@ export class ChangePasswordComponent {
     this.loading.set(true); this.error.set('');
     this.auth.changePassword(
       this.form.value.currentPassword,
-      this.form.value.newPassword,
+      this.form.value.newPassword
     ).subscribe({
       next: () => { this.success.set(true); this.loading.set(false); },
       error: (e: any) => {

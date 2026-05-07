@@ -1,20 +1,35 @@
-<!-- ═══ NAV ═══ -->
-<header class="nav">
+<!-- ═══ NAVBAR ═══ -->
+<header class="nav" [class.scrolled]="navScrolled()">
   <div class="nav-inner">
     <a class="logo" (click)="scrollTo('top')">
-      <div class="logo-mark">E</div><span>EduAssist</span>
+      <div class="logo-gem">
+        <span>E</span>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">EduAssist</span>
+        <span class="logo-sub">Academic Support</span>
+      </div>
     </a>
+
     <nav class="nav-links" [class.open]="mobileMenuOpen()">
       <a (click)="scrollTo('how')">How It Works</a>
-      <a routerLink="/services">Services</a>
-      <a (click)="scrollTo('textme')">WhatsApp</a>
+      <a (click)="scrollTo('services')">Services</a>
+      <a (click)="scrollTo('reviews')">Reviews</a>
+      <a (click)="scrollTo('faq')">FAQ</a>
       <a (click)="scrollTo('contact')">Contact</a>
+      <!-- Mobile only extras -->
+      <div class="nav-mobile-btns">
+        <button class="nbtn-ghost" (click)="goToLogin()">Sign In</button>
+        <button class="nbtn-fill" (click)="scrollTo('query')">Get Started →</button>
+      </div>
     </nav>
+
     <div class="nav-right">
+      <div class="nav-secure"><span class="secure-dot"></span>Secure Platform</div>
       <button class="nbtn-ghost" (click)="goToLogin()">Sign In</button>
-      <button class="nbtn-fill"  (click)="scrollTo('query')">Get Started →</button>
+      <button class="nbtn-fill" (click)="scrollTo('query')">Get Started <span>→</span></button>
     </div>
-    <button class="burger" (click)="mobileMenuOpen.set(!mobileMenuOpen())">
+    <button class="burger" (click)="mobileMenuOpen.set(!mobileMenuOpen())" [class.active]="mobileMenuOpen()">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -22,127 +37,193 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="top">
+  <!-- Background layers -->
   <div class="hero-bg">
+    <div class="hb-gradient"></div>
     <div class="hb-grid"></div>
-    <div class="hb-orb o1"></div><div class="hb-orb o2"></div><div class="hb-orb o3"></div>
-    <div class="hb-dots">
-      <span class="dot" *ngFor="let i of [1,2,3,4,5,6,7,8]"></span>
-    </div>
+    <div class="hb-orb orb-a"></div>
+    <div class="hb-orb orb-b"></div>
+    <div class="hb-noise"></div>
   </div>
 
   <div class="hero-inner">
-    <!-- LEFT — animated text  -->
+    <!-- LEFT -->
     <div class="hero-left">
-      <div class="hero-eyebrow">
-        <div class="ey-dot"></div>
-        <span>Trusted by 5,000+ students in 15+ countries</span>
+      <div class="hero-badge">
+        <div class="badge-pulse"></div>
+        <span>Trusted by 5,000+ students in 40+ countries</span>
       </div>
 
       <h1>
-        <span class="hl1">Your Online</span>
-        <span class="hl2">Classes,</span>
-        <span class="hl3">Done <em>Perfectly.</em></span>
+        <span class="h1-sup">Expert Academic Assistance</span>
+        <span class="h1-main">for Modern <em class="h1-grad">Students.</em></span>
       </h1>
 
       <p class="hero-desc">
-        Share your class details &amp; portal credentials. Our verified experts complete every assignment from start to end — packaged and delivered as a ZIP file.
+        Professional coursework support from verified subject experts. Full class management, assignment guidance, and on-time delivery — packaged and secured.
       </p>
 
-      <div class="hero-chips">
-        <div class="hchip"><span>🔐</span> Credentials Secure</div>
-        <div class="hchip"><span>📅</span> Full Class Coverage</div>
-        <div class="hchip"><span>💳</span> Pay in Installments</div>
-        <div class="hchip"><span>📦</span> ZIP Delivery</div>
+      <div class="trust-strip">
+        <div class="ts-item" *ngFor="let b of trustBadges">
+          <span class="ts-icon">{{ b.icon }}</span>
+          <span>{{ b.label }}</span>
+        </div>
+      </div>
+
+      <div class="hero-ctas">
+        <button class="cta-primary" (click)="scrollTo('query')">
+          🚀 Get Free Quote
+        </button>
+        <button class="cta-secondary" (click)="scrollTo('how')">
+          See How It Works
+        </button>
       </div>
 
       <div class="hero-stats">
-        <div class="hst" *ngFor="let s of stats">
-          <div class="hst-num">{{ s.value }}</div>
-          <div class="hst-lbl">{{ s.label }}</div>
+        <div class="hs-item" *ngFor="let s of stats">
+          <div class="hs-val">{{ s.value }}</div>
+          <div class="hs-lbl">{{ s.label }}</div>
         </div>
       </div>
 
       <!-- Floating proof cards -->
-      <div class="proof-card pc1">
-        <div class="pc-dot green"></div>
-        <div><strong>MBA Thesis Delivered</strong><span>2 hours ago · 5.0 ⭐</span></div>
+      <div class="float-card fc1">
+        <div class="fc-dot green"></div>
+        <div class="fc-body">
+          <strong>MBA Class — A Grade</strong>
+          <span>Delivered 2 hours ago</span>
+        </div>
       </div>
-      <div class="proof-card pc2">
-        <div class="pc-dot teal"></div>
-        <div><strong>Python Class Assigned</strong><span>Expert online now</span></div>
+      <div class="float-card fc2">
+        <div class="fc-dot teal"></div>
+        <div class="fc-body">
+          <strong>Python Expert Assigned</strong>
+          <span>Online now · Starts today</span>
+        </div>
       </div>
     </div>
 
-    <!-- RIGHT — "Tell Us About Your Online Class" form -->
-    <div class="hero-right">
-      <div class="hform-card">
-        <div class="hfc-header">
-          <div class="hfc-tag">✦ Free Consultation</div>
-          <h2>Tell Us About Your<br><span>Online Class</span></h2>
-          <p>Submit details — get a custom payment plan within 24 hrs</p>
+    <!-- RIGHT — Query Form -->
+    <div class="hero-right" id="query">
+      <div class="form-card">
+        <div class="fc-header">
+          <div class="fc-eyebrow">✦ Free Consultation — No Commitment</div>
+          <h2>Tell Us About<br><span>Your Online Class</span></h2>
+          <p>Submit details · Get a custom plan in 24 hrs</p>
         </div>
 
-        <div class="hfc-success" *ngIf="querySuccess()">
-          <div class="hfc-ok-icon">✅</div>
-          <h3>Submitted!</h3>
+        <!-- Success -->
+        <div class="fc-success" *ngIf="querySuccess()">
+          <div class="fcs-icon">✅</div>
+          <h3>Query Received!</h3>
           <p>{{ querySuccess() }}</p>
-          <button class="hfc-login-btn" (click)="goToLogin()">Go to Dashboard →</button>
+          <button class="fcs-dash-btn" (click)="goToLogin()">Go to Dashboard →</button>
+          <p class="fcs-note">Or <button class="link-btn" (click)="goToRegister()">create your account</button> to track progress</p>
         </div>
 
         <form [formGroup]="queryForm" (ngSubmit)="submitQuery()" *ngIf="!querySuccess()">
-          <div class="hfc-err" *ngIf="queryError()">⚠️ {{ queryError() }}</div>
-          <div class="hf2">
-            <div class="hff"><label>Full Name *</label><input type="text" formControlName="name" placeholder="Your name" /><span class="fe" *ngIf="queryForm.get('name')?.touched && queryForm.get('name')?.invalid">Required</span></div>
-            <div class="hff"><label>Email *</label><input type="email" formControlName="email" placeholder="your@email.com" /><span class="fe" *ngIf="queryForm.get('email')?.touched && queryForm.get('email')?.invalid">Valid email required</span></div>
-          </div>
-          <div class="hf2">
-            <div class="hff"><label>Phone</label><app-phone-input (valueChange)="onQueryPhone($event)" [defaultCountry]="'US'"></app-phone-input></div>
-            <div class="hff"><label>Subject / Course *</label>
-              <input type="text" formControlName="subject" placeholder="e.g. Nursing, Business, Python..." maxlength="150" />
-              <span class="fe" *ngIf="queryForm.get('subject')?.touched && queryForm.get('subject')?.invalid">Please enter your subject or course</span>
+          <div class="form-error" *ngIf="queryError()">⚠️ {{ queryError() }}</div>
+
+          <div class="frow2">
+            <div class="fld">
+              <label>Full Name *</label>
+              <input type="text" formControlName="name" placeholder="Your full name" autocomplete="name" />
+              <span class="ferr" *ngIf="queryForm.get('name')?.touched && queryForm.get('name')?.hasError('required')">Required</span>
+            </div>
+            <div class="fld">
+              <label>Email *</label>
+              <input type="email" formControlName="email" placeholder="your@email.com" autocomplete="email" />
+              <span class="ferr" *ngIf="queryForm.get('email')?.touched && queryForm.get('email')?.hasError('email')">Valid email required</span>
             </div>
           </div>
-          <div class="hff full"><label>Class Details *</label>
-            <textarea formControlName="message" rows="3" placeholder="Institution, course name, dates, assignment types..."></textarea>
-            <span class="fe" *ngIf="queryForm.get('message')?.touched && queryForm.get('message')?.invalid">Min. 20 characters</span>
+
+          <div class="frow2">
+            <div class="fld">
+              <label>Phone <span class="opt">(optional)</span></label>
+              <app-phone-input (valueChange)="onQueryPhone($event)" [defaultCountry]="'US'"></app-phone-input>
+            </div>
+            <div class="fld">
+              <label>Subject / Course *</label>
+              <input type="text" formControlName="subject" placeholder="e.g. Nursing, Python, MBA Finance..." maxlength="150" />
+              <span class="ferr" *ngIf="queryForm.get('subject')?.touched && queryForm.get('subject')?.invalid">Required</span>
+            </div>
           </div>
-          <button type="submit" class="hfc-submit" [disabled]="querySubmitting()">
-            {{ querySubmitting() ? '⏳ Submitting...' : '🚀 Get Free Quote →' }}
+
+          <div class="fld full">
+            <label>Class Details *</label>
+            <textarea formControlName="message" rows="3" placeholder="Institution name, class dates, LMS platform, types of assignments..."></textarea>
+            <span class="ferr" *ngIf="queryForm.get('message')?.touched && queryForm.get('message')?.hasError('minlength')">Please provide at least 20 characters</span>
+          </div>
+
+          <button type="submit" class="submit-btn" [disabled]="querySubmitting()">
+            {{ querySubmitting() ? '⏳ Submitting...' : '🚀 Get My Free Quote →' }}
           </button>
-          <p class="hfc-note">🔒 Free to submit · Pay only after approving the plan</p>
+          <p class="form-note">🔒 Free to submit · No payment until you approve the plan</p>
         </form>
       </div>
     </div>
   </div>
+
+  <!-- Subjects scroll ticker -->
+  <div class="subj-belt">
+    <div class="subj-inner">
+      <span class="subj-item" *ngFor="let s of subjects">{{ s }}</span>
+      <span class="subj-item" *ngFor="let s of subjects">{{ s }}</span>
+    </div>
+  </div>
 </section>
+
+<!-- ═══ TRUST BAR ═══ -->
+<div class="trust-bar">
+  <div class="wrap-mid">
+    <div class="tb-inner">
+      <div class="tb-item"><span>🎓</span><strong>5,000+</strong><span>Students Helped</span></div>
+      <div class="tb-div"></div>
+      <div class="tb-item"><span>⭐</span><strong>4.9/5</strong><span>Average Rating</span></div>
+      <div class="tb-div"></div>
+      <div class="tb-item"><span>⚡</span><strong>24hr</strong><span>First Response</span></div>
+      <div class="tb-div"></div>
+      <div class="tb-item"><span>🔒</span><strong>100%</strong><span>Confidential</span></div>
+      <div class="tb-div"></div>
+      <div class="tb-item"><span>🌍</span><strong>40+</strong><span>Countries Served</span></div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══ HOW IT WORKS ═══ -->
 <section class="how-section" id="how">
   <div class="wrap">
-    <div class="how-head">
-      <div class="sec-tag">Simple 4-Step Process</div>
-      <h2>How It Works</h2>
-      <p>From enrollment to ZIP delivery — simple, transparent, guaranteed</p>
+    <div class="section-header">
+      <div class="section-tag">Simple Process</div>
+      <h2>From Enrollment to Delivery<br><span>in 4 Clear Steps</span></h2>
+      <p>Transparent, simple, and guaranteed — you stay in control at every stage.</p>
     </div>
+
     <div class="how-grid">
-      <div class="how-card" *ngFor="let s of howSteps; let i = index">
-        <div class="hc-num">{{ (i+1).toString().padStart(2,'0') }}</div>
-        <div class="hc-icon-wrap" [class]="'hwi-'+i">{{ s.icon }}</div>
+      <div class="how-card" *ngFor="let s of howSteps; let i = index"
+           [class.active]="activeStep() === i"
+           (mouseenter)="activeStep.set(i)">
+        <div class="hc-step-num" [style.color]="s.color">{{ s.num }}</div>
+        <div class="hc-icon" [style.background]="s.color + '15'">{{ s.icon }}</div>
         <h3>{{ s.title }}</h3>
         <p>{{ s.desc }}</p>
-        <div class="hc-tag">{{ s.tag }}</div>
-        <div class="hc-connector" *ngIf="i < 3"></div>
+        <div class="hc-badge" [style.background]="s.color + '12'" [style.color]="s.color">
+          {{ s.badge }}
+        </div>
+        <div class="hc-progress" [style.background]="s.color" [class.visible]="activeStep() === i"></div>
       </div>
     </div>
-    <div class="how-timeline">
-      <div class="ht-bar">
-        <div class="htb-seg s-enroll">📝 Enroll</div>
-        <div class="htb-arrow">→</div>
-        <div class="htb-seg s-pay">💳 Pay Installment 1</div>
-        <div class="htb-arrow">→</div>
-        <div class="htb-seg s-work">✍️ Expert Works Full Class</div>
-        <div class="htb-arrow">→</div>
-        <div class="htb-seg s-zip">📦 Download ZIP</div>
+
+    <!-- Timeline bar -->
+    <div class="timeline-bar">
+      <div class="tl-node" *ngFor="let s of howSteps; let i=index" [class.done]="i <= activeStep()">
+        <div class="tl-dot" [style.border-color]="i <= activeStep() ? s.color : ''" [style.background]="i <= activeStep() ? s.color : ''">
+          <span *ngIf="i < activeStep()">✓</span>
+          <span *ngIf="i === activeStep()">{{ i+1 }}</span>
+          <span *ngIf="i > activeStep()">{{ i+1 }}</span>
+        </div>
+        <div class="tl-label">{{ s.title.split(' ').slice(0,2).join(' ') }}</div>
+        <div class="tl-line" *ngIf="i < 3" [style.background]="i < activeStep() ? '#0d9488' : ''"></div>
       </div>
     </div>
   </div>
@@ -151,128 +232,172 @@
 <!-- ═══ SERVICES ═══ -->
 <section class="svc-section" id="services">
   <div class="wrap">
-    <div class="svc-layout">
-      <div class="svc-left-col">
-        <div class="sec-tag">What We Handle</div>
-        <h2>Expert Help in Every Subject</h2>
-        <p>Our verified writers cover every academic discipline. From MBA courses to programming bootcamps — we handle everything.</p>
-        <a routerLink="/services" class="btn-outline-teal">View All Services →</a>
-       
+    <div class="svc-intro">
+      <div>
+        <div class="section-tag">What We Handle</div>
+        <h2>Expert Support Across<br><span>Every Discipline</span></h2>
+        <p>Verified specialists for every academic subject — from programming bootcamps to MBA strategy courses. We handle the entire class, not just individual tasks.</p>
       </div>
-      <div class="svc-cards-col">
-        <a class="svc-card" *ngFor="let s of services; let i=index" routerLink="/services" [style.--c]="s.color">
-          <div class="sc-top">
-            <div class="sc-icon" [style.background]="s.color + '18'">{{ s.icon }}</div>
-            <span class="sc-tag" [style.background]="s.color + '15'" [style.color]="s.color">{{ s.tag }}</span>
-          </div>
-          <h3>{{ s.title }}</h3>
-          <p>{{ s.desc }}</p>
-          <div class="sc-arrow" [style.color]="s.color">→</div>
-        </a>
+      <div class="svc-meta">
+        <div class="svm-stat" *ngFor="let s of stats">
+          <div class="svm-val">{{ s.value }}</div>
+          <div class="svm-lbl">{{ s.label }}</div>
+        </div>
+        <a routerLink="/services" class="btn-outline">View All Services →</a>
       </div>
+    </div>
+    <!-- Subject ticker strip -->
+    <div class="subj-ticker-strip">
+      <div class="subj-ticker-inner">
+        <span class="subj-chip" *ngFor="let s of subjects">{{ s }}</span>
+        <span class="subj-chip" *ngFor="let s of subjects">{{ s }}</span>
+      </div>
+    </div>
+
+    <div class="svc-grid">
+      <a class="svc-card" *ngFor="let s of services" routerLink="/services" [style.--accent]="s.color">
+        <div class="sc-shine"></div>
+        <div class="sc-top">
+          <div class="sc-icon" [style.background]="s.color + '15'">{{ s.icon }}</div>
+          <span class="sc-badge" [style.background]="s.color + '12'" [style.color]="s.color">{{ s.tag }}</span>
+        </div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.desc }}</p>
+        <div class="sc-footer">
+          <span class="sc-cta" [style.color]="s.color">Learn more →</span>
+        </div>
+        <div class="sc-border-glow"></div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ═══ WHATSAPP ═══ -->
+<!-- ═══ WHATSAPP CTA ═══ -->
 <section class="wa-section" id="textme">
+  <div class="wa-bg">
+    <div class="wa-orb wa1"></div>
+    <div class="wa-orb wa2"></div>
+  </div>
   <div class="wrap">
     <div class="wa-layout">
       <div class="wa-left">
-        <div class="wa-logo-chip">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
+        <div class="wa-online-chip">
+          <div class="wa-blink"></div>
+          <span>Team online · Avg. reply &lt;5 minutes</span>
         </div>
-        <h2>Get a Free Quote<br>in <em>60 Seconds</em></h2>
-        <p>Drop your number — our expert team WhatsApps you instantly. Free advice, no commitment, zero spam.</p>
-        <div class="wa-chips"><span>✓ Instant reply</span><span>✓ Free advice</span><span>✓ No spam</span></div>
+        <h2>Get Expert Advice<br>on <em>WhatsApp</em></h2>
+        <p>Send your WhatsApp number. Our academic advisor will contact you with a free, no-obligation consultation about your class.</p>
+        <div class="wa-promises">
+          <div class="wp-item"><span>✓</span> Free academic consultation</div>
+          <div class="wp-item"><span>✓</span> No spam, ever</div>
+          <div class="wp-item"><span>✓</span> Response in &lt;5 minutes</div>
+          <div class="wp-item"><span>✓</span> Your number is never sold</div>
+        </div>
       </div>
+
       <div class="wa-right">
         <div class="wa-card" *ngIf="!textMeSuccess()">
-          <h3>Your WhatsApp Number</h3>
+          <div class="wac-head">
+            <div class="wac-logo">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div>
+              <strong>EduAssist Support</strong>
+              <span>Academic Advisor</span>
+            </div>
+          </div>
+          <div class="wac-bubble">Hi! Send us your number and we'll reach out to discuss your online class needs 👋</div>
           <div class="wa-err" *ngIf="textMeError()">{{ textMeError() }}</div>
           <form [formGroup]="textMeForm" (ngSubmit)="submitTextMe()">
-            <app-phone-input
-              theme="dark"
-              (valueChange)="onTextMePhone($event)"
-              [defaultCountry]="'US'"
-              [invalid]="!textMePhone.valid && textMePhone.full !== ''"
-              [errorMsg]="'Invalid number for selected country'">
+            <app-phone-input theme="dark" (valueChange)="onTextMePhone($event)" [defaultCountry]="'US'"
+              [invalid]="!textMePhone.valid && textMePhone.full !== ''" [errorMsg]="'Invalid number for selected country'">
             </app-phone-input>
-            <div class="wa-ferr" *ngIf="textMeError() && !textMePhone.full">Mobile number is required</div>
-            <button type="submit" class="wa-submit-btn" [disabled]="textMeSubmitting()">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              {{ textMeSubmitting() ? 'Sending...' : 'WhatsApp Me Now' }}
+            <button type="submit" class="wa-btn" [disabled]="textMeSubmitting()">
+              {{ textMeSubmitting() ? '⏳ Sending...' : 'WhatsApp Me →' }}
             </button>
           </form>
-          <p class="wa-priv">🔒 Your number is never shared</p>
+          <p class="wa-priv">🔒 Your number is never sold or spammed</p>
         </div>
-        <div class="wa-success-box" *ngIf="textMeSuccess()">
-          <div class="wsb-icon">✅</div>
+        <div class="wa-success" *ngIf="textMeSuccess()">
+          <div class="was-icon">✅</div>
           <h3>Message Sent!</h3>
           <p>{{ textMeSuccess() }}</p>
-          <button (click)="textMeSuccess.set('')">Submit another</button>
+          <button (click)="textMeSuccess.set('')">Send another number</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ TESTIMONIALS — crossfade carousel max 4-5 ═══ -->
-<section class="testi-section">
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="testi-section" id="reviews">
   <div class="wrap">
-    <div class="testi-head">
-      <div class="sec-tag">Student Reviews</div>
-      <h2>Real Results, Real Students</h2>
-      <p>Hear directly from students who trusted our service</p>
+    <div class="section-header centered">
+      <div class="section-tag">Student Reviews</div>
+      <h2>Real Students,<br>Real Results</h2>
+      <div class="testi-rating-summary">
+        <div class="trs-stars">★★★★★</div>
+        <strong>4.9 out of 5</strong>
+        <span>based on 500+ reviews</span>
+      </div>
     </div>
-    <div class="testi-carousel">
+
+    <div class="testi-track">
       <div class="tc-viewport">
-        <ng-container *ngIf="testimonials().length > 0">
-          <div class="tc-slide"
-               *ngFor="let group of testiGroups(); let i=index"
-               [class.active]="testiIndex()===i && !testiLeaving()"
-               [class.leaving]="testiIndex()===i && testiLeaving()">
-            <div class="testi-card" *ngFor="let t of group">
-              <div class="tc-stars">{{ '★'.repeat(t.rating || 5) }}</div>
-              <p>"{{ t.text }}"</p>
-              <div class="tc-footer">
-                <div class="tc-av" [class.alt]="t.alt">{{ t.avatar }}</div>
-                <div><strong>{{ t.studentName }}</strong><span>{{ t.course }}</span></div>
+        <div class="tc-slide"
+             *ngFor="let group of testiGroups(); let i=index"
+             [class.active]="testiIndex()===i && !testiLeaving()"
+             [class.leaving]="testiIndex()===i && testiLeaving()">
+          <div class="testi-card" *ngFor="let t of group; let j=index">
+            <div class="tc-quote">"</div>
+            <div class="tc-stars">★★★★★</div>
+            <p class="tc-text">{{ t.text }}</p>
+            <div class="tc-footer">
+              <div class="tc-avatar" [class.alt]="t.alt">{{ t.avatar }}</div>
+              <div class="tc-info">
+                <strong>{{ t.studentName }}</strong>
+                <span>{{ t.course }}</span>
               </div>
+              <div class="tc-verified">✓ Verified</div>
             </div>
           </div>
-        </ng-container>
+        </div>
       </div>
-      <div class="tc-dots" *ngIf="testiGroups().length > 1">
-        <button class="tc-dot" *ngFor="let g of testiGroups(); let i=index"
-                [class.active]="testiIndex()===i" (click)="goToTesti(i)"></button>
-      </div>
-      <div class="tc-nav">
+
+      <div class="tc-controls">
         <button class="tc-btn" (click)="prevTesti()">←</button>
+        <div class="tc-dots">
+          <button class="tc-dot" *ngFor="let g of testiGroups(); let i=index"
+                  [class.active]="testiIndex()===i" (click)="goToTesti(i)"></button>
+        </div>
         <button class="tc-btn" (click)="nextTesti()">→</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FAQ — compact accordion ═══ -->
-<section class="faq-section">
-  <div class="wrap">
-    <div class="faq-center">
-      <div class="sec-tag">FAQ</div>
-      <h2>Frequently Asked Questions</h2>
-      <p>Click any question to reveal the answer</p>
+<!-- ═══ FAQ ═══ -->
+<section class="faq-section" id="faq">
+  <div class="wrap-mid">
+    <div class="section-header centered">
+      <div class="section-tag">FAQ</div>
+      <h2>Questions We<br>Hear Most Often</h2>
     </div>
     <div class="faq-list">
       <div class="faq-item" *ngFor="let f of faqs; let i=index"
            [class.open]="activeFaq()===i" (click)="toggleFaq(i)">
         <div class="faq-q">
+          <span class="faq-icon">{{ activeFaq()===i ? '−' : '+' }}</span>
           <span class="faq-qtext">{{ f.q }}</span>
-          <div class="faq-toggle">{{ activeFaq()===i ? '−' : '+' }}</div>
         </div>
-        <div class="faq-body" *ngIf="activeFaq()===i"><p>{{ f.a }}</p></div>
+        <div class="faq-answer" *ngIf="activeFaq()===i">
+          <p>{{ f.a }}</p>
+        </div>
       </div>
+    </div>
+    <div class="faq-cta">
+      <p>Still have questions?</p>
+      <button (click)="scrollTo('contact')" class="btn-outline-sm">Contact Our Team →</button>
     </div>
   </div>
 </section>
@@ -281,28 +406,66 @@
 <section class="ct-section" id="contact">
   <div class="wrap">
     <div class="ct-layout">
-      <div class="ct-info">
-        <div class="sec-tag light">Contact Us</div>
-        <h2>Have Questions?<br>We're Here.</h2>
-        <p>Reach our team any time — we reply within hours.</p>
+      <div class="ct-left">
+        <div class="section-tag light">Get In Touch</div>
+        <h2>Questions?<br>We Answer Fast.</h2>
+        <p>Our team responds to every message within a few hours. No chatbots — real academic support specialists.</p>
+
         <div class="ct-channels">
-          <div class="ctc-item"><div class="ctc-icon">📧</div><div><strong>Email</strong><span>{{ siteConfig()?.company_email }}</span></div></div>
-          <div class="ctc-item"><div class="ctc-icon">📱</div><div><strong>WhatsApp</strong><span>{{ siteConfig()?.whatsapp_number }}</span></div></div>
-          <div class="ctc-item"><div class="ctc-icon">📍</div><div><strong>Location</strong><span>{{ siteConfig()?.company_address }}</span></div></div>
+          <a href="mailto:support@edupilothelp.com" class="ctch">
+            <div class="ctch-icon email">📧</div>
+            <div>
+              <strong>Email</strong>
+              <span>support&#64;edupilothelp.com</span>
+            </div>
+          </a>
+          <div class="ctch">
+            <div class="ctch-icon wa">💬</div>
+            <div>
+              <strong>WhatsApp</strong>
+              <span>Avg. response &lt;5 mins</span>
+            </div>
+          </div>
+          <div class="ctch">
+            <div class="ctch-icon globe">🌐</div>
+            <div>
+              <strong>Availability</strong>
+              <span>24/7 — All time zones</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ct-trust">
+          <div class="ctt-item" *ngFor="let b of trustBadges">{{ b.icon }} {{ b.label }}</div>
         </div>
       </div>
-      <div class="ct-form">
-        <div class="ctf-success" *ngIf="contactSuccess()"><div>✉️</div><h3>Message Received!</h3><p>{{ contactSuccess() }}</p></div>
-        <form [formGroup]="contactForm" (ngSubmit)="submitContact()" *ngIf="!contactSuccess()">
-          <div class="ctf-err" *ngIf="contactError()">⚠️ {{ contactError() }}</div>
-          <div class="hf2">
-            <div class="hff dark"><label>Name *</label><input type="text" formControlName="name" placeholder="Full name" /></div>
-            <div class="hff dark"><label>Email *</label><input type="email" formControlName="email" placeholder="your@email.com" /></div>
+
+      <div class="ct-right">
+        <div class="ct-form-wrap">
+          <div class="ctf-success" *ngIf="contactSuccess()">
+            <div class="ctfs-icon">✉️</div>
+            <h3>Message Received!</h3>
+            <p>{{ contactSuccess() }}</p>
           </div>
-          <div class="hff dark full"><label>Phone</label><app-phone-input theme="dark" (valueChange)="onContactPhone($event)" [defaultCountry]="'US'"></app-phone-input></div>
-          <div class="hff dark full"><label>Message *</label><textarea formControlName="message" rows="4" placeholder="How can we help?"></textarea></div>
-          <button type="submit" class="ct-submit" [disabled]="contactSubmitting()">{{ contactSubmitting() ? 'Sending...' : 'Send Message' }}</button>
-        </form>
+          <form [formGroup]="contactForm" (ngSubmit)="submitContact()" *ngIf="!contactSuccess()">
+            <h3 class="ctf-title">Send a Message</h3>
+            <div class="ctf-err" *ngIf="contactError()">⚠️ {{ contactError() }}</div>
+            <div class="ctf-row2">
+              <div class="fld"><label>Name *</label><input type="text" formControlName="name" placeholder="Your name" /></div>
+              <div class="fld"><label>Email *</label><input type="email" formControlName="email" placeholder="your@email.com" /></div>
+            </div>
+            <div class="fld"><label>Phone <span class="opt">(optional)</span></label>
+              <app-phone-input theme="dark" (valueChange)="onContactPhone($event)" [defaultCountry]="'US'"></app-phone-input>
+            </div>
+            <div class="fld"><label>Message *</label>
+              <textarea formControlName="message" rows="4" placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" class="ct-submit-btn" [disabled]="contactSubmitting()">
+              {{ contactSubmitting() ? '⏳ Sending...' : 'Send Message →' }}
+            </button>
+            <p class="ctf-note">🔒 Encrypted · We never share your data</p>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -310,15 +473,76 @@
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">
-  <div class="wrap">
-    <div class="ft-grid">
-      <div class="ftb"><div class="ft-logo"><div class="logo-mark sm">E</div><span>EduAssist</span></div>
-        <p>Expert online class completion. Secure, reliable, on-time.</p>
-        <div class="ft-badges"><span>💳 Stripe</span><span>🔒 Encrypted</span></div></div>
-      <div class="ftc"><h4>Services</h4><ul><li><a routerLink="/services">Full Online Class</a></li><li><a routerLink="/services">Essay &amp; Papers</a></li><li><a routerLink="/services">Programming</a></li><li><a routerLink="/services">Data Analysis</a></li></ul></div>
-      <div class="ftc"><h4>Company</h4><ul><li><a routerLink="/about">About Us</a></li><li><a (click)="scrollTo('how')">How It Works</a></li><li><a (click)="goToLogin()">Student Login</a></li></ul></div>
-      <div class="ftc"><h4>Contact</h4><ul><li>{{ siteConfig()?.company_email }}</li><li>{{ siteConfig()?.company_phone }}</li><li>{{ siteConfig()?.company_address }}</li></ul></div>
+  <div class="ft-top">
+    <div class="wrap">
+      <div class="ft-grid">
+        <!-- Brand -->
+        <div class="ft-brand">
+          <div class="ft-logo">
+            <div class="logo-gem sm"><span>E</span></div>
+            <div>
+              <span class="ft-logo-name">EduAssist</span>
+              <span class="ft-logo-sub">Academic Support</span>
+            </div>
+          </div>
+          <p>Professional academic assistance for modern students worldwide. Secure, confidential, and results-driven.</p>
+          <div class="ft-badges">
+            <span>🔒 SSL Secure</span>
+            <span>💳 Stripe</span>
+            <span>🛡️ Private</span>
+          </div>
+          <div class="ft-contact-info">
+            <a href="mailto:support@edupilothelp.com">📧 support&#64;edupilothelp.com</a>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="ft-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a routerLink="/services">Full Online Class</a></li>
+            <li><a routerLink="/services">Essays & Research</a></li>
+            <li><a routerLink="/services">Programming Help</a></li>
+            <li><a routerLink="/services">Data & Statistics</a></li>
+            <li><a routerLink="/services">Business & MBA</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="ft-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a routerLink="/about">About EduAssist</a></li>
+            <li><a (click)="scrollTo('how')">How It Works</a></li>
+            <li><a (click)="scrollTo('reviews')">Student Reviews</a></li>
+            <li><a (click)="goToLogin()">Student Login</a></li>
+            <li><a (click)="goToRegister()">Create Account</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div class="ft-col">
+          <h4>Legal & Support</h4>
+          <ul>
+            <li><a routerLink="/privacy-policy">Privacy Policy</a></li>
+            <li><a routerLink="/terms">Terms & Conditions</a></li>
+            <li><a routerLink="/terms">Refund Policy</a></li>
+            <li><a routerLink="/terms">Disclaimer</a></li>
+            <li><a (click)="scrollTo('contact')">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="ft-bottom"><span>© 2024 EduAssist. All rights reserved.</span><div class="ft-legal"><a routerLink="/privacy-policy">Privacy</a><a routerLink="/terms">Terms</a><a routerLink="/terms">Refund</a></div></div>
+  </div>
+
+  <div class="ft-bottom">
+    <div class="wrap">
+      <div class="ftb-inner">
+        <span>© 2024 EduAssist · edupilothelp.com · All rights reserved</span>
+        <div class="ftb-right">
+          <span>For academic guidance and support purposes</span>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>

@@ -170,14 +170,6 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
   canDownload(e: any): boolean { return e?.status === 'DELIVERED' && e?.deliveryZipPath && e?.writerFileApproved; }
   getPendingPayments(): any[] { return this.enrollments().filter((e: any) => e.status === 'PAYMENT_PLAN_SENT' || e.status === 'PARTIALLY_PAID'); }
   getActiveEnrollments(): any[] { return this.enrollments().filter((e: any) => e.status === 'IN_PROGRESS'); }
-  getTotalPaid(): number {
-    let total = 0;
-    this.enrollments().forEach((e: any) => {
-      (e.installments || []).filter((i: any) => i.status === 'CONFIRMED').forEach((i: any) => total += i.amount);
-    });
-    return total;
-  }
-
   // Payment stats helpers
   studentPayFilter = signal<'all'|'1-5'|'5-10'|'10-30'>('all');
   slipDownloadingId = signal<number|null>(null);
@@ -196,7 +188,9 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
     return this.allInstallments().filter((i:any) => i.status === 'CONFIRMED');
   }
 
- 
+  getTotalPaid(): number {
+    return this.paidInstallments().reduce((s:number,i:any) => s + Number(i.amount), 0);
+  }
 
   getTotalPaidCount(): number { return this.paidInstallments().length; }
 
