@@ -1,0 +1,94 @@
+<div class="blog-page">
+
+  <!-- Hero -->
+  <div class="blog-hero">
+    <div class="wrap">
+      <div class="blog-hero-inner">
+        <a routerLink="/" class="back-home">← Back to Home</a>
+        <div class="ph-tag">Resources &amp; Guides</div>
+        <h1>EduAssist Blog</h1>
+        <p>Expert advice on online class management, study strategies, subject guides, and getting the most out of professional academic support services.</p>
+        <div class="hero-stats-row">
+          <div class="hsr-item"><strong>50+</strong><span>Articles</span></div>
+          <div class="hsr-sep"></div>
+          <div class="hsr-item"><strong>10k+</strong><span>Monthly Readers</span></div>
+          <div class="hsr-sep"></div>
+          <div class="hsr-item"><strong>Expert</strong><span>Written Content</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="cat-bar">
+    <div class="wrap">
+      <div class="cat-row">
+        <button *ngFor="let c of categories" class="cat-btn"
+                [class.active]="activeCategory() === c"
+                (click)="activeCategory.set(c)">{{ c }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Posts Grid -->
+  <div class="posts-section">
+    <div class="wrap">
+
+      <!-- Featured first post (large) -->
+      <div class="featured-post" *ngIf="filteredPosts.length > 0"
+           (click)="openPost(filteredPosts[0].slug)">
+        <div class="fp-badge">✦ Featured Article</div>
+        <div class="fp-cat">{{ filteredPosts[0].category }}</div>
+        <h2>{{ filteredPosts[0].title }}</h2>
+        <p>{{ filteredPosts[0].excerpt }}</p>
+        <div class="fp-meta">
+          <span>✍️ {{ filteredPosts[0].author }}</span>
+          <span>⏱ {{ filteredPosts[0].readTimeMinutes }} min read</span>
+          <span>📅 {{ formatDate(filteredPosts[0].createdAt) }}</span>
+        </div>
+        <div class="fp-cta">Read Full Article →</div>
+      </div>
+
+      <!-- Remaining posts grid -->
+      <div class="posts-grid" *ngIf="filteredPosts.length > 1">
+        <div class="post-card" *ngFor="let post of filteredPosts.slice(1)"
+             (click)="openPost(post.slug)">
+          <div class="pc-cat">{{ post.category }}</div>
+          <h3>{{ post.title }}</h3>
+          <p class="pc-excerpt">{{ post.excerpt }}</p>
+          <div class="pc-meta">
+            <span>✍️ {{ post.author }}</span>
+            <span>⏱ {{ post.readTimeMinutes }} min read</span>
+          </div>
+          <div class="pc-footer">
+            <span class="pc-date">{{ formatDate(post.createdAt) }}</span>
+            <span class="read-more">Read Article →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-posts" *ngIf="filteredPosts.length === 0">
+        <div class="ep-ico">🔍</div>
+        <h3>No articles in this category yet</h3>
+        <p>Try selecting a different category or check back soon.</p>
+        <button class="btn-primary" (click)="activeCategory.set('All')">View All Articles</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="blog-cta">
+    <div class="wrap">
+      <div class="bcta-inner">
+        <div class="bcta-badge">🎓 Free Consultation</div>
+        <h2>Need Help With Your Online Class?</h2>
+        <p>Submit your class details in 3 minutes and get a custom quote within 24 hours. No upfront payment — pay only as work is delivered.</p>
+        <div class="cta-btns">
+          <a routerLink="/" class="btn-white">Get a Free Quote →</a>
+          <a routerLink="/services" class="btn-ghost-white">Browse All Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

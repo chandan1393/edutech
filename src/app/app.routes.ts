@@ -18,6 +18,8 @@ export const routes: Routes = [
   { path: 'dashboard', canActivate: [authGuard, firstLoginGuard], loadComponent: () => import('./features/student-dashboard/student-dashboard.component').then(m => m.StudentDashboardComponent) },
   { path: 'admin', canActivate: [authGuard, adminGuard], loadComponent: () => import('./features/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent) },
   { path: 'writer', canActivate: [authGuard, writerGuard], loadComponent: () => import('./features/writer-dashboard/writer-dashboard.component').then(m => m.WriterDashboardComponent) },
+  { path: 'blog', loadComponent: () => import('./features/blog/blog-list.component').then(m => m.BlogListComponent) },
+  { path: 'blog/:slug', loadComponent: () => import('./features/blog/blog-detail.component').then(m => m.BlogDetailComponent) },
   { path: 'payment-success', canActivate: [authGuard], loadComponent: () => import('./features/payment-success/payment-success.component').then(m => m.PaymentSuccessComponent) },
   { path: '**', redirectTo: '' }
 ];

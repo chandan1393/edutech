@@ -73,7 +73,7 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
     this.loading.set(true);
     this.api.getMyEnrollments().subscribe({
       next: (res: any) => {
-        const list = Array.isArray(res) ? res : [];
+        const list = Array.isArray(res) ? res : (res?.content || []);
         this.enrollments.set(list);
         if (this.selectedEnrollment()) {
           const updated = list.find((e: any) => e.id === this.selectedEnrollment().id);

@@ -1,9 +1,9 @@
 <div class="adm">
   <aside class="sb">
-    <div class="sb-brand"><div class="sb-logo">E</div><span>EduAssist</span><span class="sbadge">Admin</span></div>
+    <div class="sb-brand"><div class="sb-logo" style="font-family:'Playfair Display',serif;font-size:.75rem;font-weight:700;letter-spacing:-.02em">EA</div><span>EduAssist</span><span class="sbadge">Admin</span></div>
     <nav class="sb-nav">
       <button [class.active]="activeTab()==='overview'"    (click)="activeTab.set('overview')">📊 Overview</button>
-      <button [class.active]="activeTab()==='enrollments'" (click)="activeTab.set('enrollments')">📚 Enrollments <span class="nb">{{ enrollments().length }}</span></button>
+      <button [class.active]="activeTab()==='enrollments'" (click)="activeTab.set('enrollments')">📚 Enrollments <span class="nb">{{ enrollments().length || enrollStats().totalEnrollments || 0 }}</span></button>
       <button [class.active]="activeTab()==='payments'"    (click)="activeTab.set('payments')">💳 Payments</button>
       <button [class.active]="activeTab()==='stats'"       (click)="activeTab.set('stats')">📈 Statistics</button>
       <button [class.active]="activeTab()==='students'"    (click)="activeTab.set('students')">👥 Students</button>
@@ -14,6 +14,7 @@
       <button [class.active]="activeTab()==='bugs'"        (click)="activeTab.set('bugs'); loadBugReports()">🐛 Bug Reports <span class="nb new" *ngIf="bugReports().length">{{ bugReports().length }}</span></button>
       <button [class.active]="activeTab()==='analytics'"   (click)="activeTab.set('analytics'); loadAnalytics()">📊 Analytics</button>
     </nav>
+          <button [class.active]="activeTab()==='blogs'" (click)="activeTab.set('blogs')">📝 Blog Posts</button>
     <button class="sb-logout" (click)="logout()">🚪 Logout</button>
   </aside>
 

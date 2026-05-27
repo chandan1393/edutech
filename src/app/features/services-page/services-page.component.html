@@ -1,18 +1,19 @@
 <div class="page">
   <!-- Hero -->
-  <div class="page-header">
-    <div class="orb o1"></div><div class="orb o2"></div>
-    <div class="container">
-      <a routerLink="/" class="back">← Back to Home</a>
-      <span class="ptag">What We Offer</span>
-      <h1>Our <span class="grad">Services</span></h1>
-      <p>Expert academic assistance across every subject. Each class is handled by a verified specialist.</p>
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="ph-inner">
+        <a routerLink="/" class="ph-back">← Back to Home</a>
+        <div class="ph-tag">What We Offer</div>
+        <h1>Our <span>Services</span></h1>
+        <p>Expert academic assistance across every subject and every LMS platform. Each class is handled end-to-end by a verified, tested specialist.</p>
+      </div>
     </div>
   </div>
 
   <!-- Sticky tab row -->
   <div class="svc-tabs">
-    <div class="container">
+    <div class="wrap">
       <div class="tabs-row">
         <button class="tab-btn" *ngFor="let s of services; let i = index"
           [class.active]="activeService === i" (click)="activeService = i" [style.--c]="s.color">
@@ -24,7 +25,7 @@
 
   <!-- Active service detail -->
   <div class="svc-detail" *ngIf="current">
-    <div class="container">
+    <div class="wrap">
       <div class="detail-layout">
         <!-- Left: info -->
         <div class="detail-main">
@@ -89,7 +90,7 @@
 
   <!-- All services grid -->
   <div class="all-services">
-    <div class="container">
+    <div class="wrap">
       <div class="as-head">
         <h2>All Services</h2>
         <p>Click any service to see full details, inclusions, and pricing guide</p>

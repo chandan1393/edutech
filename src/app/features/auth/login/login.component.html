@@ -1,46 +1,77 @@
-<div class="login-page">
-  <div class="bg-orb orb1"></div>
-  <div class="bg-orb orb2"></div>
-  <div class="grid-bg"></div>
-  <a routerLink="/" class="back-link">← Back to Home</a>
-
-  <div class="login-card">
-    <div class="card-stripe"></div>
-    <div class="card-body">
-      <div class="login-header">
-        <div class="brand">
-          <div class="brand-icon">E</div>
-          <span class="brand-text">EduAssist</span>
+<div class="auth-wrap">
+  <div class="auth-left">
+    <div class="al-bg"></div>
+    <div class="al-blob b1"></div>
+    <div class="al-blob b2"></div>
+    <div class="al-content">
+      <div class="al-logo">
+        <div class="al-mark">EA</div>
+        <div>
+          <span class="al-name">EduAssist</span>
+          <span class="al-tagline">Academic Support</span>
         </div>
-        <h2>Welcome Back 👋</h2>
-        <p>Sign in to your student, writer or admin account</p>
+      </div>
+      <h2 class="al-headline">Expert Academic<br>Assistance for<br>Modern Students</h2>
+      <p class="al-sub">Full class management, assignment guidance, and on-time delivery — handled by verified subject experts. Secure and confidential.</p>
+      <div class="al-trust">
+        <div class="at-item"><div class="at-ico">🔒</div>256-bit SSL encrypted platform</div>
+        <div class="at-item"><div class="at-ico">✅</div>Verified expert tutors only</div>
+        <div class="at-item"><div class="at-ico">💳</div>Secure Stripe payment processing</div>
+        <div class="at-item"><div class="at-ico">🌍</div>Students in 40+ countries</div>
+        <div class="at-item"><div class="at-ico">⚡</div>24/7 support — &lt;5 min response</div>
+      </div>
+    </div>
+    <div class="al-footer">
+      <div class="al-testimonial">
+        <div class="alt-stars">★★★★★</div>
+        <p class="alt-text">"EduAssist handled my entire MBA course. Weekly case studies, two major papers, the final exam — all A-grade. Genuinely outstanding."</p>
+        <span class="alt-who">David M. · MBA — Strategic Management</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-box">
+      <div class="ab-header">
+        <a routerLink="/" class="ab-back">← Back to Home</a>
+        <div class="ab-logo">
+          <div class="ab-mark">EA</div>
+          <div>
+            <span class="ab-name">EduAssist</span>
+            <span class="ab-tag">Academic Support</span>
+          </div>
+        </div>
+        <h1>Welcome Back</h1>
+        <p class="ab-sub">Sign in to your student, writer or admin account</p>
       </div>
 
-      <div *ngIf="error()" class="alert alert-error">⚠️ {{ error() }}</div>
+      <div class="alert-error" *ngIf="error()">⚠ {{ error() }}</div>
 
       <form [formGroup]="form" (ngSubmit)="login()">
         <div class="form-group">
           <label>Email Address</label>
           <input type="email" formControlName="email" placeholder="your@email.com" autocomplete="email" />
-          <span class="field-error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">Please enter a valid email</span>
         </div>
         <div class="form-group">
           <label>Password</label>
-          <div class="input-wrap">
-            <input [type]="showPass() ? 'text' : 'password'" formControlName="password" placeholder="Your password" autocomplete="current-password" />
-            <button type="button" class="toggle-pass" (click)="showPass.set(!showPass())">{{ showPass() ? '🙈' : '👁️' }}</button>
+          <div class="pw-wrap">
+            <input [type]="showPass() ? 'text' : 'password'" formControlName="password"
+                   placeholder="Your password" autocomplete="current-password" />
+            <button type="button" class="pw-eye" (click)="showPass.set(!showPass())">
+              {{ showPass() ? '🙈' : '👁️' }}
+            </button>
           </div>
-          <span class="field-error" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">Password is required</span>
         </div>
-        <div class="forgot-row"><a routerLink="/register" class="register-link">Create account →</a>
-        <a routerLink="/forgot-password">Forgot password?</a></div>
-        <button type="submit" class="btn-login" [disabled]="loading()">
+        <div class="form-actions">
+          <span></span>
+          <a routerLink="/forgot-password" class="forgot-link">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn-auth" [disabled]="loading()">
           {{ loading() ? 'Signing in...' : 'Sign In →' }}
         </button>
       </form>
 
-      <p class="signup-note">No account? <a routerLink="/">Submit a class query</a> to get started.</p>
-      <div class="security-row"><span class="lock-icon">🔒</span> Secured with 256-bit encryption</div>
+      <p class="ab-footer">Don't have an account? <a routerLink="/register">Create one free →</a></p>
     </div>
   </div>
 </div>

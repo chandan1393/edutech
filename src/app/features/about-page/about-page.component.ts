@@ -51,6 +51,15 @@ export class AboutPageComponent {
     { value: '98%',  label: 'On-Time Rate', icon: '⭐' },
   ];
 
+  whyItems = [
+    { icon: '🔒', title: '100% Confidential',      desc: 'Your identity and portal credentials are encrypted. Writers never know who you are. All data deleted after class completion.' },
+    { icon: '✅', title: 'Verified Expert Writers', desc: 'Every tutor passes a rigorous subject-matter test and background check before handling any class.' },
+    { icon: '💳', title: 'Pay-As-You-Go Plans',    desc: 'Never pay everything upfront. Custom installment plans released only as work is delivered and approved by admin.' },
+    { icon: '🔄', title: 'Unlimited Revisions',    desc: 'Not satisfied? Request unlimited revisions within 7 days. We keep working until you approve every deliverable.' },
+    { icon: '📋', title: 'Admin Quality Review',   desc: 'Every piece of work is reviewed by our internal quality team before it reaches you — an extra layer of assurance.' },
+    { icon: '📞', title: '24/7 Live Support',       desc: 'Real humans answer every message. Average WhatsApp response under 5 minutes, email under 2 hours, any timezone.' },
+  ];
+
   process = [
     { icon: '📝', title: 'You Submit Class Details', desc: 'Share your institution, course name, class dates, and LMS portal credentials.' },
     { icon: '💳', title: 'We Set a Payment Plan', desc: 'Admin reviews and creates a custom installment plan. Pay the first installment to begin.' },

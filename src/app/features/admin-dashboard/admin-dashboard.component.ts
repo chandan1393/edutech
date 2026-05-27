@@ -7,18 +7,19 @@ import { PhoneInputComponent } from '../../shared/components/phone-input/phone-i
 import { LocalDatePipe } from '../../shared/pipes/local-date.pipe';
 import { TimezoneService } from '../../core/services/timezone.service';
 import { AuthService } from '../../core/services/auth.service';
+import { AdminBlogComponent } from './admin-blog.component';
 import { ChatComponent } from '../../shared/components/chat/chat.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, ChatComponent, LocalDatePipe, PhoneInputComponent],
+  imports: [CommonModule, AdminBlogComponent, ReactiveFormsModule, FormsModule, ChatComponent, LocalDatePipe, PhoneInputComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
 
-  activeTab = signal<'overview'|'enrollments'|'students'|'queries'|'writers'|'create-user'|'payments'|'stats'|'feedback'|'bugs'|'analytics'>('overview');
+  activeTab = signal<'overview'|'enrollments'|'students'|'queries'|'writers'|'create-user'|'payments'|'stats'|'feedback'|'bugs'|'analytics'|'blogs'>('overview');
   enrollStats = signal<any>({});
   enrollments = signal<any[]>([]);
   students    = signal<any[]>([]);
@@ -67,9 +68,20 @@ export class AdminDashboardComponent implements OnInit {
 
   loadAll() {
     this.api.getEnrollmentStats().subscribe({ next: (s:any) => this.enrollStats.set(s), error:()=>{} });
-    this.api.getAllEnrollments().subscribe({ next: (r:any) => this.enrollments.set(r.content||[]) });
+    this.api.getAllEnrollments().subscribe({
+      next: (r:any) => {
+        // Backend returns Spring Page: { content: [...], totalElements: N }
+        // Handle both Page response and plain array fallback
+        const list = Array.isArray(r) ? r : (r?.content || []);
+        this.enrollments.set(list);
+      },
+      error: (e:any) => {
+        console.error('Failed to load enrollments:', e);
+        this.enrollments.set([]);
+      }
+    });
     this.api.getAllStudents().subscribe({ next: (s:any) => this.students.set(Array.isArray(s)?s:[]) });
-    this.api.getAllQueries().subscribe({ next: (r:any) => this.queries.set(r.content||[]) });
+    this.api.getAllQueries().subscribe({ next: (r:any) => this.queries.set(Array.isArray(r) ? r : (r?.content || [])) });
     this.api.getAllWriters().subscribe({ next: (w:any) => this.writers.set(Array.isArray(w)?w:[]) });
   }
 
@@ -132,8 +144,8 @@ export class AdminDashboardComponent implements OnInit {
             this.selEnrollment.set(u);
             // Re-open so installment drafts refresh
             this.api.getAllEnrollments().subscribe({ next: (r:any) => {
-              this.enrollments.set(r.content||[]);
-              const updated = (r.content||[]).find((e:any) => e.id === this.selEnrollment()?.id);
+              this.enrollments.set(Array.isArray(r) ? r : (r?.content || []));
+              const updated = (Array.isArray(r) ? r : (r?.content || [])).find((e:any) => e.id === this.selEnrollment()?.id);
               if (updated) this.openEnrollment(updated);
             }});
             setTimeout(() => this.planSuccess.set(''), 5000);
@@ -159,8 +171,8 @@ export class AdminDashboardComponent implements OnInit {
   confirmInstallmentPayment(installmentId: number) {
     this.api.confirmInstallment(installmentId).subscribe({
       next: () => this.api.getAllEnrollments().subscribe({ next: (r:any) => {
-        this.enrollments.set(r.content||[]);
-        const updated = (r.content||[]).find((e:any) => e.id === this.selEnrollment()?.id);
+        this.enrollments.set(Array.isArray(r) ? r : (r?.content || []));
+        const updated = (Array.isArray(r) ? r : (r?.content || [])).find((e:any) => e.id === this.selEnrollment()?.id);
         if (updated) this.openEnrollment(updated);
       }})
     });
@@ -173,8 +185,8 @@ export class AdminDashboardComponent implements OnInit {
       next: () => {
         this.assignWriterSuccess.set('Writer assigned! Both writer and student have been notified.');
         this.api.getAllEnrollments().subscribe({ next: (r:any) => {
-          this.enrollments.set(r.content||[]);
-          const updated = (r.content||[]).find((e:any) => e.id === this.selEnrollment()?.id);
+          this.enrollments.set(Array.isArray(r) ? r : (r?.content || []));
+          const updated = (Array.isArray(r) ? r : (r?.content || [])).find((e:any) => e.id === this.selEnrollment()?.id);
           if (updated) this.selEnrollment.set(updated);
         }});
       },
@@ -188,8 +200,8 @@ export class AdminDashboardComponent implements OnInit {
       next: () => {
         this.updateSuccess.set('✅ Approved! Student can download now.');
         this.api.getAllEnrollments().subscribe({ next: (r:any) => {
-          this.enrollments.set(r.content||[]);
-          const updated = (r.content||[]).find((e:any) => e.id === this.selEnrollment()?.id);
+          this.enrollments.set(Array.isArray(r) ? r : (r?.content || []));
+          const updated = (Array.isArray(r) ? r : (r?.content || [])).find((e:any) => e.id === this.selEnrollment()?.id);
           if (updated) this.selEnrollment.set(updated);
         }});
       }

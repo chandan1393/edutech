@@ -1,18 +1,18 @@
 // ── Palette: Clean white + teal + amber ────────────────────────────────────
 $teal:#0d9488;$teal2:#0f766e;$teal3:#ccfbf1;$teal4:#f0fdf9;
-$amber:#f59e0b;$amb2:#d97706;$amb3:#fde68a;$amb4:#fffbeb;
-$blue:#0369a1;$blue2:#0ea5e9;$blue3:#e0f2fe;
+$amber:#b45309;$amb2:#d97706;$amb3:#fde68a;$amb4:#fffbeb;
+$blue:#1e3a8a;$blue2:#1e40af;$blue3:#dbeafe;$blue4:#eff6ff;
 $ok:#10b981;$ok3:#d1fae5;$er:#ef4444;$er3:#fee2e2;
 $bg:#f8fafc;$bg2:#f1f5f9;$bg3:#e2e8f0;
-$sl3:#334155;$sl4:#475569;$sb:#1e2d3d;$sb2:#263344;
+$sl3:#334155;$sl4:#475569;$sb:#0f172a;$sb2:#1e293b;
 $white:#ffffff;$tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;
-$sb:#1e2d3d; $sb2:#263344;
+$sb:#0f172a; $sb2:#1e293b;
 $tx:    #0f172a; $tx2:   #334155; $muted: #64748b;
 $white: #ffffff; $bd:    #e2e8f0;
 $p: $teal;
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-.dash { display: flex; min-height: 100vh; background: $bg; color: $tx; font-family: 'Inter', 'DM Sans', sans-serif; }
+.dash { display: flex; min-height: 100vh; background: $bg; color: $tx; font-family: 'DM Sans', system-ui, sans-serif; }
 
 // ── Sidebar ─────────────────────────────────────────────────────────────────
 .sidebar { width: 250px; min-height: 100vh; background: $sb; border-right: none; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }
@@ -280,7 +280,7 @@ $p: $teal;
 .ic-receipt-section { display:flex;flex-direction:column;gap:6px;border-top:1px solid $bg2;padding-top:10px }
 .ic-rs-label { font-size:.76rem;color:$muted;font-weight:500 }
 .upload-receipt-btn { display:inline-flex;align-items:center;gap:7px;background:$bg;border:1.5px dashed $bd;color:$tx2;padding:9px 14px;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .15s;
-  &:hover{border-color:$teal;color:$teal;background:$teal4}&.loading{opacity:.6;cursor:not-allowed} }
+  &:hover{border-color:$blue2;color:$blue2;background:$blue4}&.loading{opacity:.6;cursor:not-allowed} }
 .replace-receipt-btn { display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:$muted;cursor:pointer;font-size:.79rem;text-decoration:underline;padding:0;font-family:inherit }
 .view-receipt-link { font-size:.79rem;color:$teal;font-weight:600;text-decoration:none;&:hover{text-decoration:underline}}
 
@@ -331,7 +331,7 @@ $p: $teal;
 // ── Student Stats Tab ────────────────────────────────────────────────────────
 .pay-filter-row { display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;
   button { padding:6px 16px;border-radius:20px;border:1.5px solid $bd;background:white;color:$muted;font-size:.81rem;font-weight:600;cursor:pointer;transition:all .15s;
-    &:hover{border-color:$teal;color:$teal}
+    &:hover{border-color:$blue2;color:$blue2}
     &.active{background:$teal;color:white;border-color:$teal;box-shadow:0 4px 10px rgba($teal,.2)} } }
 
 .empty-row { text-align:center;padding:20px;font-size:.84rem;color:$muted }
@@ -400,7 +400,7 @@ $p: $teal;
 .tw-head { display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1.5px solid $bd;background:$bg;flex-wrap:wrap;gap:8px }
 .tw-title { font-size:.93rem;font-weight:700;color:$tx }
 .tw-filters { display:flex;gap:6px;flex-wrap:wrap;
-  button{padding:4px 12px;border-radius:20px;border:1.5px solid $bd;background:white;color:$muted;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:$teal;color:$teal}&.active{background:$teal;color:white;border-color:$teal}} }
+  button{padding:4px 12px;border-radius:20px;border:1.5px solid $bd;background:white;color:$muted;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:$blue2;color:$blue2}&.active{background:$teal;color:white;border-color:$teal}} }
 .tw-empty { text-align:center;padding:18px;font-size:.83rem;color:$muted }
 .tw-list { display:flex;flex-direction:column }
 .tw-row { display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid $bg2;&:last-child{border-bottom:none}&:hover{background:$bg} }
@@ -423,7 +423,7 @@ $p: $teal;
   &:hover{border-color:$teal3;background:$teal4}
   &.tr-approved{border-color:$teal3;background:$teal4}
   &.tr-missed{border-color:rgba($er,.2);background:#fff9f9} }
-.trow-date { width:44px;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,$teal,$blue);border-radius:10px;flex-shrink:0;
+.trow-date { width:44px;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,$blue,$blue2);border-radius:10px;flex-shrink:0;
   .td-day{font-size:1.2rem;font-weight:800;color:white;line-height:1}
   .td-mon{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.05em}
   .td-yr {font-size:.58rem;color:rgba(255,255,255,.5)} }

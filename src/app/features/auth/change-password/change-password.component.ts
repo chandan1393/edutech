@@ -77,7 +77,12 @@ export class ChangePasswordComponent {
       this.form.value.currentPassword,
       this.form.value.newPassword
     ).subscribe({
-      next: () => { this.success.set(true); this.loading.set(false); },
+      next: () => {
+          this.success.set(true);
+          this.loading.set(false);
+          // Auto-navigate to dashboard after 1.5s so user sees the success message
+          setTimeout(() => this.goToDashboard(), 1500);
+        },
       error: (e: any) => {
         this.error.set(e.error?.message || 'Failed to change password. Check your current password.');
         this.loading.set(false);

@@ -31,9 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // If already logged in → go straight to dashboard
+    // If already logged in:
+    //   - firstLogin=true  → must change password first
+    //   - firstLogin=false → go to their dashboard (normal returning user)
     if (this.auth.isLoggedIn()) {
-      this.redirectByRole(this.auth.currentUser()?.role || '');
+      if (this.auth.isFirstLogin()) {
+        this.router.navigate(['/change-password']);
+      } else {
+        this.redirectByRole(this.auth.currentUser()?.role || '');
+      }
       return;
     }
     // Capture return URL (e.g. from payment-success redirect)

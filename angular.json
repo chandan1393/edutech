@@ -40,7 +40,8 @@
               },
               {
                 "type": "anyComponentStyle",
-                "maximumWarning": "4kb"
+                "maximumWarning": "100kb",
+                "maximumError": "200kb"
               }
             ]
           },
@@ -52,6 +53,8 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

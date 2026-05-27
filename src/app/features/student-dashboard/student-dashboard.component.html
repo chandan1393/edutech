@@ -1,6 +1,12 @@
 <div class="dash">
   <aside class="sidebar">
-    <div class="sb-brand"><span class="bi">✦</span><span class="bt">EduAssist</span></div>
+    <div class="sb-brand">
+      <div class="sb-logo">EA</div>
+      <div>
+        <span class="bt">EduAssist</span>
+        <span style="display:block;font-size:.62rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;margin-top:1px">Student Portal</span>
+      </div>
+    </div>
     <div class="sb-profile" *ngIf="profile()">
       <div class="av">{{ profile()?.fullName?.charAt(0) }}</div>
       <div><strong>{{ profile()?.fullName }}</strong><span>Student</span></div>

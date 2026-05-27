@@ -1,17 +1,19 @@
 $teal:#0d9488;$teal2:#0f766e;$teal3:#ccfbf1;$teal4:#f0fdf9;
-$amber:#f59e0b;$amb2:#d97706;$amb4:#fffbeb;$amb3:#fde68a;
+$amber:#b45309;$amb2:#d97706;$amb4:#fffbeb;$amb3:#fde68a;
 $ok:#10b981;$ok3:#d1fae5;$er:#ef4444;$er3:#fee2e2;
-$blue:#0369a1;$blue3:#e0f2fe;
-$sb:#1e2d3d;$white:#ffffff;$bg:#f8fafc;$bg2:#f1f5f9;
+$blue:#1e3a8a;$blue2:#1e40af;$blue3:#3b82f6;$blue4:#dbeafe;$blue3:#e0f2fe;
+$sb:#0f172a;$white:#ffffff;$bg:#f8fafc;$bg2:#f1f5f9;
 $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 *{box-sizing:border-box;margin:0;padding:0}
-.wdash{display:flex;min-height:100vh;background:$bg;font-family:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif}
+.wdash{display:flex;min-height:100vh;background:$bg;font-family:'DM Sans','Plus Jakarta Sans',system-ui,sans-serif}
 
 // Sidebar
 .sb{width:250px;min-height:100vh;background:$sb;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;box-shadow:4px 0 20px rgba(0,0,0,.08)}
+
+.sb-logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#1e3a8a,#1e40af);display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:-.02em;flex-shrink:0;box-shadow:0 2px 8px rgba(30,58,138,.4)}
 .sb-brand{display:flex;align-items:center;gap:9px;padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.06);
   .bi{color:$amber;font-size:1rem}.bt{font-weight:800;font-size:1rem;color:white}.wbadge{margin-left:auto;background:rgba($amber,.2);color:#fde68a;padding:2px 8px;border-radius:8px;font-size:.67rem;font-weight:700}}
 .sb-profile{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.06);
@@ -20,7 +22,7 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 .sb-nav{flex:1;padding:12px;display:flex;flex-direction:column;gap:2px;
   button{display:flex;align-items:center;gap:8px;width:100%;padding:9px 12px;border-radius:9px;background:none;border:none;color:rgba(255,255,255,.5);font-size:.84rem;font-weight:500;cursor:pointer;transition:all .15s;text-align:left;
     &:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9)}
-    &.active{background:rgba($teal,.2);color:$teal3;font-weight:600}
+    &.active{background:rgba($blue2,.25);color:#93c5fd;font-weight:600}
     .nb{margin-left:auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.45);padding:1px 7px;border-radius:8px;font-size:.7rem;font-weight:600}}}
 .sb-privacy{margin:8px 12px;padding:10px 12px;background:rgba($ok,.08);border:1px solid rgba($ok,.15);border-radius:8px;font-size:.72rem;color:rgba($ok,.8);line-height:1.5}
 .sb-out{padding:14px 18px;background:none;border:none;border-top:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.3);font-size:.84rem;cursor:pointer;text-align:left;&:hover{color:#f87171}}
@@ -122,7 +124,7 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 .tracker-widget { background:$white;border:1.5px solid $bd;border-radius:14px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.04) }
 .tw-head { display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1.5px solid $bd;background:$bg;flex-wrap:wrap;gap:8px }
 .tw-title { font-size:.9rem;font-weight:700;color:$tx }
-.tw-filters { display:flex;gap:6px;button{padding:4px 12px;border-radius:20px;border:1.5px solid $bd;background:white;color:$muted;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:$teal;color:$teal}&.active{background:$teal;color:white;border-color:$teal}} }
+.tw-filters { display:flex;gap:6px;button{padding:4px 12px;border-radius:20px;border:1.5px solid $bd;background:white;color:$muted;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:$blue2;color:$blue2}&.active{background:$teal;color:white;border-color:$teal}} }
 .tw-empty { text-align:center;padding:14px;font-size:.82rem;color:$muted }
 .tw-list { display:flex;flex-direction:column }
 .tw-row { display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid $bg2;&:last-child{border-bottom:none}&:hover{background:$bg} }
@@ -139,7 +141,7 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 .wr-task-row { display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid $bd;border-radius:12px;background:$bg;transition:all .2s;
   &:hover{border-color:$teal3;background:$teal4}
   &.wtr-approved{border-color:$teal3;background:$teal4}&.wtr-missed{border-color:rgba($er,.2);background:#fff9f9} }
-.wtr-date { width:42px;height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,$teal,$blue);border-radius:10px;flex-shrink:0;.wtd-d{font-size:1.1rem;font-weight:800;color:white;line-height:1}.wtd-m{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase} }
+.wtr-date { width:42px;height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,$blue,$blue2);border-radius:10px;flex-shrink:0;.wtd-d{font-size:1.1rem;font-weight:800;color:white;line-height:1}.wtd-m{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase} }
 .wtr-body { flex:1;min-width:0;.wtr-title{font-size:.86rem;font-weight:700;color:$tx;margin-bottom:2px}.wtr-meta{display:flex;gap:6px;flex-wrap:wrap}.wtr-type{font-size:.7rem;font-weight:700;background:rgba($blue,.08);color:$blue;padding:2px 7px;border-radius:8px;text-transform:uppercase;letter-spacing:.04em}.wtr-upload-by{font-size:.75rem;color:$muted;margin-top:3px} }
 .wtr-right { display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0 }
 .wtr-days { font-size:.71rem;font-weight:600;color:$muted;&.wtr-urgent{color:$er;font-weight:800}&.wtr-over{color:#e11d48} }
@@ -163,14 +165,14 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 .creds-pending-badge { font-size:.78rem;color:$muted;background:$bg;border:1px solid $bd;padding:4px 12px;border-radius:20px }
 .creds-ok-badge { font-size:.78rem;color:$teal2;background:$teal4;border:1px solid $teal3;padding:4px 12px;border-radius:20px;font-weight:600 }
 .icw-actions { padding:12px 18px;border-top:1px solid $bg2;display:flex;gap:10px }
-.accept-btn { background:linear-gradient(135deg,$teal,$blue);color:white;border:none;padding:9px 22px;border-radius:9px;font-weight:700;font-size:.87rem;cursor:pointer;box-shadow:0 4px 12px rgba($teal,.25);transition:all .2s;&:hover{transform:translateY(-1px)} }
+.accept-btn { background:linear-gradient(135deg,$blue,$blue2);color:white;border:none;padding:9px 22px;border-radius:9px;font-weight:700;font-size:.87rem;cursor:pointer;box-shadow:0 4px 12px rgba($teal,.25);transition:all .2s;&:hover{transform:translateY(-1px)} }
 .decline-btn { background:none;border:1.5px solid rgba($er,.3);color:#e11d48;padding:9px 16px;border-radius:9px;font-weight:700;font-size:.87rem;cursor:pointer;transition:all .15s;&:hover{background:#fff1f2} }
 
 // ── Writer Task Form ──────────────────────────────────────────────────────────
 .task-form-box{background:$bg;border:1.5px solid $bd;border-radius:12px;padding:16px;margin-bottom:18px;h5{font-size:.79rem;font-weight:700;color:$muted;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}}
 .wtr-form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;@media(max-width:600px){grid-template-columns:1fr}}
 .wff{display:flex;flex-direction:column;gap:4px;&.full{grid-column:1/-1}label{font-size:.71rem;font-weight:700;color:$tx2;text-transform:uppercase;letter-spacing:.04em}input,select{background:$white;border:1.5px solid $bd;border-radius:8px;padding:8px 11px;color:$tx;font-size:.84rem;outline:none;font-family:inherit;width:100%;transition:border-color .15s;&:focus{border-color:$teal}}}
-.add-task-btn{background:linear-gradient(135deg,$teal,$blue);color:white;border:none;padding:9px 20px;border-radius:8px;font-weight:700;font-size:.84rem;cursor:pointer;margin-top:8px;transition:all .2s;&:hover{transform:translateY(-1px)}}
+.add-task-btn{background:linear-gradient(135deg,$blue,$blue2);color:white;border:none;padding:9px 20px;border-radius:8px;font-weight:700;font-size:.84rem;cursor:pointer;margin-top:8px;transition:all .2s;&:hover{transform:translateY(-1px)}}
 
 // ── Writer Task Full Cards ─────────────────────────────────────────────────────
 .wr-task-full{border:1.5px solid $bd;border-radius:14px;overflow:hidden;background:$white;margin-bottom:10px;
@@ -185,6 +187,6 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 .wtf-upload-ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .wtf-note-inp{flex:1;min-width:160px;background:$bg;border:1.5px solid $bd;border-radius:8px;padding:8px 11px;color:$tx;font-size:.83rem;outline:none;font-family:inherit;&:focus{border-color:$teal}}
 .wtf-upload-btn{display:inline-flex;align-items:center;gap:7px;background:$teal;color:white;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:700;transition:all .2s;&:hover{background:$teal2}&.uploading{opacity:.7;cursor:not-allowed}}
-.wtf-dl-btn{background:$bg;border:1.5px solid $bd;color:$muted;padding:5px 11px;border-radius:7px;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .15s;&:hover{border-color:$teal;color:$teal;background:$teal4}}
+.wtf-dl-btn{background:$bg;border:1.5px solid $bd;color:$muted;padding:5px 11px;border-radius:7px;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .15s;&:hover{border-color:$blue2;color:$blue2;background:$blue4}}
 .wtf-approved-note{font-size:.79rem;color:$teal2;font-weight:600;background:$teal4;border:1px solid $teal3;padding:5px 12px;border-radius:7px}
 .wtf-reject-note{font-size:.79rem;color:#e11d48;background:#fff1f2;border:1px solid rgba($er,.2);padding:5px 12px;border-radius:7px}

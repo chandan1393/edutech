@@ -1,50 +1,42 @@
-$teal:#0d9488;$teal2:#0f766e;$teal3:#ccfbf1;$amber:#f59e0b;$er:#ef4444;$blue:#0369a1;
-$ok:#10b981;$tx:#0f172a;$muted:#64748b;$bd:#e2e8f0;$bg:#f8fafc;
-
+$navy3:#334155;
+$blue:#1e3a8a;$blue2:#1e40af;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$teal:#0d9488;$teal4:#f0fdf9;$amber:#b45309;$amber4:#fffbeb;
+$navy:#0f172a;$muted:#64748b;$bd:#e2e8f0;$white:#ffffff;$off:#f8fafc;$ok:#16a34a;$ok2:#dcfce7;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif}
+@keyframes pop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes ringPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
-@keyframes checkPop{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-@keyframes orbFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+@keyframes confetti{0%{transform:translateY(-100px) rotate(0)}100%{transform:translateY(100vh) rotate(720deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
 
-*{box-sizing:border-box;margin:0;padding:0}
-.ps-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f0fdf9,#f8fafc,#eff6ff);padding:28px;font-family:'Plus Jakarta Sans','DM Sans',system-ui,sans-serif;position:relative;overflow:hidden}
-.ps-bg{position:absolute;inset:0;pointer-events:none}
-.psb-orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;
-  &.o1{width:500px;height:500px;background:radial-gradient(circle,rgba($teal,.3),transparent);top:-100px;right:-80px;animation:orbFloat 14s ease-in-out infinite}
-  &.o2{width:350px;height:350px;background:radial-gradient(circle,rgba($amber,.2),transparent);bottom:-60px;left:-60px;animation:orbFloat 18s ease-in-out infinite reverse}}
+.ps-page{min-height:100vh;background:linear-gradient(160deg,$blue5 0%,$teal4 50%,$amber4 100%);display:flex;align-items:center;justify-content:center;padding:32px 20px;position:relative;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif}
+.ps-bg{position:absolute;inset:0;background-image:radial-gradient(circle,rgba($blue2,.08) 1.5px,transparent 1.5px);background-size:32px 32px;pointer-events:none}
 
-.ps-card{position:relative;z-index:1;background:white;border:1.5px solid $bd;border-radius:24px;padding:48px 40px;max-width:480px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.1);animation:fadeUp .55s ease both;
-  h1{font-size:1.7rem;font-weight:800;color:$tx;margin-bottom:8px}
-  h2{font-size:1.4rem;font-weight:700;color:$tx;margin-bottom:10px}
-  p{font-size:.9rem;color:$muted;line-height:1.65;margin-bottom:8px}
-  .ps-sub{font-size:.84rem;color:$muted}}
+.ps-card{background:$white;border:1.5px solid $bd;border-radius:24px;padding:52px 48px;max-width:540px;width:100%;text-align:center;box-shadow:0 24px 80px rgba($blue,.12);position:relative;z-index:1;
+  @media(max-width:580px){padding:36px 28px}
+}
 
-// Spinner (verifying)
-.ps-spinner{width:56px;height:56px;border:4px solid rgba($teal,.15);border-top-color:$teal;border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 24px}
+.ps-check{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,$ok,$teal);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem;color:$white;box-shadow:0 8px 28px rgba($teal,.35);animation:pop .5s ease both}
+.ps-badge{display:inline-flex;align-items:center;gap:7px;background:$ok2;color:$ok;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:6px 16px;border-radius:20px;margin-bottom:18px;border:1px solid rgba($ok,.2);}
+.ps-badge-dot{width:7px;height:7px;border-radius:50%;background:$ok;animation:pulse 2s ease-in-out infinite}
 
-// Icon wrap
-.ps-icon-wrap{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;
-  &.success-icon{background:linear-gradient(135deg,$teal,$ok)}
-  &.cancel-icon,&.error-icon{background:$bg;border:1.5px solid $bd;font-size:2.4rem}}
-.success-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid $teal;animation:ringPulse 1.8s ease-out infinite}
-.ps-checkmark{font-size:2rem;font-weight:900;color:white;animation:checkPop .5s cubic-bezier(.22,.61,.36,1) both .1s}
+.ps-card h1{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:$navy;letter-spacing:-.03em;margin-bottom:10px;animation:fadeUp .5s ease both .1s}
+.ps-card p.ps-sub{font-size:.93rem;color:$muted;line-height:1.72;margin-bottom:28px;animation:fadeUp .5s ease both .2s}
 
-// Details card
-.ps-details{background:$bg;border:1.5px solid $bd;border-radius:14px;padding:18px;margin:24px 0;text-align:left;display:flex;flex-direction:column;gap:0}
-.psd-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid $bd;&:last-child{border-bottom:none}span{font-size:.82rem;color:$muted}strong{font-size:.88rem;color:$tx;font-weight:600}}
-.psd-amount{font-size:1.1rem !important;font-weight:800 !important;color:$teal !important}
-.psd-ok{color:$ok !important}
+.ps-details{background:$off;border:1.5px solid $bd;border-radius:14px;padding:20px;margin-bottom:28px;animation:fadeUp .5s ease both .3s}
+.ps-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid $bd;font-size:.87rem;
+  &:last-child{border-bottom:none}
+  span{color:$muted}
+  strong{color:$navy;font-weight:600}
+}
 
-// Next steps
-.ps-next{background:rgba($teal,.05);border:1.5px solid $teal3;border-radius:12px;padding:16px;display:flex;align-items:flex-start;gap:12px;text-align:left;margin:0 0 20px;
-  .psn-icon{font-size:1.6rem;flex-shrink:0}
-  strong{display:block;font-size:.87rem;color:$tx;font-weight:700;margin-bottom:4px}
-  p{font-size:.82rem;color:$muted;margin:0;line-height:1.5}}
+.ps-steps{background:$blue5;border:1px solid $blue4;border-radius:14px;padding:20px;margin-bottom:28px;text-align:left;animation:fadeUp .5s ease both .4s}
+.ps-steps-ttl{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;color:$blue2;margin-bottom:14px}
+.ps-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:.84rem;color:$navy3;line-height:1.6;&:last-child{margin-bottom:0}
+  .pss-num{width:22px;height:22px;border-radius:50%;background:$blue2;color:$white;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:1px}
+}
 
-// Countdown
-.ps-countdown{font-size:.83rem;color:$muted;margin-bottom:16px;strong{color:$teal}}
-
-// Buttons
-.ps-btn{width:100%;padding:13px;background:linear-gradient(135deg,$teal,$blue);color:white;border:none;border-radius:11px;font-size:.93rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba($teal,.3);&:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba($teal,.4)}
-  &.outline{background:none;border:1.5px solid $bd;color:$muted;box-shadow:none;&:hover{border-color:$teal;color:$teal;transform:none}}}
+.ps-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .5s ease both .5s}
+.btn-primary{background:linear-gradient(135deg,$blue2,$blue);color:$white;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem;box-shadow:0 4px 16px rgba($blue,.28);transition:all .2s;&:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba($blue,.38)}}
+.btn-outline{background:$white;border:1.5px solid $bd;color:$navy;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .2s;&:hover{border-color:$blue3;color:$blue2}}
+.ps-support{font-size:.8rem;color:$muted;margin-top:22px;animation:fadeUp .5s ease both .6s;a{color:$blue2;text-decoration:none;&:hover{text-decoration:underline}}}
