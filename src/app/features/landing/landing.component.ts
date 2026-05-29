@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { environment } from '../../../environments/environment';
 import { ApiService } from '../../core/services/api.service';
+import { HttpClient } from '@angular/common/http';
 import { CountryService } from '../../core/services/country.service';
 import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input.component';
 
@@ -110,6 +112,28 @@ export class LandingComponent implements OnInit, OnDestroy {
     { icon: '🌍', title: '40+ Countries Supported',  desc: 'Canvas, Blackboard, Moodle, D2L, Coursera, edX and all major LMS platforms.' },
     { icon: '📞', title: '24/7 Live Support',         desc: 'Real humans answer every message. WhatsApp response under 5 minutes.' },
   ];
+  pricingTiers = [
+    { label: 'Standard Courses',  range: '$42 – $85 / week',  color: '#1e40af', desc: 'Covers the majority of undergraduate and graduate courses. Full class management from day one to final grade.' },
+    { label: 'Advanced Courses',  range: '$90 – $150 / week', color: '#0d9488', desc: 'Specialized subjects such as Advanced Statistics, Supply Chain, US Tax Law, or Engineering require deeper expertise.' },
+    { label: 'Budget Subjects',   range: '$42 – $65 / week',  color: '#b45309', desc: 'Math, Physics, Chemistry (non-lab) and Biology courses are often priced lower and billed by the week.' },
+  ];
+
+  universities = [
+    { name: 'University of Phoenix' }, { name: 'University of Florida' }, { name: 'UMass Online' },
+    { name: 'DeVry University' },       { name: 'Ashford University' },    { name: 'McGraw-Hill Connect' },
+    { name: 'Concordia University' },   { name: 'Kaplan University' },     { name: 'American Intercontinental' },
+    { name: 'Bethel University' },      { name: 'South University' },      { name: 'Strayer University' },
+  ];
+
+  subjectCategories = [
+    { icon: '📐', title: 'Mathematics', desc: 'From calculus to quantitative analysis — CPM, Pearson MyMathLab, McGraw-Hill Connect and university portal math courses handled by verified math specialists.' },
+    { icon: '⚗️', title: 'Chemistry Classes', desc: 'General chemistry, organic chemistry, biochemistry — whether it is Aleks, OpenStax or any top university platform, our chemistry experts deliver top grades.' },
+    { icon: '⚙️', title: 'Physics Classes', desc: 'Mechanics, electromagnetism, thermodynamics and more. We handle midterm tests, physics assignments and full online physics courses from US and UK universities.' },
+    { icon: '🏥', title: 'Nursing Courses', desc: 'One of the most in-demand subjects we cover. Discussion posts, care plan papers, ATI quizzes, NCLEX prep, and weekly nursing course tasks — all managed for you.' },
+    { icon: '📊', title: 'Business & Management', desc: 'MBA programmes, HRM, finance, strategy, marketing, law and accounting. University of Phoenix, Devry, Capella, Ashford and similar management degrees covered end-to-end.' },
+    { icon: '💻', title: 'Computer Science', desc: 'Python, Java, JavaScript, SQL, data structures, algorithms, machine learning projects — all programming labs and CS assignments completed and tested before submission.' },
+  ];
+
 
   faqs = [
     { q: 'Is it safe to pay someone to do my online class?',
@@ -145,7 +169,8 @@ export class LandingComponent implements OnInit, OnDestroy {
     private fb:     FormBuilder,
     private api:    ApiService,
     private router: Router,
-    public  cs:     CountryService
+    public  cs:     CountryService,
+    private http:   HttpClient
   ) {
     this.queryForm = this.fb.group({
       name:    ['', [Validators.required, Validators.minLength(2), Validators.maxLength(80)]],
@@ -166,6 +191,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setTestimonials();
     this.startTestiTimer();
+    this.loadFeedbackFromApi();
     this.stepTimer = setInterval(() => this.activeStep.set((this.activeStep() + 1) % 4), 2800);
     this.scrollFn  = () => this.navScrolled.set(window.scrollY > 40);
     window.addEventListener('scroll', this.scrollFn, { passive: true });
@@ -186,6 +212,25 @@ export class LandingComponent implements OnInit, OnDestroy {
       { rating: 5, text: 'I was skeptical at first but the process was completely transparent from day one. Got my custom plan the next morning and my expert started same day. Every assignment delivered with days to spare.', studentName: 'Emily Watson', course: 'Statistics — Applied Regression', location: 'Ohio, USA', avatar: 'EW' },
       { rating: 5, text: 'Used EduAssist for a full 16-week MBA course. Weekly case studies, two major research papers, a group project and the final exam — everything came back A-grade. Worth every single cent.', studentName: 'Daniel Morrison', course: 'MBA — Strategic Management', location: 'Georgia, USA', avatar: 'DM', alt: true },
     ]);
+  }
+
+  private loadFeedbackFromApi() {
+    this.http.get<any[]>(`${environment.apiUrl}/public/feedback`).subscribe({
+      next: (items) => {
+        if (items && items.length > 0) {
+          this.testimonials.set(items.map(f => ({
+            rating: f.rating,
+            text: f.feedbackText,
+            studentName: f.studentName,
+            course: f.course,
+            location: f.location || '',
+            avatar: f.avatar || (f.studentName?.slice(0, 2).toUpperCase()),
+            alt: false
+          })));
+        }
+      },
+      error: () => {} // keep static fallback
+    });
   }
 
   testiGroups(): any[][] {

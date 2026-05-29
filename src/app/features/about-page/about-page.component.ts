@@ -17,8 +17,8 @@ export class AboutPageComponent {
       bio: 'Former professor with 15+ years of academic experience. Founded EduAssist to help students worldwide manage their online classes with verified expert support.'
     },
     {
-      name: 'Priya Nair', role: 'Head of Quality Assurance', avatar: 'PN',
-      expertise: 'M.Sc Statistics, IIT Delhi',
+      name: 'Rachel Brooks', role: 'Head of Quality Assurance', avatar: 'PN',
+      expertise: 'M.Sc Statistics, University of Michigan',
       bio: 'Reviews every completed class submission before it reaches the student. 8 years in academic editing — guarantees nothing leaves without her approval.'
     },
     {

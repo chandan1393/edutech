@@ -7,19 +7,19 @@ import { PhoneInputComponent } from '../../shared/components/phone-input/phone-i
 import { LocalDatePipe } from '../../shared/pipes/local-date.pipe';
 import { TimezoneService } from '../../core/services/timezone.service';
 import { AuthService } from '../../core/services/auth.service';
-import { AdminBlogComponent } from './admin-blog.component';
+import { AdminContentComponent } from './admin-content.component';
 import { ChatComponent } from '../../shared/components/chat/chat.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, AdminBlogComponent, ReactiveFormsModule, FormsModule, ChatComponent, LocalDatePipe, PhoneInputComponent],
+  imports: [CommonModule, AdminContentComponent, ReactiveFormsModule, FormsModule, ChatComponent, LocalDatePipe, PhoneInputComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent implements OnInit {
 
-  activeTab = signal<'overview'|'enrollments'|'students'|'queries'|'writers'|'create-user'|'payments'|'stats'|'feedback'|'bugs'|'analytics'|'blogs'>('overview');
+  activeTab = signal<'overview'|'enrollments'|'students'|'queries'|'writers'|'create-user'|'payments'|'stats'|'feedback'|'bugs'|'analytics'|'content'>('overview');
   enrollStats = signal<any>({});
   enrollments = signal<any[]>([]);
   students    = signal<any[]>([]);

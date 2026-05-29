@@ -62,8 +62,7 @@
             "development": {
               "optimization": false,
               "sourceMap": true,
-              "namedChunks": true,
-              "aot": true
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"

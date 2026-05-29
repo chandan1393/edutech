@@ -47,7 +47,7 @@
       </h1>
       <p class="hero-sub">
         Need reliable online class help for quizzes, assignments, exams, discussion posts, or full courses?
-        EduAssist provides professional academic assistance for busy USA college students with
+        EduPilotHelp provides professional academic assistance for busy USA college students with
         <strong>secure, confidential, and affordable</strong> support.
       </p>
 
@@ -342,6 +342,113 @@
   </div>
 </section>
 
+
+<!-- ═══ PRICING SECTION ═══ -->
+<section class="pricing-section" id="pricing">
+  <div class="wrap">
+    <div class="pricing-layout">
+      <div class="pl-left">
+        <div class="sec-label">Transparent Pricing</div>
+        <h2 class="sec-h2">How Much Does It Cost to<br><span>Pay Someone to Take My Class?</span></h2>
+        <p class="pl-intro">The cost of online class help depends on <strong>subject complexity</strong> and <strong>course duration</strong>. A 4-week course costs less than an 8-week one. We offer fully transparent pricing with no hidden fees — and you can get a better deal when booking multiple classes.</p>
+        <div class="pl-tiers">
+          <div class="plt-card" *ngFor="let t of pricingTiers" [style.border-left-color]="t.color">
+            <div class="plt-label">{{ t.label }}</div>
+            <div class="plt-range" [style.color]="t.color">{{ t.range }}</div>
+            <div class="plt-desc">{{ t.desc }}</div>
+          </div>
+        </div>
+        <div class="pl-note">
+          <p>Our pricing is flexible. If you have a specific budget in mind, <strong>tell us during enquiry</strong> and we will work around it. Hire us to manage your online class at an affordable price that works for you.</p>
+        </div>
+      </div>
+      <div class="pl-right">
+        <div class="pl-cta-card">
+          <div class="plc-ico">💬</div>
+          <h3>Get Your Custom Quote</h3>
+          <p>Submit your class details and receive a transparent, itemised payment plan within 24 hours. Zero obligation to proceed.</p>
+          <div class="plc-features">
+            <div>✓ No upfront payment required</div>
+            <div>✓ Pay as each week is delivered</div>
+            <div>✓ Flexible installment plans</div>
+            <div>✓ Better rates for multiple classes</div>
+          </div>
+          <button class="btn-primary-sm" (click)="scrollTo('query')" style="width:100%;justify-content:center;margin-top:18px">Get My Free Quote →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ UNIVERSITIES SECTION ═══ -->
+<section class="univ-section">
+  <div class="wrap">
+    <div class="sec-label" style="text-align:center">Top Grade Track Record</div>
+    <h2 class="sec-h2" style="text-align:center">The Secret to Top Grades When We<br><span>Handle Your Online Classes</span></h2>
+    <p class="sec-sub" style="max-width:780px;margin:0 auto 36px">Our experts have completed coursework for thousands of students enrolled at the institutions below. Because course structures and assignment banks do not change frequently, your assigned expert has often encountered your exact coursework before — making a top grade the expected outcome, not just the goal.</p>
+    <div class="univ-grid">
+      <div class="univ-card" *ngFor="let u of universities">
+        <span class="univ-ico">🏛️</span>
+        <span>{{ u.name }}</span>
+      </div>
+    </div>
+    <div class="univ-note">
+      <p>We have completed coursework for students enrolled at every institution above and have proven solution frameworks ready. Strict plagiarism policies apply — all work is written fresh and unique for every student.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NATIONWIDE + VPN SECTION ═══ -->
+<section class="coverage-section">
+  <div class="wrap">
+    <div class="sec-label">USA Coverage</div>
+    <h2 class="sec-h2">Take My Online Class in<br><span>Any State Across the USA</span></h2>
+    <p class="cov-sub">Finding a trustworthy online class expert in your region can be difficult. EduAssist has verified tutors strategically positioned across the USA — covering Florida, New York, California, Texas, Ohio, and every other state. Wherever you study, we have someone local to your university region.</p>
+    <div class="cov-cards">
+      <div class="cov-card">
+        <div class="cc-icon">🗺️</div>
+        <h3>Nationwide Expert Network</h3>
+        <p>Our class experts are distributed across all 50 US states. When you submit your class, we match you with a tutor whose location matches your university region — ensuring authenticity and minimising IP-flag risk on institutional portals.</p>
+      </div>
+      <div class="cov-card">
+        <div class="cc-icon">🔐</div>
+        <h3>Secure VPN Access Protocol</h3>
+        <p>For every class we take, we verify location compatibility with your institution and apply a secure VPN to match the expected IP range. Your portal activity looks exactly like normal student access — safe, compliant, and undetectable.</p>
+      </div>
+      <div class="cov-card">
+        <div class="cc-icon">⚡</div>
+        <h3>Flexible Pace — Your Schedule</h3>
+        <p>Whether you need intensive week-one catch-up or a steady weekly pace throughout the semester, our system adapts to your class timeline. Rush delivery and extended-pacing plans both available at no extra charge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SUBJECT CATEGORIES ═══ -->
+<section class="subjcat-section" id="subject-categories">
+  <div class="wrap">
+    <div style="text-align:center">
+      <div class="sec-label">200+ Subjects Covered</div>
+      <h2 class="sec-h2">We Handle Online Classes for a<br><span>Wide Range of Subjects</span></h2>
+      <p class="sec-sub" style="margin:0 auto 44px">When you pay someone to manage your online class, you need certainty that results will meet your expectations. EduAssist is a single platform covering every subject — one trusted service for all your courses.</p>
+    </div>
+    <div class="subjcat-grid">
+      <div class="sc-card" *ngFor="let s of subjectCategories">
+        <div class="sc-top">
+          <div class="sc-ico">{{ s.icon }}</div>
+          <h3>{{ s.title }}</h3>
+        </div>
+        <p>{{ s.desc }}</p>
+      </div>
+    </div>
+    <div class="sc-banner">
+      <p>The subjects listed above are not exhaustive. We have certified experts across <strong>more than 200 academic disciplines</strong>. Whatever your course — just say the word and we handle it for you.</p>
+      <button class="btn-primary-sm" (click)="scrollTo('query')">Take My Online Class →</button>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═══ TESTIMONIALS — Static attractive grid ═══ -->
 <section class="testi-section" id="reviews">
   <div class="wrap">
@@ -545,6 +652,13 @@
     </div>
   </div>
 </section>
+
+<!-- ═══ DISCLAIMER ═══ -->
+<div class="disclaimer-bar">
+  <div class="wrap">
+    <p><strong>Academic Guidance Disclaimer:</strong> EduAssist provides academic support and reference materials to assist students in understanding coursework. All delivered work is intended as a learning reference and model answer. Students are responsible for how they use the materials provided in accordance with their institution policies.</p>
+  </div>
+</div>
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">

@@ -13,8 +13,8 @@
       <button [class.active]="activeTab()==='feedback'"    (click)="activeTab.set('feedback'); loadFeedback()">⭐ Feedback <span class="nb" *ngIf="feedbackList().length">{{ feedbackList().length }}</span></button>
       <button [class.active]="activeTab()==='bugs'"        (click)="activeTab.set('bugs'); loadBugReports()">🐛 Bug Reports <span class="nb new" *ngIf="bugReports().length">{{ bugReports().length }}</span></button>
       <button [class.active]="activeTab()==='analytics'"   (click)="activeTab.set('analytics'); loadAnalytics()">📊 Analytics</button>
+      <button [class.active]="activeTab()==='content'" (click)="activeTab.set('content')">📝 Content</button>
     </nav>
-          <button [class.active]="activeTab()==='blogs'" (click)="activeTab.set('blogs')">📝 Blog Posts</button>
     <button class="sb-logout" (click)="logout()">🚪 Logout</button>
   </aside>
 
@@ -709,6 +709,10 @@
     </div>
 
     <!-- ══ ANALYTICS ══ -->
+    <div *ngIf="activeTab()==='content'" class="tab">
+      <app-admin-content></app-admin-content>
+    </div>
+
     <div *ngIf="activeTab()==='analytics'" class="tab">
       <div class="ph"><h1>Platform Analytics</h1></div>
       <div class="sgrid" *ngIf="analytics()">

@@ -1,0 +1,137 @@
+<div class="ac-wrap">
+
+  <!-- Tab switcher -->
+  <div class="ac-tabs">
+    <div class="act-header">
+      <h1>Content Management</h1>
+      <p>Manage blog posts and student feedback shown on the public site</p>
+    </div>
+    <div class="act-btns">
+      <button [class.active]="tab() === 'blogs'"    (click)="tab.set('blogs')">📝 Blog Posts</button>
+      <button [class.active]="tab() === 'feedback'" (click)="tab.set('feedback')">⭐ Student Feedback</button>
+    </div>
+  </div>
+
+  <!-- ══════════ BLOGS TAB ══════════ -->
+  <div *ngIf="tab() === 'blogs'">
+
+    <!-- Blog edit form -->
+    <div class="panel" *ngIf="blogEdit()">
+      <div class="panel-head">
+        <button class="back-btn" (click)="blogEdit.set(null)">← Cancel</button>
+        <h2>{{ blogEdit()?.id ? 'Edit Blog Post' : 'New Blog Post' }}</h2>
+      </div>
+      <form [formGroup]="blogForm" (ngSubmit)="saveBlog()" class="form-body">
+        <div class="fg2">
+          <div class="fg"><label>Title *</label><input type="text" formControlName="title" placeholder="Blog post title" /></div>
+          <div class="fg"><label>Category</label><input type="text" formControlName="category" placeholder="e.g. Online Class Help" /></div>
+        </div>
+        <div class="fg2">
+          <div class="fg"><label>Author</label><input type="text" formControlName="author" placeholder="EduAssist Team" /></div>
+          <div class="fg"><label>Read Time (min)</label><input type="number" formControlName="readTimeMinutes" min="1" /></div>
+        </div>
+        <div class="fg"><label>Excerpt *</label><textarea formControlName="excerpt" rows="2" placeholder="Brief description shown on blog list page"></textarea></div>
+        <div class="fg"><label>Content (HTML) *</label><textarea formControlName="content" rows="14" placeholder="Full article — HTML tags supported: h2, h3, p, ul, li, strong, em"></textarea></div>
+        <div class="form-checks">
+          <label class="chk"><input type="checkbox" formControlName="published" /><span>Published (visible on site)</span></label>
+          <label class="chk"><input type="checkbox" formControlName="featured" /><span>Featured (shown prominently)</span></label>
+        </div>
+        <div class="form-actions">
+          <div class="err-msg" *ngIf="blogErr()">{{ blogErr() }}</div>
+          <button type="button" class="btn-cancel" (click)="blogEdit.set(null)">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="blogSaving()">{{ blogSaving() ? 'Saving...' : 'Save Blog Post' }}</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Blog list -->
+    <div *ngIf="!blogEdit()">
+      <div class="list-header">
+        <span class="list-count">{{ blogs().length }} articles</span>
+        <button class="btn-add" (click)="openBlog(null)">+ New Blog Post</button>
+      </div>
+      <div class="content-table">
+        <div class="ct-head" style="grid-template-columns:3fr 1fr 1fr 1fr 1fr">
+          <span>Title</span><span>Category</span><span>Author</span><span>Status</span><span>Actions</span>
+        </div>
+        <div class="ct-row" *ngFor="let b of blogs()" style="grid-template-columns:3fr 1fr 1fr 1fr 1fr">
+          <div class="cr-title"><strong>{{ b.title }}</strong><small>{{ b.excerpt?.slice(0,70) }}...</small></div>
+          <div class="cr-cell">{{ b.category }}</div>
+          <div class="cr-cell">{{ b.author }}</div>
+          <div class="cr-cell">
+            <button class="flag-btn" [class.flag-on]="b.published" (click)="toggleBlogPublished(b)" title="Toggle published">
+              {{ b.published ? '🟢 Published' : '⚫ Draft' }}
+            </button>
+          </div>
+          <div class="cr-actions">
+            <button class="act-btn" (click)="openBlog(b)">Edit</button>
+            <button class="act-btn danger" (click)="deleteBlog(b.id)">Delete</button>
+          </div>
+        </div>
+        <div class="ct-empty" *ngIf="blogs().length === 0">No blog posts yet. Click + New Blog Post to add your first article.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ FEEDBACK TAB ══════════ -->
+  <div *ngIf="tab() === 'feedback'">
+
+    <!-- Feedback edit form -->
+    <div class="panel" *ngIf="fbEdit()">
+      <div class="panel-head">
+        <button class="back-btn" (click)="fbEdit.set(null)">← Cancel</button>
+        <h2>{{ fbEdit()?.id ? 'Edit Feedback' : 'Add Student Feedback' }}</h2>
+      </div>
+      <form [formGroup]="fbForm" (ngSubmit)="saveFeedback()" class="form-body">
+        <div class="fg2">
+          <div class="fg"><label>Student Name *</label><input type="text" formControlName="studentName" placeholder="e.g. James Richardson" /></div>
+          <div class="fg"><label>Rating (1–5) *</label><input type="number" formControlName="rating" min="1" max="5" /></div>
+        </div>
+        <div class="fg2">
+          <div class="fg"><label>Course</label><input type="text" formControlName="course" placeholder="e.g. MBA — Operations Management" /></div>
+          <div class="fg"><label>Location</label><input type="text" formControlName="location" placeholder="e.g. Texas, USA" /></div>
+        </div>
+        <div class="fg"><label>Avatar Initials <em>(optional, auto-generated from name)</em></label><input type="text" formControlName="avatar" placeholder="e.g. JR" maxlength="3" /></div>
+        <div class="fg"><label>Feedback Text *</label><textarea formControlName="feedbackText" rows="5" placeholder="Student review text — this will be shown on the landing page"></textarea></div>
+        <div class="form-checks">
+          <label class="chk"><input type="checkbox" formControlName="visible" /><span>Visible on landing page (uncheck to hide)</span></label>
+        </div>
+        <div class="form-actions">
+          <div class="err-msg" *ngIf="fbErr()">{{ fbErr() }}</div>
+          <button type="button" class="btn-cancel" (click)="fbEdit.set(null)">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="fbSaving()">{{ fbSaving() ? 'Saving...' : 'Save Feedback' }}</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Feedback list -->
+    <div *ngIf="!fbEdit()">
+      <div class="list-header">
+        <span class="list-count">{{ feedbacks().length }} reviews · {{ visibleFeedbackCount }} shown on site</span>
+        <button class="btn-add" (click)="openFeedback(null)">+ Add Student Feedback</button>
+      </div>
+      <div class="fb-grid">
+        <div class="fb-card" *ngFor="let f of feedbacks()" [class.fb-hidden]="!f.visible">
+          <div class="fbc-top">
+            <div class="fbc-av">{{ f.avatar || f.studentName?.slice(0,2) }}</div>
+            <div class="fbc-info">
+              <strong>{{ f.studentName }}</strong>
+              <span>{{ f.course }}</span>
+              <span class="fbc-loc" *ngIf="f.location">📍 {{ f.location }}</span>
+            </div>
+            <div class="fbc-stars">{{ stars(f.rating) }}</div>
+          </div>
+          <p class="fbc-text">{{ f.feedbackText }}</p>
+          <div class="fbc-actions">
+            <button class="flag-btn" [class.flag-on]="f.visible" (click)="toggleVisible(f)">
+              {{ f.visible ? '🟢 Visible' : '⚫ Hidden' }}
+            </button>
+            <button class="act-btn" (click)="openFeedback(f)">Edit</button>
+            <button class="act-btn danger" (click)="deleteFeedback(f.id)">Delete</button>
+          </div>
+        </div>
+        <div class="ct-empty" style="grid-column:1/-1" *ngIf="feedbacks().length === 0">No feedback yet. Click + Add Student Feedback to add your first review.</div>
+      </div>
+    </div>
+  </div>
+</div>
