@@ -1,0 +1,43 @@
+<div class="faq-page">
+  <div class="ph">
+    <div class="wrap">
+      <div class="ph-inner">
+        <a routerLink="/" class="ph-back">← Back to Home</a>
+        <div class="ph-tag">Help Centre</div>
+        <h1>Frequently Asked Questions About Online Class Help</h1>
+        <p>Everything you need to know before hiring an expert for your online class. Can't find your answer? Reach our team via WhatsApp in under 5 minutes.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="faq-main">
+    <div class="wrap">
+      <div class="faq-layout">
+        <div class="faq-sidebar">
+          <div class="faq-cats">
+            <button *ngFor="let c of categories" [class.active]="activeCategory() === c" (click)="activeCategory.set(c)">{{ c }}</button>
+          </div>
+          <div class="sidebar-cta">
+            <div class="sc-ico">💬</div>
+            <h3>Still Have Questions?</h3>
+            <p>Our academic advisors respond under 5 minutes on WhatsApp, 24/7.</p>
+            <a routerLink="/" class="btn-primary" style="margin-top:14px;width:100%;justify-content:center">Contact Our Team</a>
+          </div>
+        </div>
+        <div class="faq-content">
+          <div class="faq-count">{{ filtered.length }} questions in <strong>{{ activeCategory() }}</strong></div>
+          <div class="faq-list">
+            <div class="faq-item" *ngFor="let f of filtered; let i = index"
+                 [class.open]="active() === i" (click)="toggle(i)">
+              <div class="faq-q">
+                <div class="faq-ico">{{ active() === i ? '−' : '+' }}</div>
+                <span>{{ f.q }}</span>
+              </div>
+              <div class="faq-ans" *ngIf="active() === i"><p>{{ f.a }}</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

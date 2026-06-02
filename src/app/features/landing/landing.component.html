@@ -9,12 +9,12 @@
       </div>
     </a>
     <nav class="nav-links" [class.open]="mobileMenuOpen()">
-      <a (click)="scrollTo('how')">How It Works</a>
+      <a routerLink="/how-it-works">How It Works</a>
       <a (click)="scrollTo('services')">Services</a>
-      <a (click)="scrollTo('subjects')">Subjects</a>
-      <a (click)="scrollTo('reviews')">Reviews</a>
+      <a routerLink="/pay-someone-to-do-my-online-class">Class Help</a>
+      <a routerLink="/reviews">Reviews</a>
+      <a routerLink="/faq">FAQ</a>
       <a routerLink="/blog">Blog</a>
-      <a (click)="scrollTo('faq')">FAQ</a>
       <div class="nav-mb">
         <button class="nbtn-outline" (click)="goToLogin()">Sign In</button>
         <button class="nbtn-solid" (click)="scrollTo('query')">Get Free Quote</button>
@@ -676,17 +676,18 @@
         </div>
         <div class="ft-col">
           <h4>Services</h4>
+          <a routerLink="/pay-someone-to-do-my-online-class">Pay For My Online Class</a>
           <a routerLink="/services">Full Online Class</a>
           <a routerLink="/services">Essays &amp; Research</a>
           <a routerLink="/services">Programming Help</a>
-          <a routerLink="/services">Data &amp; Statistics</a>
           <a routerLink="/services">Business &amp; MBA</a>
         </div>
         <div class="ft-col">
           <h4>Company</h4>
-          <a routerLink="/about">About EduAssist</a>
-          <a (click)="scrollTo('how')">How It Works</a>
-          <a (click)="scrollTo('reviews')">Student Reviews</a>
+          <a routerLink="/about">About EduPilotHelp</a>
+          <a routerLink="/how-it-works">How It Works</a>
+          <a routerLink="/reviews">Student Reviews</a>
+          <a routerLink="/faq">FAQ</a>
           <a routerLink="/blog">Blog &amp; Resources</a>
           <a (click)="goToLogin()">Student Login</a>
         </div>
@@ -694,9 +695,9 @@
           <h4>Legal</h4>
           <a routerLink="/privacy-policy">Privacy Policy</a>
           <a routerLink="/terms">Terms &amp; Conditions</a>
-          <a routerLink="/terms">Refund Policy</a>
+          <a routerLink="/refund-policy">Refund Policy</a>
+          <a routerLink="/academic-integrity">Academic Integrity</a>
           <a (click)="scrollTo('contact')">Contact Us</a>
-          <a routerLink="/blog">Resources</a>
         </div>
       </div>
     </div>

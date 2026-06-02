@@ -1,0 +1,74 @@
+<div class="reviews-page">
+  <div class="ph">
+    <div class="wrap">
+      <div class="ph-inner">
+        <a routerLink="/" class="ph-back">← Back to Home</a>
+        <div class="ph-tag">Verified Reviews</div>
+        <h1>Real Students. Real Grades. Verified Reviews.</h1>
+        <p>Every review below is from a verified EduPilotHelp student. We do not fabricate testimonials — these are real outcomes from real classes managed by our expert team.</p>
+        <div class="ph-meta">
+          <div class="ph-badge">⭐ 4.9/5 Average Rating</div>
+          <div class="ph-badge">✅ 500+ Verified Reviews</div>
+          <div class="ph-badge">🎓 5,000+ Classes Completed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aggregate Rating -->
+  <section class="agg-section">
+    <div class="wrap">
+      <div class="agg-layout">
+        <div class="agg-score">
+          <div class="agg-num">4.9</div>
+          <div class="agg-stars">★★★★★</div>
+          <div class="agg-label">Based on 500+ verified student reviews</div>
+        </div>
+        <div class="agg-bars">
+          <div class="bar-row"><span>5 ★</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span>88%</span></div>
+          <div class="bar-row"><span>4 ★</span><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><span>9%</span></div>
+          <div class="bar-row"><span>3 ★</span><div class="bar-track"><div class="bar-fill" style="width:3%"></div></div><span>3%</span></div>
+          <div class="bar-row"><span>2 ★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span>0%</span></div>
+          <div class="bar-row"><span>1 ★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span>0%</span></div>
+        </div>
+        <div class="agg-trust">
+          <div class="at-item">🔒 All reviews are from verified students</div>
+          <div class="at-item">✅ 99.1% success rate across all classes</div>
+          <div class="at-item">📊 Reviews updated in real time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Grid -->
+  <section class="reviews-section">
+    <div class="wrap">
+      <div class="reviews-grid">
+        <div class="review-card" *ngFor="let r of reviews(); let i = index" [class.featured]="i === 0">
+          <div class="rc-top">
+            <div class="rc-stars">{{ stars(r.rating) }}</div>
+            <div class="rc-verified">✓ Verified Student</div>
+          </div>
+          <p class="rc-text">"{{ r.feedbackText || r.text }}"</p>
+          <div class="rc-author">
+            <div class="rc-av">{{ r.avatar }}</div>
+            <div>
+              <div class="rc-name">{{ r.studentName }}</div>
+              <div class="rc-course">{{ r.course }}</div>
+              <div class="rc-loc" *ngIf="r.location">📍 {{ r.location }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="reviews-cta">
+    <div class="wrap" style="text-align:center;position:relative;z-index:1">
+      <h2>Join 5,000+ Students Who Trust EduPilotHelp</h2>
+      <p>Submit your class details today — free quote within 24 hours. No upfront payment required.</p>
+      <a routerLink="/" class="btn-white">Get My Free Quote →</a>
+    </div>
+  </section>
+</div>

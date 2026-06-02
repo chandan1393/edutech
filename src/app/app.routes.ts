@@ -21,5 +21,11 @@ export const routes: Routes = [
   { path: 'blog', loadComponent: () => import('./features/blog/blog-list.component').then(m => m.BlogListComponent) },
   { path: 'blog/:slug', loadComponent: () => import('./features/blog/blog-detail.component').then(m => m.BlogDetailComponent) },
   { path: 'payment-success', canActivate: [authGuard], loadComponent: () => import('./features/payment-success/payment-success.component').then(m => m.PaymentSuccessComponent) },
+  { path: 'pay-someone-to-do-my-online-class', loadComponent: () => import('./features/seo-pages/pillar.component').then(m => m.PillarComponent) },
+  { path: 'how-it-works', loadComponent: () => import('./features/how-it-works/how-it-works.component').then(m => m.HowItWorksComponent) },
+  { path: 'reviews', loadComponent: () => import('./features/reviews-page/reviews-page.component').then(m => m.ReviewsPageComponent) },
+  { path: 'faq', loadComponent: () => import('./features/faq-page/faq-page.component').then(m => m.FaqPageComponent) },
+  { path: 'refund-policy', loadComponent: () => import('./features/refund-policy/refund-policy.component').then(m => m.RefundPolicyComponent) },
+  { path: 'academic-integrity', loadComponent: () => import('./features/academic-integrity/academic-integrity.component').then(m => m.AcademicIntegrityComponent) },
   { path: '**', redirectTo: '' }
 ];

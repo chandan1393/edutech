@@ -1,3 +1,4 @@
+import { SeoService } from '../../core/services/seo.service';
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -165,7 +166,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     'Biology', 'Chemistry', 'Nursing', 'Psychology', 'Sociology', 'History', 'Law', 'Economics',
   ];
 
-  constructor(
+  constructor(private seo: SeoService, 
     private fb:     FormBuilder,
     private api:    ApiService,
     private router: Router,
@@ -189,6 +190,12 @@ export class LandingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.seo.set({
+      title: 'Pay Someone To Do My Online Class | EduPilotHelp — From $42/Week',
+      description: 'Pay someone to do your online class starting from $42/week. Verified experts handle Canvas, Blackboard, Moodle — quizzes, assignments, exams & discussion posts. 99.1% success rate. 5,000+ classes completed. Free quote in 24 hours.',
+      keywords: 'pay someone to do my online class, online class help, take my online class, pay someone to take my online class',
+      canonical: '/'
+    });
     this.setTestimonials();
     this.startTestiTimer();
     this.loadFeedbackFromApi();

@@ -1,0 +1,16 @@
+$blue:#1e3a8a;$blue2:#1e40af;$teal:#0d9488;$navy:#0f172a;$navy3:#334155;$muted:#64748b;$bd:#e2e8f0;$white:#fff;$off:#f8fafc;$blue4:#dbeafe;$blue5:#eff6ff;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px}
+.wrap-mid{max-width:780px;margin:0 auto;padding:0 40px;@media(max-width:600px){padding:0 20px}}
+.ph{background:linear-gradient(145deg,$blue,$blue2 60%,$teal 100%);padding:72px 0 56px;position:relative;overflow:hidden;&::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1.5px,transparent 1.5px);background-size:32px 32px}}
+.ph-inner{position:relative;z-index:1}
+.ph-back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.88rem;margin-bottom:22px;background:rgba(255,255,255,.1);padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);transition:all .2s;&:hover{color:#fff;background:rgba(255,255,255,.18)}}
+.ph-tag{display:inline-flex;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.2)}
+.ph h1{font-family:"Playfair Display",serif;font-size:clamp(2rem,3.5vw,3rem);color:#fff;font-weight:700;line-height:1.12;letter-spacing:-.03em;margin-bottom:12px}
+.ph p{font-size:1rem;color:rgba(255,255,255,.62);line-height:1.78;max-width:560px}
+.legal-body{padding:64px 0;background:$off;.legal-card{background:$white;border:1.5px solid $bd;border-radius:18px;padding:44px 52px;box-shadow:0 4px 20px rgba(0,0,0,.05);@media(max-width:600px){padding:28px 24px}}}
+.legal-updated{display:inline-flex;align-items:center;gap:7px;background:$blue5;color:$blue2;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid $blue4;margin-bottom:28px}
+.legal-card h2{font-family:"Playfair Display",serif;font-size:1.4rem;font-weight:700;color:$navy;margin:32px 0 12px;letter-spacing:-.01em;&:first-of-type{margin-top:0}}
+.legal-card p{font-size:.93rem;color:$navy3;line-height:1.82;margin-bottom:14px}
+.legal-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;padding-left:4px;li{font-size:.9rem;color:$navy3;line-height:1.7;display:flex;align-items:flex-start;gap:9px;&::before{content:"✦";color:$blue2;font-size:.65rem;margin-top:5px;flex-shrink:0}}}
+.legal-card a{color:$blue2;text-decoration:none;&:hover{text-decoration:underline}}

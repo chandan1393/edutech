@@ -1,0 +1,69 @@
+<div class="hiw-page">
+  <div class="ph">
+    <div class="wrap">
+      <div class="ph-inner">
+        <a routerLink="/" class="ph-back">← Back to Home</a>
+        <div class="ph-tag">Simple Process</div>
+        <h1>How EduPilotHelp Works</h1>
+        <p>From class submission to final grade — four transparent steps, zero surprises. Every stage is designed to protect your privacy, guarantee your results, and give you full control.</p>
+        <div class="ph-meta">
+          <div class="ph-badge">📋 3 minutes to submit</div>
+          <div class="ph-badge">⏱ Plan in 24 hours</div>
+          <div class="ph-badge">⚡ Expert same day</div>
+          <div class="ph-badge">📦 Work before deadlines</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="steps-section">
+    <div class="wrap-mid">
+      <div class="steps-container">
+        <div class="step-block" *ngFor="let s of steps; let i = index">
+          <div class="sb-left">
+            <div class="sb-num">{{ s.num }}</div>
+            <div class="sb-line" *ngIf="i < steps.length - 1"></div>
+          </div>
+          <div class="sb-right">
+            <div class="sb-icon">{{ s.icon }}</div>
+            <h2>{{ s.title }}</h2>
+            <div class="sb-time">⏱ {{ s.time }}</div>
+            <p class="sb-desc">{{ s.desc }}</p>
+            <ul class="sb-details">
+              <li *ngFor="let d of s.details">{{ d }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guar-section">
+    <div class="wrap">
+      <div style="text-align:center;margin-bottom:44px">
+        <div class="sec-lbl">Our Commitments</div>
+        <h2 class="sec-h2">The EduPilotHelp <span>Guarantee</span></h2>
+      </div>
+      <div class="guar-grid">
+        <div class="guar-card" *ngFor="let g of guarantees">
+          <div class="gc-ico">{{ g.icon }}</div>
+          <h3>{{ g.title }}</h3>
+          <p>{{ g.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="wrap" style="text-align:center;position:relative;z-index:1">
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);color:#fff;font-weight:700;margin-bottom:12px">
+        Ready to Get Started?
+      </h2>
+      <p style="color:rgba(255,255,255,.55);font-size:.97rem;margin-bottom:28px">Submit your class details in 3 minutes. Free quote within 24 hours.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a routerLink="/" class="btn-white">Get My Free Quote →</a>
+        <a routerLink="/pay-someone-to-do-my-online-class" class="btn-ghost">Learn More</a>
+      </div>
+    </div>
+  </section>
+</div>

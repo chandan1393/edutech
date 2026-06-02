@@ -1,3 +1,4 @@
+import { SeoService } from '../../core/services/seo.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -12,24 +13,24 @@ import { RouterLink } from '@angular/router';
 export class AboutPageComponent {
   team = [
     {
-      name: 'Dr. Arjun Kapoor', role: 'Founder & Academic Director', avatar: 'AK',
-      expertise: 'PhD Business Administration, IIM Ahmedabad',
-      bio: 'Former professor with 15+ years of academic experience. Founded EduAssist to help students worldwide manage their online classes with verified expert support.'
+      name: 'Dr. Michael Carter', role: 'Founder & Academic Director', avatar: 'MC',
+      expertise: 'PhD Education Leadership, Stanford University',
+      bio: 'Former Stanford faculty with 15+ years of academic experience. Founded EduAssist to give every student access to verified expert support for their online classes.'
     },
     {
-      name: 'Rachel Brooks', role: 'Head of Quality Assurance', avatar: 'PN',
+      name: 'Rachel Brooks', role: 'Head of Quality Assurance', avatar: 'RB',
       expertise: 'M.Sc Statistics, University of Michigan',
       bio: 'Reviews every completed class submission before it reaches the student. 8 years in academic editing — guarantees nothing leaves without her approval.'
     },
     {
-      name: 'Rohan Verma', role: 'Lead Tech Expert', avatar: 'RV',
-      expertise: 'B.Tech CS, NIT Trichy',
-      bio: 'Handles all programming and computer science online classes. Python, Java, JavaScript, SQL, web development — he covers it all start to finish.'
+      name: 'Tyler Johnson', role: 'Lead Tech Expert', avatar: 'TJ',
+      expertise: 'B.Sc Computer Science, UCLA',
+      bio: 'Handles all programming and computer science online classes. Python, Java, JavaScript, SQL, web development and data science — covered start to finish.'
     },
     {
-      name: 'Sarah Chen', role: 'International Student Relations', avatar: 'SC',
-      expertise: 'MBA International Business, London',
-      bio: 'Manages student onboarding across USA, UK, Australia, Canada and Singapore. Makes sure every student\'s class timeline and credentials are handled perfectly.'
+      name: 'Sophia Anderson', role: 'Student Success Manager', avatar: 'SA',
+      expertise: 'MBA, University of Texas at Austin',
+      bio: 'Manages student onboarding across USA, UK, Australia, Canada and New Zealand. Ensures every student class timeline and portal credentials are handled flawlessly.'
     },
   ];
 

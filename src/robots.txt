@@ -1,0 +1,18 @@
+# EduPilotHelp — robots.txt
+User-agent: *
+Allow: /
+
+# Block private areas
+Disallow: /api/
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /writer
+Disallow: /change-password
+Disallow: /reset-password
+Disallow: /payment-success
+
+# Sitemap location
+Sitemap: https://www.edupilothelp.com/sitemap.xml
+
+# Crawl delay (be polite)
+Crawl-delay: 1
