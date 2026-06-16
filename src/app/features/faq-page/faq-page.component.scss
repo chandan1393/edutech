@@ -1,5 +1,5 @@
-$blue:#1e3a8a;$blue2:#1e40af;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
-$teal:#0d9488;$navy:#0f172a;$navy3:#334155;$muted:#64748b;$bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#f8fafc;$off2:#f1f5f9;
+$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$teal:#2563eb;$navy:#0f172a;$navy3:#334155;$muted:#64748b;$bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#f8fafc;$off2:#f1f5f9;
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 .wrap{max-width:1360px;margin:0 auto;padding:0 40px;@media(max-width:640px){padding:0 20px}}
 .ph{background:linear-gradient(145deg,$blue,$blue2 60%,$teal 100%);padding:80px 0 64px;position:relative;overflow:hidden;&::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1.5px,transparent 1.5px);background-size:32px 32px}}

@@ -35,13 +35,13 @@ import { ApiService } from '../../../core/services/api.service';
 .fw-trigger{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;padding:9px 18px;border-radius:25px;font-size:.83rem;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(245,158,11,.3);transition:all .2s;&:hover{transform:translateY(-1px)}&.active{background:linear-gradient(135deg,#d97706,#b45309)}}
 .fw-panel{position:absolute;bottom:calc(100% + 10px);right:0;width:300px;background:white;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.15);border:1.5px solid #e2e8f0;z-index:1000;overflow:hidden}
 .fw-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #f1f5f9;h4{font-size:.9rem;font-weight:700;color:#0f172a}button{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1rem;&:hover{color:#0f172a}}}
-.fw-body{padding:16px 18px;textarea{width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:9px 12px;font-size:.84rem;color:#0f172a;font-family:inherit;resize:vertical;outline:none;margin-top:12px;&:focus{border-color:#0d9488}}}
+.fw-body{padding:16px 18px;textarea{width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:9px 12px;font-size:.84rem;color:#0f172a;font-family:inherit;resize:vertical;outline:none;margin-top:12px;&:focus{border-color:#2563eb}}}
 .fw-stars{display:flex;gap:4px}.fw-star{background:none;border:none;font-size:1.8rem;cursor:pointer;color:#e2e8f0;transition:color .15s;padding:0;&.active{color:#f59e0b}}
 .fw-rating-label{font-size:.78rem;color:#64748b;margin-top:5px;height:14px}
 .fw-anon{display:flex;align-items:center;gap:7px;font-size:.79rem;color:#64748b;margin-top:10px;cursor:pointer}
 .fw-err{font-size:.78rem;color:#e11d48;margin-top:8px}
-.fw-submit{width:100%;background:linear-gradient(135deg,#0d9488,#0369a1);color:white;border:none;padding:10px;border-radius:9px;font-weight:700;font-size:.87rem;cursor:pointer;margin-top:12px;transition:all .2s;&:hover{transform:translateY(-1px)}&:disabled{opacity:.6;cursor:not-allowed;transform:none}}
-.fw-success{font-size:.83rem;color:#0d9488;font-weight:600;padding:8px 14px;background:#f0fdf9;border:1.5px solid #ccfbf1;border-radius:10px}
+.fw-submit{width:100%;background:linear-gradient(135deg,#2563eb,#0369a1);color:white;border:none;padding:10px;border-radius:9px;font-weight:700;font-size:.87rem;cursor:pointer;margin-top:12px;transition:all .2s;&:hover{transform:translateY(-1px)}&:disabled{opacity:.6;cursor:not-allowed;transform:none}}
+.fw-success{font-size:.83rem;color:#2563eb;font-weight:600;padding:8px 14px;background:#eff6ff;border:1.5px solid #dbeafe;border-radius:10px}
   `]
 })
 export class FeedbackWidgetComponent {

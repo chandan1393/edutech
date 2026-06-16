@@ -1,7 +1,7 @@
-$teal:#0d9488;$teal2:#0f766e;$teal3:#ccfbf1;$teal4:#f0fdf9;
+$teal:#2563eb;$teal2:#1e3a8a;$teal3:#dbeafe;$teal4:#eff6ff;
 $amber:#b45309;$amb2:#d97706;$amb4:#fffbeb;$amb3:#fde68a;
 $ok:#10b981;$ok3:#d1fae5;$er:#ef4444;$er3:#fee2e2;
-$blue:#1e3a8a;$blue2:#1e40af;$blue3:#3b82f6;$blue4:#dbeafe;$blue3:#e0f2fe;
+$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue3:#e0f2fe;
 $sb:#0f172a;$white:#ffffff;$bg:#f8fafc;$bg2:#f1f5f9;
 $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 
@@ -13,7 +13,7 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 // Sidebar
 .sb{width:250px;min-height:100vh;background:$sb;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;box-shadow:4px 0 20px rgba(0,0,0,.08)}
 
-.sb-logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#1e3a8a,#1e40af);display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:-.02em;flex-shrink:0;box-shadow:0 2px 8px rgba(30,58,138,.4)}
+.sb-logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#1e3a8a,#2563eb);display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:-.02em;flex-shrink:0;box-shadow:0 2px 8px rgba(30,58,138,.4)}
 .sb-brand{display:flex;align-items:center;gap:9px;padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.06);
   .bi{color:$amber;font-size:1rem}.bt{font-weight:800;font-size:1rem;color:white}.wbadge{margin-left:auto;background:rgba($amber,.2);color:#fde68a;padding:2px 8px;border-radius:8px;font-size:.67rem;font-weight:700}}
 .sb-profile{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.06);
@@ -113,7 +113,7 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;$p:$teal;
 .hc-head { display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:white;border-bottom:1px solid $bg2;
   .hc-num { font-size:.72rem;font-weight:700;color:$muted;text-transform:uppercase;letter-spacing:.06em } }
 .sub-chip { font-size:.71rem;font-weight:700;padding:3px 9px;border-radius:20px;
-  &.sr{background:#dbeafe;color:#1d4ed8}&.sd{background:$teal4;color:$teal2}&.se{background:#fee2e2;color:#e11d48}&.sp{background:$bg2;color:$muted} }
+  &.sr{background:#dbeafe;color:#1e3a8a}&.sd{background:$teal4;color:$teal2}&.se{background:#fee2e2;color:#e11d48}&.sp{background:$bg2;color:$muted} }
 .hc-body { padding:10px 14px;display:flex;flex-direction:column;gap:7px }
 .hc-row { display:flex;gap:10px;font-size:.83rem;span{color:$muted;min-width:80px;flex-shrink:0}strong{color:$tx;font-weight:600}
   .admin-note{color:#7c3aed;font-style:italic} }

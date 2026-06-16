@@ -16,13 +16,13 @@ export class ServicesPageComponent {
 
   services = [
     {
-      icon: '📚', title: 'Full Online Class', color: '#0d9488', tag: 'Most Popular',
+      icon: '📚', title: 'Full Online Class', color: '#2563eb', tag: 'Most Popular',
       intro: 'We manage your entire online class from the first day to the last. Share your portal credentials and course details — our expert logs in and handles every quiz, discussion, assignment, and exam throughout the class duration. You enroll once, we deliver everything.',
       features: [
         'Complete class management from start to end date',
         'All quizzes, discussions, assignments, and exams handled',
         'Work submitted directly in your institution\'s portal',
-        'Progress tracked via your EduAssist dashboard',
+        'Progress tracked via your EduPilotHelp dashboard',
         'Admin-reviewed before each file is delivered',
         'Full payment installment plan — pay as you go',
         'Writer assigned after first installment confirmed',

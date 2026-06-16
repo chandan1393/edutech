@@ -59,15 +59,15 @@ export class LandingComponent implements OnInit, OnDestroy {
   successHighlights = [
     { pct: '99.1%', label: 'Success Rate',         sub: 'B or better in 5,000+ classes over 3 years',          color: '#16a34a', bg: '#dcfce7', border: '#bbf7d0' },
     { pct: '4.9/5', label: 'Student Rating',        sub: 'Rated by verified students across all subjects',       color: '#b45309', bg: '#fffbeb', border: '#fde68a' },
-    { pct: '98%',   label: 'On-Time Delivery',      sub: 'Work delivered before every deadline, every class',    color: '#1e40af', bg: '#eff6ff', border: '#dbeafe' },
+    { pct: '98%',   label: 'On-Time Delivery',      sub: 'Work delivered before every deadline, every class',    color: '#1e3a8a', bg: '#eff6ff', border: '#dbeafe' },
     { pct: '24hrs', label: 'Quote Response',         sub: 'Custom plan sent within 24 hours of submission',      color: '#7c3aed', bg: '#f5f3ff', border: '#e9d5ff' },
   ];
 
   services = [
-    { icon: '📚', title: 'Full Online Class',        tag: 'Most Popular', color: '#1e40af', desc: 'Complete class management — quizzes, discussions, projects and exams from start to final grade.' },
+    { icon: '📚', title: 'Full Online Class',        tag: 'Most Popular', color: '#1e3a8a', desc: 'Complete class management — quizzes, discussions, projects and exams from start to final grade.' },
     { icon: '📝', title: 'Essays & Research Papers', tag: 'High Demand',  color: '#0d9488', desc: 'APA, MLA, Chicago — research papers, essays and reports written to your exact rubric.' },
     { icon: '💻', title: 'Programming & CS',         tag: 'Tech',         color: '#7c3aed', desc: 'Python, Java, JavaScript, SQL — all coding labs, projects and assignments completed and tested.' },
-    { icon: '📊', title: 'Statistics & Data',        tag: 'STEM',         color: '#0891b2', desc: 'SPSS, R, Excel — from raw data to professional interpretation with full methodology.' },
+    { icon: '📊', title: 'Statistics & Data',        tag: 'STEM',         color: '#2563eb', desc: 'SPSS, R, Excel — from raw data to professional interpretation with full methodology.' },
     { icon: '🏦', title: 'Business & MBA',           tag: 'Executive',    color: '#b45309', desc: 'Case studies, business plans, strategy reports and financial modeling by MBA specialists.' },
     { icon: '⚖️', title: 'Law & Social Sciences',   tag: 'Specialized',  color: '#be185d', desc: 'Legal briefs, psychology, sociology and criminology coursework — citation-perfect.' },
   ];
@@ -84,7 +84,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   ];
 
   howSteps = [
-    { num: '01', icon: '📋', title: 'Submit Class Details',   desc: 'Share your course, institution, portal URL, and class dates. Free — zero commitment.', badge: '3 minutes', color: '#1e40af' },
+    { num: '01', icon: '📋', title: 'Submit Class Details',   desc: 'Share your course, institution, portal URL, and class dates. Free — zero commitment.', badge: '3 minutes', color: '#1e3a8a' },
     { num: '02', icon: '💰', title: 'Receive Custom Plan',    desc: 'Admin reviews your workload and sends a personalized payment plan for your approval.', badge: '24 hours',  color: '#0d9488' },
     { num: '03', icon: '✍️', title: 'Expert Takes Over',     desc: 'Your verified expert logs into your portal and handles all tasks throughout the class.', badge: 'Instantly', color: '#7c3aed' },
     { num: '04', icon: '📦', title: 'Download Your Work',    desc: 'Work is reviewed, packaged, and available in your secure dashboard before every deadline.', badge: 'On time',  color: '#b45309' },
@@ -114,7 +114,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     { icon: '📞', title: '24/7 Live Support',         desc: 'Real humans answer every message. WhatsApp response under 5 minutes.' },
   ];
   pricingTiers = [
-    { label: 'Standard Courses',  range: '$42 – $85 / week',  color: '#1e40af', desc: 'Covers the majority of undergraduate and graduate courses. Full class management from day one to final grade.' },
+    { label: 'Standard Courses',  range: '$42 – $85 / week',  color: '#1e3a8a', desc: 'Covers the majority of undergraduate and graduate courses. Full class management from day one to final grade.' },
     { label: 'Advanced Courses',  range: '$90 – $150 / week', color: '#0d9488', desc: 'Specialized subjects such as Advanced Statistics, Supply Chain, US Tax Law, or Engineering require deeper expertise.' },
     { label: 'Budget Subjects',   range: '$42 – $65 / week',  color: '#b45309', desc: 'Math, Physics, Chemistry (non-lab) and Biology courses are often priced lower and billed by the week.' },
   ];
@@ -138,12 +138,12 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   faqs = [
     { q: 'Is it safe to pay someone to do my online class?',
-      a: 'Yes. EduAssist uses 256-bit SSL encryption to protect all your data. Your portal credentials are only accessible to your assigned expert and our admin team. We never share your identity with writers, and all credentials are deleted after class completion. Thousands of students from the USA, UK, Canada and Australia trust us every semester.' },
+      a: 'Yes. EduPilotHelp uses 256-bit SSL encryption to protect all your data. Your portal credentials are only accessible to your assigned expert and our admin team. We never share your identity with writers, and all credentials are deleted after class completion. Thousands of students from the USA, UK, Canada and Australia trust us every semester.' },
     { q: 'How much does it cost to hire someone to take my online class?',
       a: 'Pricing starts from $42/week for standard coursework. The exact cost depends on subject complexity, number of credit hours, class duration, and workload intensity. Submit your class details and we\'ll send a transparent, itemized installment plan within 24 hours — zero obligation to proceed.' },
     { q: 'Can you do my online class for me on Canvas, Blackboard or Moodle?',
       a: 'Yes — we work with all major LMS platforms including Canvas, Blackboard, Moodle, D2L Brightspace, Coursera, edX, McGraw-Hill Connect, and Pearson MyLab. Our experts navigate any institutional portal and handle all coursework from day one.' },
-    { q: 'What subjects can EduAssist handle for my online class?',
+    { q: 'What subjects can EduPilotHelp handle for my online class?',
       a: 'We cover 50+ subjects including Nursing, Computer Science, Business & MBA, Mathematics, Statistics, Psychology, Law, Engineering, Data Science, Finance, English, Biology, Chemistry, History, and more. Each class is matched to a verified specialist in that exact field.' },
     { q: 'When will an expert be assigned to my class?',
       a: 'Once you approve the payment plan and confirm your first installment, your expert is assigned immediately — typically within a few hours. They log into your portal the same day and begin working on any pending assignments.' },
@@ -212,12 +212,12 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   setTestimonials() {
     this.testimonials.set([
-      { rating: 5, text: 'I was working full-time and taking two online courses. EduAssist handled both — got A grades in both. The expert was always ahead of deadlines and the admin team was incredibly responsive throughout.', studentName: 'Marcus Thompson', course: 'MBA — Operations Management', location: 'Texas, USA', avatar: 'MT' },
+      { rating: 5, text: 'I was working full-time and taking two online courses. EduPilotHelp handled both — got A grades in both. The expert was always ahead of deadlines and the admin team was incredibly responsive throughout.', studentName: 'Marcus Thompson', course: 'MBA — Operations Management', location: 'Texas, USA', avatar: 'MT' },
       { rating: 5, text: 'My Java programming class was completely overwhelming. The expert completed every lab, passed all autograder tests and left comments in the code so I could follow along. Genuinely incredible service.', studentName: 'Sarah Mitchell', course: 'Computer Science — Java Programming', location: 'California, USA', avatar: 'SM', alt: true },
-      { rating: 5, text: 'As an international student juggling work and family, I needed help with my nursing coursework. EduAssist handled every discussion post and written paper. Delivered before every single deadline.', studentName: 'Jessica Williams', course: 'Nursing — Healthcare Management', location: 'Florida, USA', avatar: 'JW' },
+      { rating: 5, text: 'As an international student juggling work and family, I needed help with my nursing coursework. EduPilotHelp handled every discussion post and written paper. Delivered before every single deadline.', studentName: 'Jessica Williams', course: 'Nursing — Healthcare Management', location: 'Florida, USA', avatar: 'JW' },
       { rating: 5, text: 'The pay-as-you-go installment plan made it genuinely affordable. I only paid after each week was delivered and reviewed. Completely transparent process from start to finish — highly recommended.', studentName: 'James Richardson', course: 'Business Law — Contract Law', location: 'New York, USA', avatar: 'JR', alt: true },
       { rating: 5, text: 'I was skeptical at first but the process was completely transparent from day one. Got my custom plan the next morning and my expert started same day. Every assignment delivered with days to spare.', studentName: 'Emily Watson', course: 'Statistics — Applied Regression', location: 'Ohio, USA', avatar: 'EW' },
-      { rating: 5, text: 'Used EduAssist for a full 16-week MBA course. Weekly case studies, two major research papers, a group project and the final exam — everything came back A-grade. Worth every single cent.', studentName: 'Daniel Morrison', course: 'MBA — Strategic Management', location: 'Georgia, USA', avatar: 'DM', alt: true },
+      { rating: 5, text: 'Used EduPilotHelp for a full 16-week MBA course. Weekly case studies, two major research papers, a group project and the final exam — everything came back A-grade. Worth every single cent.', studentName: 'Daniel Morrison', course: 'MBA — Strategic Management', location: 'Georgia, USA', avatar: 'DM', alt: true },
     ]);
   }
 

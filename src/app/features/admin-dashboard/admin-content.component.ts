@@ -34,7 +34,7 @@ export class AdminContentComponent implements OnInit {
     this.blogForm = this.fb.group({
       title:           ['', Validators.required],
       category:        ['Online Class Help'],
-      author:          ['EduAssist Team'],
+      author:          ['EduPilotHelp Team'],
       readTimeMinutes: [5],
       excerpt:         ['', Validators.required],
       content:         ['', Validators.required],
@@ -66,7 +66,7 @@ export class AdminContentComponent implements OnInit {
     this.blogEdit.set(b || {});
     this.blogErr.set('');
     if (b?.id) this.blogForm.patchValue(b);
-    else this.blogForm.reset({ category: 'Online Class Help', author: 'EduAssist Team', readTimeMinutes: 5, published: false, featured: false });
+    else this.blogForm.reset({ category: 'Online Class Help', author: 'EduPilotHelp Team', readTimeMinutes: 5, published: false, featured: false });
   }
 
   saveBlog() {

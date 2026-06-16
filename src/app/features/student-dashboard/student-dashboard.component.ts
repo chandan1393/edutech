@@ -227,7 +227,7 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
       next: (blob: Blob) => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url; a.download = `EduAssist_Receipt_${installmentId}.html`;
+        a.href = url; a.download = `EduPilotHelp_Receipt_${installmentId}.html`;
         document.body.appendChild(a); a.click();
         document.body.removeChild(a); window.URL.revokeObjectURL(url);
         this.slipDownloadingId.set(null);

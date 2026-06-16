@@ -15,7 +15,7 @@ export class AboutPageComponent {
     {
       name: 'Dr. Michael Carter', role: 'Founder & Academic Director', avatar: 'MC',
       expertise: 'PhD Education Leadership, Stanford University',
-      bio: 'Former Stanford faculty with 15+ years of academic experience. Founded EduAssist to give every student access to verified expert support for their online classes.'
+      bio: 'Former Stanford faculty with 15+ years of academic experience. Founded EduPilotHelp to give every student access to verified expert support for their online classes.'
     },
     {
       name: 'Rachel Brooks', role: 'Head of Quality Assurance', avatar: 'RB',

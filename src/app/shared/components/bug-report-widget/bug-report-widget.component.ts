@@ -43,10 +43,10 @@ import { ApiService } from '../../../core/services/api.service';
 .br-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #f1f5f9;h4{font-size:.9rem;font-weight:700;color:#0f172a}button{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:1rem;&:hover{color:#0f172a}}}
 .br-body{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .br-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.brf{display:flex;flex-direction:column;gap:4px;label{font-size:.71rem;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em}input,select,textarea{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;padding:8px 11px;font-size:.84rem;color:#0f172a;font-family:inherit;outline:none;width:100%;resize:none;transition:border-color .15s;&:focus{border-color:#0d9488}}}
+.brf{display:flex;flex-direction:column;gap:4px;label{font-size:.71rem;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em}input,select,textarea{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:8px;padding:8px 11px;font-size:.84rem;color:#0f172a;font-family:inherit;outline:none;width:100%;resize:none;transition:border-color .15s;&:focus{border-color:#2563eb}}}
 .br-err{font-size:.78rem;color:#e11d48}
 .br-submit{background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;padding:10px;border-radius:9px;font-weight:700;font-size:.87rem;cursor:pointer;transition:all .2s;&:hover{transform:translateY(-1px)}&:disabled{opacity:.6;cursor:not-allowed;transform:none}}
-.br-success{padding:16px 18px;font-size:.85rem;color:#0d9488;font-weight:500;line-height:1.6}
+.br-success{padding:16px 18px;font-size:.85rem;color:#2563eb;font-weight:500;line-height:1.6}
   `]
 })
 export class BugReportComponent {

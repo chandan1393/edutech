@@ -1,5 +1,5 @@
-$blue:#1e3a8a;$blue2:#1e40af;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
-$teal:#0d9488;$teal4:#f0fdf9;$navy:#0f172a;$navy3:#334155;$muted:#64748b;
+$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$teal:#2563eb;$teal4:#eff6ff;$navy:#0f172a;$navy3:#334155;$muted:#64748b;
 $bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#f8fafc;$off2:#f1f5f9;$ok:#16a34a;$er:#dc2626;
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -11,7 +11,7 @@ $bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#f8fafc;$off2:#f1f5f9;$ok:#16a34a;$er:
 .act-btns{display:flex;gap:8px;button{padding:9px 20px;border-radius:9px;border:1.5px solid $bd;background:$off;color:$muted;font-size:.87rem;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;&.active,&:hover{background:$blue5;border-color:$blue4;color:$blue2;font-weight:600}}}
 
 // List header
-.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;.list-count{font-size:.86rem;color:$muted}.btn-add{background:$teal;border:none;color:$white;padding:9px 20px;border-radius:9px;font-size:.87rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;&:hover{background:#0f766e}}}
+.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;.list-count{font-size:.86rem;color:$muted}.btn-add{background:$teal;border:none;color:$white;padding:9px 20px;border-radius:9px;font-size:.87rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;&:hover{background:#1e3a8a}}}
 
 // Panel (edit form)
 .panel{background:$white;border:1.5px solid $bd;border-radius:16px;overflow:hidden}

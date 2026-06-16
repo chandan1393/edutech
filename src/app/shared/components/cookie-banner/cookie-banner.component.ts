@@ -35,9 +35,9 @@ import { RouterLink } from '@angular/router';
 }
 .cb-icon{font-size:1.2rem;flex-shrink:0}
 p{flex:1;font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55;margin:0;
-  a{color:#0d9488;text-decoration:none;&:hover{text-decoration:underline}}}
+  a{color:#2563eb;text-decoration:none;&:hover{text-decoration:underline}}}
 .cb-btns{display:flex;gap:8px;flex-shrink:0}
-.cb-accept{background:#0d9488;color:white;border:none;padding:7px 16px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;&:hover{background:#0f766e}}
+.cb-accept{background:#2563eb;color:white;border:none;padding:7px 16px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;&:hover{background:#1e3a8a}}
 .cb-ess{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;white-space:nowrap;&:hover{background:rgba(255,255,255,.1)}}
 .cb-close{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:.9rem;padding:4px;flex-shrink:0;&:hover{color:rgba(255,255,255,.6)}}
 @media(max-width:560px){.cb-inner{flex-direction:column;align-items:flex-start}.cb-btns{align-self:stretch}.cb-accept,.cb-ess{flex:1;text-align:center}}

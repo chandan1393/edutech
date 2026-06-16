@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
         <div class="fg"><label>Category</label><input type="text" formControlName="category" placeholder="e.g. Online Class Help" /></div>
       </div>
       <div class="fg2">
-        <div class="fg"><label>Author</label><input type="text" formControlName="author" placeholder="EduAssist Team" /></div>
+        <div class="fg"><label>Author</label><input type="text" formControlName="author" placeholder="EduPilotHelp Team" /></div>
         <div class="fg"><label>Read Time (min)</label><input type="number" formControlName="readTimeMinutes" placeholder="5" /></div>
       </div>
       <div class="fg"><label>Excerpt *</label><textarea formControlName="excerpt" rows="2" placeholder="Brief description shown on blog list"></textarea></div>
@@ -72,14 +72,14 @@ import { environment } from '../../../environments/environment';
 .err{color:#dc2626;font-size:.83rem;margin-top:10px}
 .mng-panel{background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden}
 .mp-head{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1.5px solid #e2e8f0;background:#f8fafc;h2{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#0f172a}}
-.back-btn{display:flex;align-items:center;gap:5px;background:#f1f5f9;border:1.5px solid #e2e8f0;color:#334155;padding:6px 12px;border-radius:8px;font-size:.82rem;cursor:pointer;transition:all .15s;&:hover{border-color:#0d9488;color:#0d9488}}
+.back-btn{display:flex;align-items:center;gap:5px;background:#f1f5f9;border:1.5px solid #e2e8f0;color:#334155;padding:6px 12px;border-radius:8px;font-size:.82rem;cursor:pointer;transition:all .15s;&:hover{border-color:#2563eb;color:#2563eb}}
 .tbl{background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden}
 .th{display:grid;padding:10px 16px;background:#f8fafc;border-bottom:1.5px solid #e2e8f0;font-size:.71rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em}
 .tr{display:grid;padding:11px 16px;border-bottom:1px solid #f1f5f9;align-items:center;transition:background .1s;&:hover{background:#f8fafc}&:last-child{border-bottom:none}}
 .tc{strong{display:block;font-size:.84rem;color:#0f172a;font-weight:600}small{font-size:.74rem;color:#64748b}}
 .tm{font-size:.8rem;color:#64748b}
-.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.69rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;&.s-progress{background:#dbeafe;color:#1e40af;border:1px solid rgba(30,64,175,.2)}&.s-pending{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}}
-.abtn{background:#f8fafc;border:1.5px solid #e2e8f0;color:#334155;padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:#0d9488;color:#0d9488}&.teal{background:#0d9488;border-color:#0d9488;color:#fff;&:hover{background:#0f766e}}&.danger{&:hover{border-color:#dc2626;color:#dc2626}}&:disabled{opacity:.6;cursor:not-allowed}}
+.chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.69rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;&.s-progress{background:#dbeafe;color:#2563eb;border:1px solid rgba(37,99,235,.2)}&.s-pending{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}}
+.abtn{background:#f8fafc;border:1.5px solid #e2e8f0;color:#334155;padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:#2563eb;color:#2563eb}&.teal{background:#2563eb;border-color:#2563eb;color:#fff;&:hover{background:#1e3a8a}}&.danger{&:hover{border-color:#dc2626;color:#dc2626}}&:disabled{opacity:.6;cursor:not-allowed}}
 .empty-sm{text-align:center;padding:24px;font-size:.83rem;color:#64748b}
   `]
 })
@@ -95,7 +95,7 @@ export class AdminBlogComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       category: ['Online Class Help'],
-      author: ['EduAssist Team'],
+      author: ['EduPilotHelp Team'],
       readTimeMinutes: [5],
       excerpt: ['', Validators.required],
       content: ['', Validators.required],
@@ -119,7 +119,7 @@ export class AdminBlogComponent implements OnInit {
     if (post?.id) {
       this.form.patchValue(post);
     } else {
-      this.form.reset({ category: 'Online Class Help', author: 'EduAssist Team', readTimeMinutes: 5, published: false, featured: false });
+      this.form.reset({ category: 'Online Class Help', author: 'EduPilotHelp Team', readTimeMinutes: 5, published: false, featured: false });
     }
   }
 

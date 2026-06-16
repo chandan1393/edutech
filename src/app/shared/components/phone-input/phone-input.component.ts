@@ -60,13 +60,13 @@ import { CountryService, Country } from '../../../core/services/country.service'
   overflow:hidden;
   background:white;
   transition:border-color .15s;
-  &:focus-within { border-color:#0d9488; box-shadow:0 0 0 3px rgba(13,148,136,.08) }
+  &:focus-within { border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.08) }
   &.invalid { border-color:#ef4444; &:focus-within { box-shadow:0 0 0 3px rgba(239,68,68,.08) } }
 }
 .phi-dark .phi-row {
   background:rgba(255,255,255,.05);
   border-color:rgba(255,255,255,.12);
-  &:focus-within { border-color:#0d9488 }
+  &:focus-within { border-color:#2563eb }
 }
 .phi-country {
   display:flex; align-items:center; gap:5px;
@@ -76,7 +76,7 @@ import { CountryService, Country } from '../../../core/services/country.service'
   transition:background .15s;
   white-space:nowrap;
   &:hover { background:#f8fafc }
-  &:focus { outline:none; background:#f0fdf9 }
+  &:focus { outline:none; background:#eff6ff }
 }
 .phi-dark .phi-country { border-right-color:rgba(255,255,255,.12); &:hover { background:rgba(255,255,255,.06) } }
 .phi-flag { font-size:1.2rem; line-height:1 }
@@ -112,7 +112,7 @@ import { CountryService, Country } from '../../../core/services/country.service'
     width:100%; border:1.5px solid #e2e8f0; border-radius:8px;
     padding:8px 12px; font-size:.84rem; outline:none;
     color:#0f172a; font-family:inherit;
-    &:focus { border-color:#0d9488 }
+    &:focus { border-color:#2563eb }
   }
 }
 .phi-dark .phi-search { border-bottom-color:rgba(255,255,255,.06);
@@ -123,9 +123,9 @@ import { CountryService, Country } from '../../../core/services/country.service'
   display:flex; align-items:center; gap:9px;
   padding:9px 12px; border-radius:8px; cursor:pointer;
   transition:background .12s;
-  &:hover, &.active { background:#f0fdf9 }
+  &:hover, &.active { background:#eff6ff }
 }
-.phi-dark .phi-opt { &:hover, &.active { background:rgba(13,148,136,.1) } }
+.phi-dark .phi-opt { &:hover, &.active { background:rgba(37,99,235,.1) } }
 .phi-flag { font-size:1.1rem }
 .phi-name { flex:1; font-size:.83rem; color:#0f172a; font-weight:500 }
 .phi-dark .phi-name { color:rgba(255,255,255,.8) }
