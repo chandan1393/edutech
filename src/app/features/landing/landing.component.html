@@ -43,7 +43,7 @@
         ⭐⭐⭐⭐⭐ <strong>Rated 4.9/5 by Students</strong>
       </div>
       <h1>
-        <span class="h1-big">Pay Someone To Do<br>My Online Class.</span>
+        <span class="h1-big">Pay Someone To Do<br>My Online <span class="h1-rotate" *ngFor="let w of [rotatingWord()]">{{ w }}</span></span>
         <span class="h1-accent">Reliable Expert Assistance.</span>
       </h1>
       <p class="hero-sub">
@@ -164,6 +164,69 @@
 </div>
 
 
+<!-- ═══ INTERACTIVE ESTIMATE CALCULATOR ═══ -->
+<section class="calc-section" id="estimate">
+  <div class="wrap">
+    <div class="calc-grid">
+      <div class="calc-left reveal">
+        <div class="sec-label">Instant Estimate</div>
+        <h2 class="sec-h2">Build Your Plan,<br><span>See Your Price</span></h2>
+        <p class="calc-lead">Pick your subject, platform, and what you need help with — watch your estimate update live. No sign-up, no obligation.</p>
+
+        <label class="calc-q">1. What's your subject area?</label>
+        <div class="calc-chips">
+          <button class="calc-chip" *ngFor="let s of calcSubjects"
+                  [class.on]="calcSubject() === s.key" (click)="calcSubject.set(s.key)">
+            <span>{{ s.icon }}</span> {{ s.label }}
+          </button>
+        </div>
+
+        <label class="calc-q">2. Which class platform (LMS)?</label>
+        <div class="calc-chips">
+          <button class="calc-chip sm" *ngFor="let l of calcLms"
+                  [class.on]="calcLmsSel() === l.key" (click)="calcLmsSel.set(l.key)">
+            {{ l.label }}
+          </button>
+        </div>
+
+        <label class="calc-q">3. What do you need handled?</label>
+        <div class="calc-chips">
+          <button class="calc-chip" *ngFor="let t of calcTasks"
+                  [class.on]="calcTaskSel().includes(t.key)" (click)="toggleTask(t.key)">
+            <span>{{ t.icon }}</span> {{ t.label }}
+          </button>
+        </div>
+
+        <label class="calc-q">4. How many weeks? <strong>{{ calcWeeks() }}</strong></label>
+        <input type="range" class="calc-slider" min="1" max="16" [value]="calcWeeks()"
+               (input)="calcWeeks.set(+$any($event.target).value)"
+               aria-label="Number of weeks">
+        <div class="calc-slider-scale"><span>1 wk</span><span>16 wks</span></div>
+      </div>
+
+      <div class="calc-right reveal">
+        <div class="calc-card">
+          <div class="cc-tag">Your Estimate</div>
+          <div class="cc-price">
+            <span class="cc-cur">$</span>{{ calcEstimate().perWeek }}<span class="cc-per">/week</span>
+          </div>
+          <div class="cc-total">≈ <strong>${{ calcEstimate().total }}</strong> for {{ calcEstimate().weeks }} weeks</div>
+          <div class="cc-divider"></div>
+          <ul class="cc-list">
+            <li><span>✓</span> Verified subject-matched expert</li>
+            <li><span>✓</span> Pay in weekly installments</li>
+            <li><span>✓</span> Admin quality review on every task</li>
+            <li><span>✓</span> Unlimited revisions within 7 days</li>
+          </ul>
+          <button class="btn-primary-lg cc-btn" (click)="scrollTo('query')">Lock In This Quote →</button>
+          <p class="cc-fine">Final price confirmed within 24 hours. This is an instant estimate, not a charge.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═══ SUCCESS RATE SECTION ═══ -->
 <section class="success-section">
   <div class="wrap">
@@ -201,7 +264,7 @@
 <section class="how-section" id="how">
   <div class="wrap">
     <div class="how2">
-      <div class="how2-left">
+      <div class="how2-left reveal">
         <div class="sec-label">Simple Process</div>
         <h2 class="sec-h2">How to Place an Order to<br><span>Get Help With Coursework</span></h2>
         <p class="how2-lead">Getting your online class handled with us is simple. Just give us access to your coursework and we take it from there.</p>
@@ -327,7 +390,7 @@
 <section class="guarantee-section">
   <div class="wrap">
     <div class="guar-layout">
-      <div class="guar-left">
+      <div class="guar-left reveal">
         <div class="sec-label">Our Commitment</div>
         <h2 class="sec-h2">The EduPilotHelp<br><span>Promise</span></h2>
         <p class="guar-intro">Four promises we make to every student, every class, every time. No fine print, no surprises — just dependable academic support you can count on from day one to final grade.</p>

@@ -4,6 +4,11 @@ $amber:#b45309;$amber2:#d97706;$amber4:#fffbeb;
 $navy:#0f172a;$navy2:#1e293b;$navy3:#334155;$muted:#64748b;
 $bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#f8fafc;$off2:#f1f5f9;
 $ok:#16a34a;$er:#dc2626;
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes blobDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
@@ -51,6 +56,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialias
 // Left hero
 .hero-rating{display:inline-flex;align-items:center;gap:8px;background:$amber4;border:1px solid $amber2;color:$amber;font-size:.82rem;font-weight:700;padding:7px 16px;border-radius:30px;margin-bottom:20px;animation:fadeUp .6s ease both}
 .h1-big{display:block;font-family:'Playfair Display',serif;font-size:clamp(2.3rem,4.2vw,3.6rem);font-weight:800;color:$navy;line-height:1.04;letter-spacing:-.035em;animation:fadeUp .65s ease both .1s}
+.h1-rotate{display:inline-block;background:linear-gradient(110deg,$blue2,$teal 60%,$blue3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:wordSwap .5s cubic-bezier(.22,1,.36,1);position:relative;&::after{content:'';position:absolute;left:0;right:6px;bottom:.04em;height:3px;border-radius:3px;background:linear-gradient(90deg,$blue3,$teal);opacity:.45}}
+@keyframes wordSwap{0%{opacity:0;transform:translateY(.35em) rotateX(-40deg)}100%{opacity:1;transform:translateY(0) rotateX(0)}}
 .h1-accent{display:block;font-family:'Playfair Display',serif;font-size:clamp(2.1rem,3.7vw,3.05rem);font-weight:800;line-height:1.08;letter-spacing:-.035em;animation:fadeUp .65s ease both .18s;background:linear-gradient(110deg,$blue2 0%,$blue3 45%,$teal 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:20px}
 .hero-sub{font-size:1.04rem;color:$navy3;line-height:1.8;margin-bottom:22px;max-width:540px;animation:fadeUp .65s ease both .26s}
 
@@ -97,6 +104,26 @@ form{padding:20px 24px 22px}
 
 // HOW IT WORKS
 .how-section{padding:88px 0;background:radial-gradient(900px 500px at 85% 0%,rgba(59,130,246,.07),transparent 60%),linear-gradient(180deg,#f8fafc,#eef3fb)}
+
+// ── Interactive estimate calculator ──
+.calc-section{padding:88px 0;background:linear-gradient(180deg,#eef3fb,#f8fafc)}
+.calc-grid{display:grid;grid-template-columns:1.25fr 0.85fr;gap:52px;align-items:start;@media(max-width:920px){grid-template-columns:1fr;gap:36px}}
+.calc-lead{font-size:1.02rem;color:$muted;line-height:1.78;margin-bottom:30px;max-width:460px}
+.calc-q{display:block;font-size:.82rem;font-weight:700;color:$navy;margin:22px 0 11px;strong{color:$blue2}}
+.calc-chips{display:flex;flex-wrap:wrap;gap:9px}
+.calc-chip{display:inline-flex;align-items:center;gap:7px;background:$white;border:1.5px solid $bd;border-radius:11px;padding:10px 15px;font-size:.86rem;font-weight:600;color:$navy3;cursor:pointer;font-family:inherit;transition:all .2s cubic-bezier(.22,1,.36,1);span{font-size:1.05rem}&:hover{border-color:$blue3;transform:translateY(-2px)}&.on{border-color:$blue2;background:$blue5;color:$blue;box-shadow:0 6px 16px -8px rgba($blue,.5)}&.sm{padding:9px 14px;font-size:.82rem}}
+.calc-slider{width:100%;-webkit-appearance:none;appearance:none;height:7px;border-radius:10px;background:linear-gradient(90deg,$blue2,$teal);outline:none;margin-top:4px;&::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:$white;border:3px solid $blue2;cursor:pointer;box-shadow:0 4px 12px -3px rgba($blue,.6);transition:transform .15s}&::-webkit-slider-thumb:hover{transform:scale(1.15)}&::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:$white;border:3px solid $blue2;cursor:pointer}}
+.calc-slider-scale{display:flex;justify-content:space-between;font-size:.72rem;color:$muted;margin-top:8px}
+
+.calc-right{position:sticky;top:90px;@media(max-width:920px){position:static}}
+.calc-card{background:linear-gradient(160deg,$navy 0%,#13294f 100%);border-radius:22px;padding:32px 30px;color:$white;box-shadow:0 40px 80px -30px rgba($blue,.6);position:relative;overflow:hidden;&::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba($teal3,.25),transparent 70%)}}
+.cc-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:$teal3;background:rgba($teal3,.12);border:1px solid rgba($teal3,.25);padding:5px 13px;border-radius:20px;margin-bottom:18px}
+.cc-price{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:800;line-height:1;letter-spacing:-.03em;display:flex;align-items:flex-start;gap:2px;.cc-cur{font-size:1.6rem;margin-top:6px}.cc-per{font-size:1rem;font-weight:600;color:rgba(255,255,255,.55);align-self:flex-end;margin-bottom:10px;margin-left:4px}}
+.cc-total{font-size:.95rem;color:rgba(255,255,255,.7);margin-top:8px;strong{color:$teal3}}
+.cc-divider{height:1px;background:rgba(255,255,255,.12);margin:22px 0}
+.cc-list{list-style:none;padding:0;margin:0 0 24px;li{display:flex;align-items:center;gap:10px;font-size:.88rem;color:rgba(255,255,255,.82);padding:6px 0;span{width:20px;height:20px;border-radius:50%;background:$teal;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:800;flex-shrink:0}}}
+.cc-btn{width:100%;justify-content:center}
+.cc-fine{font-size:.72rem;color:rgba(255,255,255,.5);line-height:1.6;margin-top:14px;text-align:center}
 
 .how2{display:grid;grid-template-columns:0.82fr 1.18fr;gap:60px;align-items:start;@media(max-width:920px){grid-template-columns:1fr;gap:44px}}
 .how2-left{position:sticky;top:90px;@media(max-width:920px){position:static}}

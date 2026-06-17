@@ -1,5 +1,5 @@
 import { SeoService } from '../../core/services/seo.service';
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -42,6 +42,54 @@ export class LandingComponent implements OnInit, OnDestroy {
   activeFaq         = signal(-1);
   navScrolled       = signal(false);
   activeStep        = signal(0);
+  rotatingWord      = signal('Class.');
+  private rotWords  = ['Class.', 'Exam.', 'Assignment.', 'Quiz.', 'Coursework.'];
+  private rotIndex  = 0;
+  private rotTimer: any;
+  private revealObs?: IntersectionObserver;
+
+  // ── Interactive estimate calculator ──
+  calcSubjects = [
+    { key: 'general',  label: 'General Ed',     icon: '📚', mult: 1.0 },
+    { key: 'business', label: 'Business / MBA', icon: '📈', mult: 1.15 },
+    { key: 'stem',     label: 'Math / STEM',    icon: '🧮', mult: 1.35 },
+    { key: 'nursing',  label: 'Nursing',        icon: '🩺', mult: 1.4 },
+    { key: 'cs',       label: 'Computer Sci',   icon: '💻', mult: 1.3 },
+    { key: 'writing',  label: 'Writing / Hum.', icon: '✍️', mult: 1.1 },
+  ];
+  calcLms = [
+    { key: 'canvas',     label: 'Canvas' },
+    { key: 'blackboard', label: 'Blackboard' },
+    { key: 'moodle',     label: 'Moodle' },
+    { key: 'brightspace',label: 'Brightspace' },
+    { key: 'other',      label: 'Other' },
+  ];
+  calcTasks = [
+    { key: 'quizzes',     label: 'Quizzes',      icon: '📝', add: 0 },
+    { key: 'assignments', label: 'Assignments',  icon: '📋', add: 8 },
+    { key: 'discussions', label: 'Discussions',  icon: '💬', add: 5 },
+    { key: 'exams',       label: 'Exams',        icon: '🎓', add: 14 },
+    { key: 'fullclass',   label: 'Full Class',   icon: '🚀', add: 22 },
+  ];
+  calcSubject = signal('general');
+  calcLmsSel  = signal('canvas');
+  calcTaskSel = signal<string[]>(['assignments']);
+  calcWeeks   = signal(8);
+
+  toggleTask(k: string) {
+    const cur = this.calcTaskSel();
+    this.calcTaskSel.set(cur.includes(k) ? cur.filter(x => x !== k) : [...cur, k]);
+  }
+
+  calcEstimate = computed(() => {
+    const base = 42;
+    const sub = this.calcSubjects.find(s => s.key === this.calcSubject())?.mult ?? 1;
+    const taskAdd = this.calcTaskSel().reduce((sum, k) =>
+      sum + (this.calcTasks.find(t => t.key === k)?.add ?? 0), 0);
+    const perWeek = Math.round((base + taskAdd) * sub);
+    const weeks = this.calcWeeks();
+    return { perWeek, total: perWeek * weeks, weeks };
+  });
 
   testimonials = signal<any[]>([]);
   testiIndex   = signal(0);
@@ -193,7 +241,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.seo.set({
-      title: 'Pay Someone To Do My Online Class | EduPilotHelp — From $42/Week',
+      title: 'EduPilotHelp | Online Class Help, Assignment Help & Exam Assistance',
       description: 'Pay someone to do your online class starting from $42/week. Verified experts handle Canvas, Blackboard, Moodle — quizzes, assignments, exams & discussion posts. 99.1% success rate. 5,000+ classes completed. Free quote in 24 hours.',
       keywords: 'pay someone to do my online class, online class help, take my online class, pay someone to take my online class',
       canonical: '/'
@@ -201,15 +249,34 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.setTestimonials();
     this.startTestiTimer();
     this.loadFeedbackFromApi();
-    this.stepTimer = setInterval(() => this.activeStep.set((this.activeStep() + 1) % 4), 2800);
+    this.stepTimer = setInterval(() => this.activeStep.set((this.activeStep() + 1) % this.howSteps.length), 2800);
+    this.rotTimer  = setInterval(() => {
+      this.rotIndex = (this.rotIndex + 1) % this.rotWords.length;
+      this.rotatingWord.set(this.rotWords[this.rotIndex]);
+    }, 2200);
     this.scrollFn  = () => this.navScrolled.set(window.scrollY > 40);
     window.addEventListener('scroll', this.scrollFn, { passive: true });
+
+    // Scroll-reveal: fade sections in as they enter the viewport
+    setTimeout(() => {
+      const els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        this.revealObs = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); this.revealObs?.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        els.forEach(el => this.revealObs!.observe(el));
+      } else {
+        els.forEach(el => el.classList.add('in'));
+      }
+    }, 0);
   }
 
   ngOnDestroy() {
     this.stopTestiTimer();
     if (this.stepTimer) clearInterval(this.stepTimer);
+    if (this.rotTimer)  clearInterval(this.rotTimer);
     if (this.scrollFn)  window.removeEventListener('scroll', this.scrollFn);
+    this.revealObs?.disconnect();
   }
 
   setTestimonials() {
