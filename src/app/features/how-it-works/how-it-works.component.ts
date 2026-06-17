@@ -12,18 +12,21 @@ import { CommonModule } from '@angular/common';
 })
 export class HowItWorksComponent {
   steps = [
-    { num: '01', icon: '📋', title: 'Submit Your Class Details', time: '3 minutes',
-      desc: 'Share your course name, institution, LMS portal URL, class start and end dates, and the types of assignments involved. Completely free with zero commitment required.',
-      details: ['Course name and subject area', 'Institution and LMS platform (Canvas, Blackboard, Moodle etc.)', 'Class start and end dates', 'Types of assignments (quizzes, discussions, exams, papers)', 'Any special grading requirements or rubrics'] },
-    { num: '02', icon: '💰', title: 'Receive Your Custom Payment Plan', time: 'Within 24 hours',
-      desc: 'Our admin team reviews your class details, assesses workload complexity, and sends you a transparent itemized payment plan. Review it, ask questions, and only proceed when satisfied.',
-      details: ['Transparent per-installment pricing', 'Payment schedule aligned to your class calendar', 'Stripe-secured payment links for each installment', 'No hidden fees or surprise charges', 'Full refund if you decide not to proceed'] },
-    { num: '03', icon: '✍️', title: 'Expert Assigned — Class Begins', time: 'Same day',
-      desc: 'Once you approve the plan and confirm your first Stripe installment, your subject-matched expert is assigned immediately. They review your syllabus and handle all coursework.',
-      details: ['Verified subject-matter expert matched to your discipline', 'Expert reviews full syllabus and class calendar', 'Admin quality team monitors all progress', 'Backup expert on standby for every class', 'Direct communication via student dashboard'] },
-    { num: '04', icon: '📦', title: 'Download Completed Work from Dashboard', time: '48hrs before deadline',
-      desc: 'Every completed assignment, quiz, or paper is admin-reviewed and packaged in your secure dashboard before each deadline. Track progress in real time.',
-      details: ['All work packaged in your student dashboard', 'Available minimum 48 hours before each deadline', 'Admin quality review on every deliverable', 'Download as ZIP file or review online', 'Request unlimited revisions within 7 days'] },
+    { num: '01', icon: '📋', title: 'Share Your Online Class Details', time: '3 minutes',
+      desc: 'Send us your portal login details or simply share the syllabus so we can accurately gauge the effort your class needs. Completely free with zero commitment required.',
+      details: ['Course name and subject area', 'Institution and LMS platform (Canvas, Blackboard, Moodle etc.)', 'Class start and end dates', 'Login details or syllabus for an accurate estimate', 'Any special grading requirements or rubrics'] },
+    { num: '02', icon: '🎯', title: 'Tell Us the Class Module You Need', time: 'Quick chat',
+      desc: 'Let us know exactly which module or portion of the course you need help with — a few quizzes, weekly assignments, discussion posts, or the full class from start to finish.',
+      details: ['Pick the exact modules or weeks you need covered', 'Quizzes, discussions, assignments, exams or the full class', 'Tell us your target grade and deadlines', 'Flexible scope — scale up or down anytime', 'Clear estimate before you commit'] },
+    { num: '03', icon: '💳', title: 'Pay for Your Online Class', time: 'Flexible',
+      desc: 'Choose to pay in full or opt for a flexible partial payment plan for your convenience. Every payment is Stripe-secured, and you only release installments as work is delivered.',
+      details: ['Pay in full or in flexible installments', 'Stripe-secured payment links', 'Payment schedule aligned to your class calendar', 'No hidden fees or surprise charges', 'Full refund if you decide not to proceed'] },
+    { num: '04', icon: '🔖', title: 'Get Your Tracking Order ID', time: 'Instantly',
+      desc: 'Once payment is confirmed, we provide a tracking order ID with all visible deadlines of your class submissions, so you always know exactly what is happening and when.',
+      details: ['Unique tracking order ID for your class', 'Every submission deadline clearly visible', 'Subject-matched expert assigned immediately', 'Admin quality team monitors all progress', 'Direct communication via student dashboard'] },
+    { num: '05', icon: '📈', title: 'Track Submissions & Grades', time: 'Ongoing',
+      desc: 'Stay in touch with our team to track your grades and ensure timely submissions throughout the class. Every deliverable is admin-reviewed and packaged before each deadline.',
+      details: ['Real-time progress and grade tracking', 'Work delivered before every deadline', 'Admin quality review on every deliverable', 'Download as ZIP file or review online', 'Request unlimited revisions within 7 days'] },
   ];
 
   guarantees = [

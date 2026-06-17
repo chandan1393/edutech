@@ -1,6 +1,6 @@
 <div class="adm">
   <aside class="sb">
-    <div class="sb-brand"><div class="sb-logo" style="font-family:'Playfair Display',serif;font-size:.75rem;font-weight:700;letter-spacing:-.02em">EP</div><span>EduPilotHelp</span><span class="sbadge">Admin</span></div>
+    <div class="sb-brand"><div class="sb-logo" style="font-family:'Playfair Display',serif;font-size:.75rem;font-weight:700;letter-spacing:-.02em"><svg width="60%" height="60%" viewBox="0 0 76 84" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="EduPilotHelp"><path d="M38 80 C 38 80, 12 50, 12 32 A 26 26 0 1 1 64 32 C 64 50, 38 80, 38 80 Z" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 30 L38 19 L62 30 L38 41 Z" fill="none" stroke="#5eead4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 41 L38 51 M52 34 L52 46 C 52 46, 46 51, 38 51" fill="none" stroke="#5eead4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>EduPilotHelp</span><span class="sbadge">Admin</span></div>
     <nav class="sb-nav">
       <button [class.active]="activeTab()==='overview'"    (click)="activeTab.set('overview')">📊 Overview</button>
       <button [class.active]="activeTab()==='enrollments'" (click)="activeTab.set('enrollments')">📚 Enrollments <span class="nb">{{ enrollments().length || enrollStats().totalEnrollments || 0 }}</span></button>

@@ -8,11 +8,12 @@ import { ApiService } from '../../core/services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { CountryService } from '../../core/services/country.service';
 import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input.component';
+import { LogoComponent } from '../../shared/components/logo/logo.component';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PhoneInputComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, PhoneInputComponent, LogoComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
@@ -84,10 +85,11 @@ export class LandingComponent implements OnInit, OnDestroy {
   ];
 
   howSteps = [
-    { num: '01', icon: '📋', title: 'Submit Class Details',   desc: 'Share your course, institution, portal URL, and class dates. Free — zero commitment.', badge: '3 minutes', color: '#1e3a8a' },
-    { num: '02', icon: '💰', title: 'Receive Custom Plan',    desc: 'Admin reviews your workload and sends a personalized payment plan for your approval.', badge: '24 hours',  color: '#0d9488' },
-    { num: '03', icon: '✍️', title: 'Expert Takes Over',     desc: 'Your verified expert logs into your portal and handles all tasks throughout the class.', badge: 'Instantly', color: '#7c3aed' },
-    { num: '04', icon: '📦', title: 'Download Your Work',    desc: 'Work is reviewed, packaged, and available in your secure dashboard before every deadline.', badge: 'On time',  color: '#b45309' },
+    { num: '01', icon: '📋', title: 'Share Your Class Details',     desc: 'Send us your login details or simply share the syllabus so we can gauge the effort your class needs.', badge: '3 minutes', color: '#1e3a8a' },
+    { num: '02', icon: '🎯', title: 'Tell Us the Class Module',     desc: 'Let us know exactly which module or part of the course you need help with — quizzes, papers, or the full class.', badge: 'Quick chat', color: '#0d9488' },
+    { num: '03', icon: '💳', title: 'Pay for Your Online Class',    desc: 'Choose to pay in full or pick a flexible partial payment plan — whatever works best for your budget.', badge: 'Flexible', color: '#7c3aed' },
+    { num: '04', icon: '🔖', title: 'Get Your Tracking Order ID',   desc: 'We hand you a tracking ID with every deadline of your class submissions clearly visible.', badge: 'Instantly', color: '#b45309' },
+    { num: '05', icon: '📈', title: 'Track Submissions & Grades',   desc: 'Stay in touch with our team to follow your grades and make sure every submission lands on time.', badge: 'Ongoing', color: '#0891b2' },
   ];
 
   subjectAreas = [

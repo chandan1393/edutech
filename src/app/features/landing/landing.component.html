@@ -2,7 +2,7 @@
 <header class="nav" [class.scrolled]="navScrolled()">
   <div class="nav-inner">
     <a class="logo" (click)="scrollTo('top')">
-      <div class="logo-mark"><span>EP</span></div>
+      <div class="logo-mark"><app-logo [size]="38" variant="brand"></app-logo></div>
       <div class="logo-text">
         <span class="logo-name">EduPilotHelp</span>
         <span class="logo-tag">Academic Support</span>
@@ -24,13 +24,14 @@
       <div class="nav-trust"><span class="trust-dot"></span>4.9/5 Rated</div>
       <button class="nbtn-outline" (click)="goToLogin()">Sign In</button>
       <button class="nbtn-solid" (click)="scrollTo('query')">Get Free Quote →</button>
-      <button class="burger" (click)="mobileMenuOpen.set(!mobileMenuOpen())" [class.open]="mobileMenuOpen()">
+      <button class="burger" (click)="mobileMenuOpen.set(!mobileMenuOpen())" [class.open]="mobileMenuOpen()" aria-label="Toggle navigation menu" [attr.aria-expanded]="mobileMenuOpen()">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </header>
 
+<main id="main-content">
 <!-- ═══════════════ HERO — Two-column layout ═══════════════ -->
 <section class="hero" id="top">
   <div class="hero-bg"><div class="hb-dots"></div><div class="hb-blob b1"></div><div class="hb-blob b2"></div></div>
@@ -61,7 +62,7 @@
       <!-- Pricing card -->
       <div class="hero-price-card">
         <div class="hpc-inner">
-          <h3>Online Class Help Starting From</h3>
+          <h2 class="hpc-title">Online Class Help Starting From</h2>
           <div class="hpc-price"><span class="price-amt">$42</span><span class="price-per">/Week</span></div>
           <p>Affordable pricing for quizzes, assignments, discussion posts, homework, and weekly coursework.</p>
           <ul class="hpc-list">
@@ -93,7 +94,6 @@
     <div class="hero-right" id="query">
       <div class="query-card">
         <div class="qc-header">
-          
           <h2>Get a Free Quote<br><span>in 60 Seconds</span></h2>
           <p>Submit your class details — get a custom plan in 24 hours</p>
         </div>
@@ -200,20 +200,34 @@
 <!-- ═══ HOW IT WORKS ═══ -->
 <section class="how-section" id="how">
   <div class="wrap">
-    <div style="text-align:center">
-      <div class="sec-label">Simple Process</div>
-      <h2 class="sec-h2">How to Pay Someone to<br><span>Take My Online Class</span></h2>
-      <p class="sec-sub" style="margin:0 auto 44px">From enrollment to delivery in 4 clear steps. Transparent, simple, and guaranteed at every stage.</p>
-    </div>
-    <div class="how-grid">
-      <div class="how-card" *ngFor="let s of howSteps; let i = index"
-           [class.hc-active]="activeStep() === i" (mouseenter)="activeStep.set(i)">
-        <div class="hc-num" [style.color]="s.color">{{ s.num }}</div>
-        <div class="hc-ico" [style.background]="s.color + '18'" [style.color]="s.color">{{ s.icon }}</div>
-        <h3>{{ s.title }}</h3>
-        <p>{{ s.desc }}</p>
-        <div class="hc-time" [style.color]="s.color" [style.background]="s.color + '12'">⏱ {{ s.badge }}</div>
-        <div class="hc-bar" [style.background]="s.color" [class.bar-active]="activeStep() === i"></div>
+    <div class="how2">
+      <div class="how2-left">
+        <div class="sec-label">Simple Process</div>
+        <h2 class="sec-h2">How to Place an Order to<br><span>Get Help With Coursework</span></h2>
+        <p class="how2-lead">Getting your online class handled with us is simple. Just give us access to your coursework and we take it from there.</p>
+        <div class="how2-note">
+          <span class="zzn-ico">💡</span>
+          <p>Once your order is placed, you won't need to log in unless a submission needs your input. We handle your quizzes, assignments, discussions, and more.</p>
+        </div>
+        <button class="btn-primary-lg" (click)="scrollTo('query')" style="margin-top:24px">Fill the Inquiry Form →</button>
+      </div>
+
+      <div class="how2-right">
+        <div class="tl-step" *ngFor="let s of howSteps; let i = index"
+             [class.tl-active]="activeStep() === i" (mouseenter)="activeStep.set(i)">
+          <div class="tl-rail">
+            <div class="tl-node" [style.background]="s.color" [style.box-shadow]="'0 0 0 5px ' + s.color + '1f'">{{ s.num }}</div>
+            <div class="tl-line" *ngIf="i < howSteps.length - 1"></div>
+          </div>
+          <div class="tl-card">
+            <div class="tl-head">
+              <span class="tl-ico" [style.background]="s.color + '14'">{{ s.icon }}</span>
+              <h3>{{ s.title }}</h3>
+              <span class="tl-time" [style.color]="s.color" [style.background]="s.color + '12'">⏱ {{ s.badge }}</span>
+            </div>
+            <p>{{ s.desc }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -312,31 +326,39 @@
 <!-- ═══ GUARANTEE BAND ═══ -->
 <section class="guarantee-section">
   <div class="wrap">
-    <div class="guar-header">
-      <div class="sec-label light">Our Commitment</div>
-      <h2>The EduPilotHelp Guarantee</h2>
-      <p>Four promises we make to every student, every class, every time.</p>
-    </div>
-    <div class="guar-grid">
-      <div class="guar-card">
-        <div class="gc-ico">🎯</div>
-        <h3>Grade Guarantee</h3>
-        <p>We target A/B grades. If we fall short, we revise until your standard is met — at no extra cost.</p>
+    <div class="guar-layout">
+      <div class="guar-left">
+        <div class="sec-label">Our Commitment</div>
+        <h2 class="sec-h2">The EduPilotHelp<br><span>Guarantee</span></h2>
+        <p class="guar-intro">Four promises we make to every student, every class, every time. No fine print, no surprises — just dependable academic support you can count on from day one to final grade.</p>
+        <div class="guar-points">
+          <div class="guar-point"><span class="gp-ico">✓</span> Backed by a 99.1% success rate</div>
+          <div class="guar-point"><span class="gp-ico">✓</span> 5,000+ classes completed since 2021</div>
+          <div class="guar-point"><span class="gp-ico">✓</span> Pay only as work is delivered</div>
+        </div>
+        <button class="btn-primary-lg" (click)="scrollTo('query')" style="margin-top:26px">Get a Free Quote →</button>
       </div>
-      <div class="guar-card">
-        <div class="gc-ico">⏰</div>
-        <h3>On-Time Delivery</h3>
-        <p>Every task delivered before its deadline. If we miss — you don't pay for that installment.</p>
-      </div>
-      <div class="guar-card">
-        <div class="gc-ico">🔐</div>
-        <h3>Privacy Protection</h3>
-        <p>256-bit encrypted credentials. Zero data retention post-class. Your identity never shared.</p>
-      </div>
-      <div class="guar-card">
-        <div class="gc-ico">💰</div>
-        <h3>Secure Payments</h3>
-        <p>Stripe-powered checkout. Never pay in advance. Installments only release after you approve each deliverable.</p>
+      <div class="guar-grid">
+        <div class="guar-card">
+          <div class="gc-ico">🎯</div>
+          <h3>Grade Guarantee</h3>
+          <p>We target A/B grades. If we fall short, we revise until your standard is met — at no extra cost.</p>
+        </div>
+        <div class="guar-card">
+          <div class="gc-ico">⏰</div>
+          <h3>On-Time Delivery</h3>
+          <p>Every task delivered before its deadline. If we miss — you don't pay for that installment.</p>
+        </div>
+        <div class="guar-card">
+          <div class="gc-ico">🔐</div>
+          <h3>Privacy Protection</h3>
+          <p>256-bit encrypted credentials. Zero data retention post-class. Your identity never shared.</p>
+        </div>
+        <div class="guar-card">
+          <div class="gc-ico">💰</div>
+          <h3>Secure Payments</h3>
+          <p>Stripe-powered checkout. Never pay in advance. Installments only release after you approve each deliverable.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -660,6 +682,8 @@
   </div>
 </div>
 
+</main>
+
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">
   <div class="ft-main">
@@ -667,7 +691,7 @@
       <div class="ft-grid">
         <div class="ft-brand">
           <div class="ft-logo">
-            <div class="logo-mark sm"><span>EP</span></div>
+            <div class="logo-mark sm"><app-logo [size]="30" variant="light"></app-logo></div>
             <div><span class="ft-brand-name">EduPilotHelp</span><span class="ft-brand-tag">Academic Support</span></div>
           </div>
           <p>Professional academic assistance for modern students worldwide. Secure, confidential, and results-driven.</p>

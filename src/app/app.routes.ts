@@ -27,5 +27,5 @@ export const routes: Routes = [
   { path: 'faq', loadComponent: () => import('./features/faq-page/faq-page.component').then(m => m.FaqPageComponent) },
   { path: 'refund-policy', loadComponent: () => import('./features/refund-policy/refund-policy.component').then(m => m.RefundPolicyComponent) },
   { path: 'academic-integrity', loadComponent: () => import('./features/academic-integrity/academic-integrity.component').then(m => m.AcademicIntegrityComponent) },
-  { path: '**', redirectTo: '' }
+  { path: '**', loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent) }
 ];
