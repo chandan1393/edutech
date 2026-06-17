@@ -20,7 +20,7 @@ export class AboutPageComponent {
     {
       name: 'Rachel Brooks', role: 'Head of Quality Assurance', avatar: 'RB',
       expertise: 'M.Sc Statistics, University of Michigan',
-      bio: 'Reviews every completed class submission before it reaches the student. 8 years in academic editing — guarantees nothing leaves without her approval.'
+      bio: 'Reviews every completed class submission before it reaches the student. 8 years in academic editing — ensures nothing leaves without her approval.'
     },
     {
       name: 'Tyler Johnson', role: 'Lead Tech Expert', avatar: 'TJ',
@@ -37,7 +37,7 @@ export class AboutPageComponent {
   values = [
     { icon: '📚', title: 'Full Class Coverage', desc: 'We handle your entire online class — every quiz, discussion, project and exam — from the start date to the very last day.' },
     { icon: '🔒', title: 'Complete Confidentiality', desc: 'Your identity and portal credentials are never disclosed. Our writers only know the class — never the student behind it.' },
-    { icon: '⏰', title: 'On-Time Delivery', desc: 'We guarantee work is submitted and packaged before each deadline in your class calendar, in your local timezone.' },
+    { icon: '⏰', title: 'On-Time Delivery', desc: 'We ensure work is submitted and packaged before each deadline in your class calendar, in your local timezone.' },
     { icon: '💳', title: 'Flexible Installment Payments', desc: 'Pay in installments via Stripe — no lump sum required. Each payment unlocks the next phase of your class.' },
     { icon: '✅', title: 'Admin-Reviewed Before Delivery', desc: 'Every ZIP file is reviewed and approved by our admin team before it becomes available for your download.' },
     { icon: '🌍', title: 'Any Institution, Any Country', desc: 'We support online classes from universities in the USA, UK, Australia, Canada, Europe and beyond — any LMS portal.' },

@@ -30,7 +30,7 @@ export class HowItWorksComponent {
   ];
 
   guarantees = [
-    { icon: '🎯', title: 'Grade Guarantee', desc: 'We target A or B grades on all coursework. If any deliverable falls below the agreed standard, we revise until you approve — at no extra cost.' },
+    { icon: '🎯', title: 'Grade Commitment', desc: 'We target A or B grades on all coursework. If any deliverable falls below the agreed standard, we revise until you approve — at no extra cost.' },
     { icon: '⏰', title: 'On-Time Delivery', desc: 'Every task delivered minimum 48 hours before its deadline. If we miss — that installment is waived.' },
     { icon: '🔐', title: 'Privacy Protected', desc: '256-bit encryption, zero data retention post-class, your identity never shared with writers at any stage.' },
     { icon: '💳', title: 'Secure Payments', desc: 'Stripe-powered checkout. Pay per installment only after each deliverable is delivered and admin-reviewed.' },
