@@ -315,6 +315,7 @@ form{padding:20px 24px 22px}
 .ft-seals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;span{font-size:.73rem;color:rgba(255,255,255,.22);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:3px 9px;border-radius:8px}}
 .ft-email{font-size:.81rem;color:rgba($teal3,.6);text-decoration:none;&:hover{color:$teal3}}
 .ft-col{h4{font-size:.76rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}display:flex;flex-direction:column;gap:2px;a,a:visited{font-size:.88rem;color:rgba(255,255,255,.55);text-decoration:none;cursor:pointer;transition:color .15s;padding:4px 0;background:none;border:none;font-family:inherit;&:hover{color:$teal3}}}
+.ft-subjects{padding:20px 0;border-top:1px solid rgba(255,255,255,.06);.wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}.fts-label{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em}a{font-size:.82rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s;&:hover{color:$teal3}}}
 .ft-bottom{background:#02060f;padding:16px 0;border-top:1px solid rgba(255,255,255,.04)}
 .ftb-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;span{font-size:.76rem;color:rgba(255,255,255,.16)}}
 
