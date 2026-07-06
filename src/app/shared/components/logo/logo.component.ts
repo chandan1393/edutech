@@ -30,6 +30,6 @@ export class LogoComponent {
 
   pinPath = 'M38 80 C 38 80, 12 50, 12 32 A 26 26 0 1 1 64 32 C 64 50, 38 80, 38 80 Z';
 
-  get pinColor() { return this.variant === 'light' ? '#ffffff' : '#1e3a8a'; }
-  get capColor() { return this.variant === 'light' ? '#5eead4' : '#0d9488'; }
+  get pinColor() { return this.variant === 'light' ? '#ffffff' : '#0F4C81'; }
+  get capColor() { return this.variant === 'light' ? '#5eead4' : '#14B8A6'; }
 }

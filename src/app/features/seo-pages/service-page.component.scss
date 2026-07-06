@@ -47,3 +47,18 @@ body{font-family:'Inter',system-ui,sans-serif}
 .btn-ghost{display:inline-flex;background:rgba(255,255,255,.1);color:$white;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.97rem;border:1.5px solid rgba(255,255,255,.2);transition:all .2s;&:hover{background:rgba(255,255,255,.18)}}
 .btn-white{display:inline-flex;background:$white;color:$blue2;padding:14px 30px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.97rem;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:all .2s;&:hover{transform:translateY(-1px)}}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── Service page additions ── */
+.ph-crumb{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:.82rem;margin-bottom:16px;a{color:rgba(255,255,255,.85);text-decoration:none;&:hover{text-decoration:underline}}span{color:rgba(255,255,255,.45)}}
+.ph-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.sp-steps{display:flex;flex-direction:column;gap:0;margin-top:32px}
+.sp-step{display:flex;gap:20px;padding-bottom:28px;position:relative;&:not(:last-child)::after{content:"";position:absolute;left:22px;top:48px;bottom:0;width:2px;background:linear-gradient($blue4,$off)}}
+.sp-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,$blue2,$blue);color:$white;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:.85rem;font-weight:700;flex-shrink:0}
+.sp-body{h3{font-family:"Playfair Display",serif;font-size:1.02rem;font-weight:700;color:$navy;margin-bottom:6px}p{font-size:.9rem;color:$muted;line-height:1.72}}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px;@media(max-width:640px){grid-template-columns:1fr}}
+.rel-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:$off;border:1.5px solid $bd;border-radius:12px;padding:15px 20px;text-decoration:none;font-size:.94rem;font-weight:700;color:$navy;transition:all .25s cubic-bezier(.22,1,.36,1);.rel-arrow{color:$blue2;transition:transform .25s}&:hover{border-color:$blue3;background:$blue5;color:$blue;transform:translateY(-2px);box-shadow:0 10px 26px -14px rgba($blue,.4);.rel-arrow{transform:translateX(4px)}}}
+.ta-c{text-align:center}
+.sec-h2.light{color:$white;span{color:$teal3}}
+.cta-lead{font-size:1rem;color:rgba(255,255,255,.75);line-height:1.75;max-width:600px;margin:0 auto 26px}
+.btn-ghost.light{color:$white}
+.faq-q{width:100%;text-align:left;background:none;border:none;font-family:inherit;cursor:pointer}

@@ -1,13 +1,13 @@
-$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$blue:#0F4C81;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
 $teal:#2563eb;$teal2:#1e3a8a;$teal3:#5eead4;$teal4:#eff6ff;
 $amber:#b45309;$amber2:#d97706;$amber4:#fffbeb;
 $navy:#0f172a;$navy2:#1e293b;$navy3:#334155;$muted:#64748b;
 $bd:#e2e8f0;$white:#ffffff;$off:#f8fafc;$off2:#f1f5f9;
 $ok:#16a34a;
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body,div{font-family:'DM Sans',system-ui,sans-serif}
-.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
-.wrap-mid{max-width:820px;margin:0 auto;padding:0 28px}
+body,div{font-family:'Inter',system-ui,sans-serif}
+.wrap{max-width:1360px;margin:0 auto;padding:0 28px}
+.wrap-mid{max-width:1080px;margin:0 auto;padding:0 28px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 // Page hero

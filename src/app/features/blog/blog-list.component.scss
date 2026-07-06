@@ -1,4 +1,4 @@
-$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$blue:#0F4C81;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
 $teal:#2563eb;$teal3:#5eead4;$teal4:#eff6ff;
 $amber:#b45309;$amber4:#fffbeb;
 $navy:#0f172a;$navy3:#334155;$muted:#64748b;$bd:#e2e8f0;$bd2:#cbd5e1;
@@ -6,7 +6,7 @@ $white:#fff;$off:#f8fafc;$off2:#f1f5f9;$ok:#16a34a;
 
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif}
+body{font-family:'Inter',system-ui,sans-serif}
 .wrap{max-width:1360px;margin:0 auto;padding:0 40px;@media(max-width:600px){padding:0 20px}}
 
 // Hero
@@ -98,3 +98,15 @@ body{font-family:'DM Sans',system-ui,sans-serif}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .btn-white{display:inline-flex;background:$white;color:$blue2;padding:13px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.95rem;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:all .2s;&:hover{transform:translateY(-1px)}}
 .btn-ghost-white{display:inline-flex;background:rgba(255,255,255,.1);color:$white;padding:13px 28px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.95rem;border:1.5px solid rgba(255,255,255,.2);transition:all .2s;&:hover{background:rgba(255,255,255,.18)}}
+
+/* ── Loading skeletons ── */
+.skel{position:relative;overflow:hidden;background:#e8edf3;border-radius:7px;&::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:shimmer 1.4s infinite}}
+@keyframes shimmer{100%{transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.skel::after{animation:none}}
+.skel-line{height:12px;margin-bottom:10px}
+.skel-title{height:22px;margin-bottom:12px;border-radius:8px}
+.skel-badge{height:20px;width:120px;border-radius:20px;margin-bottom:16px}
+.w20{width:20%}.w30{width:30%}.w40{width:40%}.w60{width:60%}.w70{width:70%}.w80{width:80%}.w85{width:85%}.w90{width:90%}.w95{width:95%}
+.skel-meta{display:flex;gap:14px;margin-top:16px}
+.skel-featured{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:34px;margin-bottom:24px;box-shadow:0 4px 20px -14px rgba(15,76,129,.25)}
+.skel-card{pointer-events:none}

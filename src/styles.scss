@@ -1,8 +1,8 @@
-/* Fonts (Playfair Display + DM Sans) are loaded non-blocking from index.html */
+/* Fonts (Playfair Display + Inter) are loaded non-blocking from index.html */
 
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 17px; }
-body { height: 100%; font-family: 'DM Sans', 'Segoe UI', sans-serif; font-size: 1rem; }
+body { height: 100%; font-family: 'Inter', 'Segoe UI', sans-serif; font-size: 1rem; }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
 ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 3px; }

@@ -1,7 +1,7 @@
 // ── Palette: Clean white + teal + amber ────────────────────────────────────
 $teal:#2563eb;$teal2:#1e3a8a;$teal3:#dbeafe;$teal4:#eff6ff;
 $amber:#b45309;$amb2:#d97706;$amb3:#fde68a;$amb4:#fffbeb;
-$blue:#1e3a8a;$blue2:#2563eb;$blue3:#dbeafe;$blue4:#eff6ff;
+$blue:#0F4C81;$blue2:#2563eb;$blue3:#dbeafe;$blue4:#eff6ff;
 $ok:#10b981;$ok3:#d1fae5;$er:#ef4444;$er3:#fee2e2;
 $bg:#f8fafc;$bg2:#f1f5f9;$bg3:#e2e8f0;
 $sl3:#334155;$sl4:#475569;$sb:#0f172a;$sb2:#1e293b;
@@ -12,7 +12,7 @@ $white: #ffffff; $bd:    #e2e8f0;
 $p: $teal;
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-.dash { display: flex; min-height: 100vh; background: $bg; color: $tx; font-family: 'DM Sans', system-ui, sans-serif; }
+.dash { display: flex; min-height: 100vh; background: $bg; color: $tx; font-family: 'Inter', system-ui, sans-serif; }
 
 // ── Sidebar ─────────────────────────────────────────────────────────────────
 .sidebar { width: 250px; min-height: 100vh; background: $sb; border-right: none; display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }

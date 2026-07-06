@@ -1,108 +1,130 @@
-<div class="page">
+<div class="legal-page">
+  <div class="reading-progress" [style.width.%]="progress()"></div>
+
   <div class="page-hero">
     <div class="wrap">
       <div class="ph-inner">
-        <a routerLink="/" class="ph-back">← Back to Home</a>
+        <nav class="ph-crumb" aria-label="Breadcrumb">
+          <a routerLink="/">Home</a> <span aria-hidden="true">›</span> <span>Terms &amp; Conditions</span>
+        </nav>
         <div class="ph-tag">Legal</div>
         <h1>Terms &amp; Conditions</h1>
         <p>Please read these terms carefully before using EduPilotHelp services.</p>
+        <div class="ph-updated">Last updated: December 2024</div>
       </div>
     </div>
   </div>
+
   <div class="legal-body">
-    <div class="wrap-mid">
-      <div class="legal-card">
-          <div class="">
-    <div class="legal-section">
-      <h2>1. Acceptance of Terms</h2>
-      <p>By enrolling a class, creating an account, or using any part of EduPilotHelp, you agree to these Terms and Conditions. If you do not agree, please do not use our service.</p>
+    <div class="wrap">
+      <div class="legal-layout">
+        <aside class="legal-toc" aria-label="Table of contents">
+          <div class="toc-title">On this page</div>
+          <nav>
+            <button *ngFor="let s of sections" class="toc-link"
+                    [class.active]="activeId() === s.id" (click)="scrollTo(s.id)">{{ s.title }}</button>
+          </nav>
+        </aside>
+
+        <div class="legal-content">
+          <section class="legal-section" id="acceptance">
+            <h2>1. Acceptance of Terms</h2>
+            <p>By enrolling a class, creating an account, or using any part of EduPilotHelp, you agree to these Terms and Conditions. If you do not agree, please do not use our service.</p>
+          </section>
+
+          <section class="legal-section" id="service">
+            <h2>2. Service Description</h2>
+            <p>EduPilotHelp provides academic assistance services where verified expert writers complete online course assignments on behalf of enrolled students. The service includes:</p>
+            <ul>
+              <li>Assignment completion throughout the entire class duration</li>
+              <li>File delivery via secure ZIP downloads</li>
+              <li>An installment-based payment system processed through Stripe</li>
+              <li>Real-time progress tracking via the assignment tracker</li>
+            </ul>
+            <div class="legal-highlight">⚠️ You are responsible for compliance with your institution's academic integrity policies. EduPilotHelp provides assistance services; the ethical and legal responsibility for how you use delivered work rests with you.</div>
+          </section>
+
+          <section class="legal-section" id="account">
+            <h2>3. Account Responsibilities</h2>
+            <ul>
+              <li>You must provide accurate information when registering</li>
+              <li>You are responsible for keeping your password secure</li>
+              <li>You must notify us immediately if you suspect unauthorized account access</li>
+              <li>You must not share your account with other students</li>
+              <li>Portal credentials you provide must be accurate and current</li>
+            </ul>
+          </section>
+
+          <section class="legal-section" id="payment">
+            <h2>4. Payment Terms</h2>
+            <p>All payments are processed through Stripe. By making a payment you agree to:</p>
+            <ul>
+              <li>Payments are non-refundable once an expert writer has been assigned and work has begun</li>
+              <li>Installment plans must be paid on or before the due date</li>
+              <li>Late payments may result in suspension of the service</li>
+              <li>Full payment must be completed before any completed work is delivered</li>
+              <li>Prices are in USD unless otherwise specified</li>
+            </ul>
+          </section>
+
+          <section class="legal-section" id="refund">
+            <h2>5. Refund Policy</h2>
+            <ul>
+              <li><strong>Before assignment:</strong> Full refund if no writer has been assigned</li>
+              <li><strong>After assignment:</strong> No refund once a writer has accepted and begun work</li>
+              <li><strong>Quality issues:</strong> We will revise work at no charge if it does not meet the agreed specifications</li>
+              <li><strong>Technical failures:</strong> Refunds considered case-by-case for platform failures on our end</li>
+            </ul>
+          </section>
+
+          <section class="legal-section" id="confidential">
+            <h2>6. Confidentiality</h2>
+            <p>Both parties agree to strict confidentiality:</p>
+            <ul>
+              <li>Your personal information and portal credentials are kept strictly confidential</li>
+              <li>Writers are contractually prohibited from disclosing any student information</li>
+              <li>We do not disclose the countries our team operates from to protect all parties</li>
+              <li>All communications are private and not shared with your institution</li>
+            </ul>
+          </section>
+
+          <section class="legal-section" id="quality">
+            <h2>7. Service Quality</h2>
+            <ul>
+              <li>All expert writers are verified and tested before being admitted to our platform</li>
+              <li>Work is reviewed by our admin team before delivery</li>
+              <li>We aim to meet all agreed deadlines; delays due to writer issues will be communicated promptly</li>
+              <li>In case of emergency we reserve the right to assign a replacement writer</li>
+            </ul>
+          </section>
+
+          <section class="legal-section" id="prohibited">
+            <h2>8. Prohibited Uses</h2>
+            <ul>
+              <li>Using our service to cheat on examinations or assessments where explicitly prohibited</li>
+              <li>Providing false portal credentials</li>
+              <li>Attempting to contact writers directly outside the platform</li>
+              <li>Attempting to circumvent the payment system</li>
+              <li>Reverse engineering or scraping our platform</li>
+            </ul>
+          </section>
+
+          <section class="legal-section" id="liability">
+            <h2>9. Limitation of Liability</h2>
+            <p>EduPilotHelp is not liable for: academic consequences arising from your institution's policies; technical issues caused by your institution's portal; losses caused by your failure to provide accurate credentials; or any indirect, consequential, or incidental damages.</p>
+          </section>
+
+          <section class="legal-section" id="changes">
+            <h2>10. Changes to Terms</h2>
+            <p>We may update these terms at any time. Continued use of EduPilotHelp after changes constitutes acceptance of the new terms. We will notify registered users of material changes via email.</p>
+          </section>
+
+          <div class="legal-contact">
+            <h3>Questions about these terms?</h3>
+            <p>Contact us at <a href="mailto:legal@edupilothelp.com">legal&#64;edupilothelp.com</a></p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="legal-section">
-      <h2>2. Service Description</h2>
-      <p>EduPilotHelp provides academic assistance services where verified expert writers complete online course assignments on behalf of enrolled students. The service includes:</p>
-      <ul>
-        <li>Assignment completion throughout the entire class duration</li>
-        <li>File delivery via secure ZIP downloads</li>
-        <li>An installment-based payment system processed through Stripe</li>
-        <li>Real-time progress tracking via the assignment tracker</li>
-      </ul>
-      <div class="highlight">⚠️ You are responsible for compliance with your institution's academic integrity policies. EduPilotHelp provides assistance services; the ethical and legal responsibility for how you use delivered work rests with you.</div>
-    </div>
-    <div class="legal-section">
-      <h2>3. Account Responsibilities</h2>
-      <ul>
-        <li>You must provide accurate information when registering</li>
-        <li>You are responsible for keeping your password secure</li>
-        <li>You must notify us immediately if you suspect unauthorized account access</li>
-        <li>You must not share your account with other students</li>
-        <li>Portal credentials you provide must be accurate and current</li>
-      </ul>
-    </div>
-    <div class="legal-section">
-      <h2>4. Payment Terms</h2>
-      <p>All payments are processed through Stripe. By making a payment you agree to:</p>
-      <ul>
-        <li>Payments are non-refundable once an expert writer has been assigned and work has begun</li>
-        <li>Installment plans must be paid on or before the due date</li>
-        <li>Late payments may result in suspension of the service</li>
-        <li>Full payment must be completed before any completed work is delivered</li>
-        <li>Prices are in USD unless otherwise specified</li>
-      </ul>
-    </div>
-    <div class="legal-section">
-      <h2>5. Refund Policy</h2>
-      <ul>
-        <li><strong>Before assignment:</strong> Full refund if no writer has been assigned</li>
-        <li><strong>After assignment:</strong> No refund once a writer has accepted and begun work</li>
-        <li><strong>Quality issues:</strong> We will revise work at no charge if it does not meet the agreed specifications</li>
-        <li><strong>Technical failures:</strong> Refunds considered case-by-case for platform failures on our end</li>
-      </ul>
-    </div>
-    <div class="legal-section">
-      <h2>6. Confidentiality</h2>
-      <p>Both parties agree to strict confidentiality:</p>
-      <ul>
-        <li>Your personal information and portal credentials are kept strictly confidential</li>
-        <li>Writers are contractually prohibited from disclosing any student information</li>
-        <li>We do not disclose the countries our team operates from to protect all parties</li>
-        <li>All communications are private and not shared with your institution</li>
-      </ul>
-    </div>
-    <div class="legal-section">
-      <h2>7. Service Quality</h2>
-      <ul>
-        <li>All expert writers are verified and tested before being admitted to our platform</li>
-        <li>Work is reviewed by our admin team before delivery</li>
-        <li>We aim to meet all agreed deadlines; delays due to writer issues will be communicated promptly</li>
-        <li>In case of emergency we reserve the right to assign a replacement writer</li>
-      </ul>
-    </div>
-    <div class="legal-section">
-      <h2>8. Prohibited Uses</h2>
-      <ul>
-        <li>Using our service to cheat on examinations or assessments where explicitly prohibited</li>
-        <li>Providing false portal credentials</li>
-        <li>Attempting to contact writers directly outside the platform</li>
-        <li>Attempting to circumvent the payment system</li>
-        <li>Reverse engineering or scraping our platform</li>
-      </ul>
-    </div>
-    <div class="legal-section">
-      <h2>9. Limitation of Liability</h2>
-      <p>EduPilotHelp is not liable for: academic consequences arising from your institution's policies; technical issues caused by your institution's portal; losses caused by your failure to provide accurate credentials; or any indirect, consequential, or incidental damages.</p>
-    </div>
-    <div class="legal-section">
-      <h2>10. Changes to Terms</h2>
-      <p>We may update these terms at any time. Continued use of EduPilotHelp after changes constitutes acceptance of the new terms. We will notify registered users of material changes via email.</p>
-    </div>
-    <div class="pp-contact">
-      <h3>Questions about these terms?</h3>
-      <p>Contact us at <a href="mailto:legal@edupilothelp.com">legal&#64;edupilothelp.com</a></p>
-    </div>
-    <div class="pp-updated">Last updated: December 2024 · EduPilotHelp</div>
   </div>
 </div>
-
-      </div>
-    </div>
-  </div>

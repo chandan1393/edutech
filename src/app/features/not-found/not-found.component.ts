@@ -31,7 +31,7 @@ import { RouterLink } from '@angular/router';
   `,
   styles: [`
     .nf{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;
-      background:radial-gradient(900px 480px at 80% -10%,rgba(13,148,136,.12),transparent 60%),radial-gradient(760px 460px at 0% 110%,rgba(59,130,246,.12),transparent 60%),linear-gradient(180deg,#fbfdff,#eef4ff);font-family:'DM Sans',system-ui,sans-serif}
+      background:radial-gradient(900px 480px at 80% -10%,rgba(13,148,136,.12),transparent 60%),radial-gradient(760px 460px at 0% 110%,rgba(59,130,246,.12),transparent 60%),linear-gradient(180deg,#fbfdff,#eef4ff);font-family:'Inter',system-ui,sans-serif}
     .nf-inner{max-width:600px;text-align:center}
     .nf-badge{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#1e3a8a;background:#eff6ff;border:1px solid #dbeafe;padding:6px 15px;border-radius:30px;margin-bottom:24px}
     .nf-code{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,14vw,8rem);font-weight:800;line-height:1;letter-spacing:-.04em;margin:0 0 8px;background:linear-gradient(115deg,#1e3a8a,#1d4ed8,#0d9488);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}

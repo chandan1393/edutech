@@ -1,0 +1,110 @@
+<div class="pillar-page" *ngIf="data">
+
+  <!-- HERO -->
+  <div class="ph">
+    <div class="wrap">
+      <div class="ph-inner">
+        <nav class="ph-crumb" aria-label="Breadcrumb">
+          <a routerLink="/">Home</a> <span aria-hidden="true">›</span> <span>{{ data.badge }}</span>
+        </nav>
+        <div class="ph-tag">{{ data.badge }}</div>
+        <h1>{{ data.h1 }}</h1>
+        <p>{{ data.heroLead }}</p>
+        <div class="ph-meta">
+          <div class="ph-badge">✅ 5,000+ Classes Completed</div>
+          <div class="ph-badge">🔒 100% Confidential</div>
+          <div class="ph-badge">💳 Flexible Weekly Plans</div>
+          <div class="ph-badge">⭐ 4.9/5 Rated</div>
+        </div>
+        <div class="ph-cta">
+          <a routerLink="/" fragment="query" class="btn-white">Get a Free Quote →</a>
+          <a href="https://wa.me/message" class="btn-ghost" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="section-pad">
+    <div class="wrap-mid">
+      <div class="sec-lbl">Overview</div>
+      <h2 class="sec-h2">{{ data.introH2 }}</h2>
+      <p class="body-text" *ngFor="let p of data.introParas">{{ p }}</p>
+    </div>
+  </section>
+
+  <!-- FEATURES / WHY CHOOSE US -->
+  <section class="section-off">
+    <div class="wrap-mid">
+      <div class="sec-lbl">Why Choose Us</div>
+      <h2 class="sec-h2">{{ data.featuresH2 }}</h2>
+      <div class="benefit-grid">
+        <div class="benefit-card" *ngFor="let f of data.features">
+          <div class="bc-ico">{{ f.icon }}</div>
+          <h3>{{ f.title }}</h3>
+          <p>{{ f.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section-pad">
+    <div class="wrap-mid">
+      <div class="sec-lbl">Simple Process</div>
+      <h2 class="sec-h2">{{ data.processH2 }}</h2>
+      <div class="sp-steps">
+        <div class="sp-step" *ngFor="let s of data.steps">
+          <div class="sp-num">{{ s.num }}</div>
+          <div class="sp-body">
+            <h3>{{ s.title }}</h3>
+            <p>{{ s.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-off">
+    <div class="wrap-mid">
+      <div class="sec-lbl">FAQ</div>
+      <h2 class="sec-h2">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item" *ngFor="let f of data.faqs; let i = index" [class.open]="activeFaq() === i">
+          <button class="faq-q" (click)="toggle(i)" [attr.aria-expanded]="activeFaq() === i">
+            {{ f.q }} <span class="faq-ico">{{ activeFaq() === i ? '−' : '+' }}</span>
+          </button>
+          <div class="faq-ans" *ngIf="activeFaq() === i">{{ f.a }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNAL LINKS -->
+  <section class="section-pad">
+    <div class="wrap-mid">
+      <div class="sec-lbl">Related Services</div>
+      <h2 class="sec-h2">Explore More Academic Support</h2>
+      <p class="body-text">Need help beyond {{ data.badge.toLowerCase() }}? Our experts cover the full range of academic support — explore related services below.</p>
+      <div class="rel-grid">
+        <a class="rel-card" *ngFor="let r of data.related" [routerLink]="r.path">
+          <span>{{ r.label }}</span> <span class="rel-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-blue">
+    <div class="wrap-mid ta-c">
+      <h2 class="sec-h2 light">{{ data.ctaH2 }}</h2>
+      <p class="cta-lead">{{ data.ctaText }}</p>
+      <div class="cta-btns">
+        <a routerLink="/" fragment="query" class="btn-white">Get My Free Quote →</a>
+        <a routerLink="/how-it-works" class="btn-ghost light">See How It Works</a>
+      </div>
+    </div>
+  </section>
+
+</div>

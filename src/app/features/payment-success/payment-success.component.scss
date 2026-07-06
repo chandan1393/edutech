@@ -1,15 +1,15 @@
 $navy3:#334155;
-$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$blue:#0F4C81;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
 $teal:#2563eb;$teal4:#eff6ff;$amber:#b45309;$amber4:#fffbeb;
 $navy:#0f172a;$muted:#64748b;$bd:#e2e8f0;$white:#ffffff;$off:#f8fafc;$ok:#16a34a;$ok2:#dcfce7;
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif}
+body{font-family:'Inter',system-ui,sans-serif}
 @keyframes pop{0%{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes confetti{0%{transform:translateY(-100px) rotate(0)}100%{transform:translateY(100vh) rotate(720deg)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
 
-.ps-page{min-height:100vh;background:linear-gradient(160deg,$blue5 0%,$teal4 50%,$amber4 100%);display:flex;align-items:center;justify-content:center;padding:32px 20px;position:relative;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif}
+.ps-page{min-height:100vh;background:linear-gradient(160deg,$blue5 0%,$teal4 50%,$amber4 100%);display:flex;align-items:center;justify-content:center;padding:32px 20px;position:relative;overflow:hidden;font-family:'Inter',system-ui,sans-serif}
 .ps-bg{position:absolute;inset:0;background-image:radial-gradient(circle,rgba($blue2,.08) 1.5px,transparent 1.5px);background-size:32px 32px;pointer-events:none}
 
 .ps-card{background:$white;border:1.5px solid $bd;border-radius:24px;padding:52px 48px;max-width:540px;width:100%;text-align:center;box-shadow:0 24px 80px rgba($blue,.12);position:relative;z-index:1;

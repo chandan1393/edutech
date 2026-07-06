@@ -9,11 +9,12 @@ import { HttpClient } from '@angular/common/http';
 import { CountryService } from '../../core/services/country.service';
 import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PhoneInputComponent, LogoComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, PhoneInputComponent, LogoComponent, CountUpDirective],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
@@ -109,13 +110,13 @@ export class LandingComponent implements OnInit, OnDestroy {
     { pct: '99.1%', label: 'Success Rate',         sub: 'B or better in 5,000+ classes over 3 years',          color: '#16a34a', bg: '#dcfce7', border: '#bbf7d0' },
     { pct: '4.9/5', label: 'Student Rating',        sub: 'Rated by verified students across all subjects',       color: '#b45309', bg: '#fffbeb', border: '#fde68a' },
     { pct: '98%',   label: 'On-Time Delivery',      sub: 'Work delivered before every deadline, every class',    color: '#1e3a8a', bg: '#eff6ff', border: '#dbeafe' },
-    { pct: '24hrs', label: 'Quote Response',         sub: 'Custom plan sent within 24 hours of submission',      color: '#7c3aed', bg: '#f5f3ff', border: '#e9d5ff' },
+    { pct: '24hrs', label: 'Quote Response',         sub: 'Custom plan sent within 24 hours of submission',      color: '#0F4C81', bg: '#eff6ff', border: '#dbeafe' },
   ];
 
   services = [
     { icon: '📚', title: 'Full Online Class',        tag: 'Most Popular', color: '#1e3a8a', desc: 'Complete class management — quizzes, discussions, projects and exams from start to final grade.' },
     { icon: '📝', title: 'Essays & Research Papers', tag: 'High Demand',  color: '#0d9488', desc: 'APA, MLA, Chicago — research papers, essays and reports written to your exact rubric.' },
-    { icon: '💻', title: 'Programming & CS',         tag: 'Tech',         color: '#7c3aed', desc: 'Python, Java, JavaScript, SQL — all coding labs, projects and assignments completed and tested.' },
+    { icon: '💻', title: 'Programming & CS',         tag: 'Tech',         color: '#0F4C81', desc: 'Python, Java, JavaScript, SQL — all coding labs, projects and assignments completed and tested.' },
     { icon: '📊', title: 'Statistics & Data',        tag: 'STEM',         color: '#2563eb', desc: 'SPSS, R, Excel — from raw data to professional interpretation with full methodology.' },
     { icon: '🏦', title: 'Business & MBA',           tag: 'Executive',    color: '#b45309', desc: 'Case studies, business plans, strategy reports and financial modeling by MBA specialists.' },
     { icon: '⚖️', title: 'Law & Social Sciences',   tag: 'Specialized',  color: '#be185d', desc: 'Legal briefs, psychology, sociology and criminology coursework — citation-perfect.' },
@@ -135,9 +136,9 @@ export class LandingComponent implements OnInit, OnDestroy {
   howSteps = [
     { num: '01', icon: '📋', title: 'Share Your Class Details',     desc: 'Send us your login details or simply share the syllabus so we can gauge the effort your class needs.', badge: '3 minutes', color: '#1e3a8a' },
     { num: '02', icon: '🎯', title: 'Tell Us the Class Module',     desc: 'Let us know exactly which module or part of the course you need help with — quizzes, papers, or the full class.', badge: 'Quick chat', color: '#0d9488' },
-    { num: '03', icon: '💳', title: 'Pay for Your Online Class',    desc: 'Choose to pay in full or pick a flexible partial payment plan — whatever works best for your budget.', badge: 'Flexible', color: '#7c3aed' },
+    { num: '03', icon: '💳', title: 'Pay for Your Online Class',    desc: 'Choose to pay in full or pick a flexible partial payment plan — whatever works best for your budget.', badge: 'Flexible', color: '#0F4C81' },
     { num: '04', icon: '🔖', title: 'Get Your Tracking Order ID',   desc: 'We hand you a tracking ID with every deadline of your class submissions clearly visible.', badge: 'Instantly', color: '#b45309' },
-    { num: '05', icon: '📈', title: 'Track Submissions & Grades',   desc: 'Stay in touch with our team to follow your grades and make sure every submission lands on time.', badge: 'Ongoing', color: '#0891b2' },
+    { num: '05', icon: '📈', title: 'Track Submissions & Grades',   desc: 'Stay in touch with our team to follow your grades and make sure every submission lands on time.', badge: 'Ongoing', color: '#14B8A6' },
   ];
 
   subjectAreas = [

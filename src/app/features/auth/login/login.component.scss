@@ -1,6 +1,6 @@
 $navy3:#334155;
 @use 'sass:color';
-$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$blue:#0F4C81;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
 $teal:#2563eb;$teal3:#5eead4;$teal4:#eff6ff;$amber:#b45309;$amber4:#fffbeb;
 $navy:#0f172a;$navy2:#1e293b;$muted:#64748b;$bd:#e2e8f0;$bd2:#cbd5e1;$white:#ffffff;$off:#f8fafc;
 $ok:#16a34a;$er:#dc2626;$er2:#fee2e2;
@@ -9,7 +9,7 @@ $ok:#16a34a;$er:#dc2626;$er2:#fee2e2;
 
 .auth-wrap {
   min-height:100vh;display:flex;background:$off;
-  font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
 }
 
 // Left panel — branding

@@ -79,7 +79,7 @@
       <div class="hero-stats">
         <div class="hstat" *ngFor="let s of stats">
           <span class="hstat-ico">{{ s.icon }}</span>
-          <span class="hstat-val">{{ s.value }}</span>
+          <span class="hstat-val" appCountUp>{{ s.value }}</span>
           <span class="hstat-lbl">{{ s.label }}</span>
         </div>
       </div>
@@ -150,15 +150,15 @@
 <div class="stats-bar">
   <div class="wrap">
     <div class="sb-inner">
-      <div class="sb-item"><strong>5,000+</strong><span>Students Helped</span></div>
+      <div class="sb-item"><strong appCountUp>5,000+</strong><span>Students Helped</span></div>
       <div class="sb-sep"></div>
-      <div class="sb-item"><strong>99.1%</strong><span>Success Rate</span></div>
+      <div class="sb-item"><strong appCountUp>99.1%</strong><span>Success Rate</span></div>
       <div class="sb-sep"></div>
-      <div class="sb-item"><strong>From $42/wk</strong><span>Starting Price</span></div>
+      <div class="sb-item"><strong appCountUp>From $42/wk</strong><span>Starting Price</span></div>
       <div class="sb-sep"></div>
-      <div class="sb-item"><strong>24 hrs</strong><span>First Response</span></div>
+      <div class="sb-item"><strong appCountUp>24 hrs</strong><span>First Response</span></div>
       <div class="sb-sep"></div>
-      <div class="sb-item"><strong>40+</strong><span>Countries Served</span></div>
+      <div class="sb-item"><strong appCountUp>40+</strong><span>Countries Served</span></div>
     </div>
   </div>
 </div>
@@ -718,15 +718,13 @@
             <h3 class="ct-form-ttl">Send a Message</h3>
             <div class="ct-err" *ngIf="contactError()">⚠ {{ contactError() }}</div>
             <div class="fg2">
-              <div class="fg"><label>Name *</label><input type="text" formControlName="name" placeholder="Your name" /></div>
-              <div class="fg"><label>Email *</label><input type="email" formControlName="email" placeholder="your@email.com" /></div>
+              <div class="fg-float"><input type="text" id="ct-name" formControlName="name" placeholder=" " /><label for="ct-name">Full Name *</label></div>
+              <div class="fg-float"><input type="email" id="ct-email" formControlName="email" placeholder=" " /><label for="ct-email">Email Address *</label></div>
             </div>
-            <div class="fg"><label>Phone <em>(optional)</em></label>
+            <div class="fg"><label class="fg-lbl">Phone <em>(optional)</em></label>
               <app-phone-input (valueChange)="onContactPhone($event)" [defaultCountry]="'US'"></app-phone-input>
             </div>
-            <div class="fg"><label>Message *</label>
-              <textarea formControlName="message" rows="4" placeholder="How can we help you?"></textarea>
-            </div>
+            <div class="fg-float"><textarea id="ct-msg" formControlName="message" rows="4" placeholder=" "></textarea><label for="ct-msg">How can we help you? *</label></div>
             <button type="submit" class="btn-submit-blue" [disabled]="contactSubmitting()">
               {{ contactSubmitting() ? 'Sending...' : 'Send Message →' }}
             </button>
@@ -763,11 +761,20 @@
         </div>
         <div class="ft-col">
           <h4>Services</h4>
+          <a routerLink="/online-class-help">Online Class Help</a>
+          <a routerLink="/assignment-help">Assignment Help</a>
+          <a routerLink="/homework-help">Homework Help</a>
+          <a routerLink="/exam-help">Online Exam Help</a>
+          <a routerLink="/quiz-help">Online Quiz Help</a>
+          <a routerLink="/take-my-online-class">Take My Online Class</a>
+        </div>
+        <div class="ft-col">
+          <h4>More Help</h4>
+          <a routerLink="/discussion-post-help">Discussion Post Help</a>
+          <a routerLink="/essay-writing-help">Essay Writing Help</a>
+          <a routerLink="/online-course-help">Online Course Help</a>
           <a routerLink="/pay-someone-to-do-my-online-class">Pay For My Online Class</a>
-          <a routerLink="/services">Full Online Class</a>
-          <a routerLink="/services">Essays &amp; Research</a>
-          <a routerLink="/services">Programming Help</a>
-          <a routerLink="/services">Business &amp; MBA</a>
+          <a routerLink="/services">All Services</a>
         </div>
         <div class="ft-col">
           <h4>Company</h4>

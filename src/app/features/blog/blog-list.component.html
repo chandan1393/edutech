@@ -34,8 +34,36 @@
   <div class="posts-section">
     <div class="wrap">
 
+      <!-- Loading skeletons -->
+      <div class="skel-featured" *ngIf="loading()">
+        <div class="skel skel-badge"></div>
+        <div class="skel skel-line w40"></div>
+        <div class="skel skel-title"></div>
+        <div class="skel skel-title w70"></div>
+        <div class="skel skel-line w90"></div>
+        <div class="skel skel-line w80"></div>
+        <div class="skel-meta">
+          <div class="skel skel-line w20"></div>
+          <div class="skel skel-line w20"></div>
+          <div class="skel skel-line w20"></div>
+        </div>
+      </div>
+      <div class="posts-grid" *ngIf="loading()">
+        <div class="post-card skel-card" *ngFor="let i of [1,2,3,4,5,6]">
+          <div class="skel skel-line w30"></div>
+          <div class="skel skel-title"></div>
+          <div class="skel skel-line w95"></div>
+          <div class="skel skel-line w85"></div>
+          <div class="skel skel-line w60"></div>
+          <div class="skel-meta">
+            <div class="skel skel-line w30"></div>
+            <div class="skel skel-line w30"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Featured first post (large) -->
-      <div class="featured-post" *ngIf="filteredPosts.length > 0"
+      <div class="featured-post" *ngIf="!loading() && filteredPosts.length > 0"
            (click)="openPost(filteredPosts[0].slug)">
         <div class="fp-badge">✦ Featured Article</div>
         <div class="fp-cat">{{ filteredPosts[0].category }}</div>
@@ -50,7 +78,7 @@
       </div>
 
       <!-- Remaining posts grid -->
-      <div class="posts-grid" *ngIf="filteredPosts.length > 1">
+      <div class="posts-grid" *ngIf="!loading() && filteredPosts.length > 1">
         <div class="post-card" *ngFor="let post of filteredPosts.slice(1)"
              (click)="openPost(post.slug)">
           <div class="pc-cat">{{ post.category }}</div>
@@ -68,7 +96,7 @@
       </div>
 
       <!-- Empty state -->
-      <div class="empty-posts" *ngIf="filteredPosts.length === 0">
+      <div class="empty-posts" *ngIf="!loading() && filteredPosts.length === 0">
         <div class="ep-ico">🔍</div>
         <h3>No articles in this category yet</h3>
         <p>Try selecting a different category or check back soon.</p>

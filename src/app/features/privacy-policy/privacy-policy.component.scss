@@ -1,26 +1,39 @@
-$blue:#1e3a8a;$blue2:#2563eb;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
-$teal:#2563eb;$teal4:#eff6ff;$navy:#0f172a;$navy3:#334155;$muted:#64748b;
-$bd:#e2e8f0;$white:#ffffff;$off:#f8fafc;
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"DM Sans",system-ui,sans-serif}
-.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
-.wrap-mid{max-width:780px;margin:0 auto;padding:0 28px}
-.page-hero{background:linear-gradient(145deg,$blue 0%,$blue2 60%,$teal 100%);padding:72px 0 56px;position:relative;overflow:hidden;
-  &::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1.5px,transparent 1.5px);background-size:32px 32px}}
+$blue:#0F4C81;$blue2:#2563EB;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$teal:#14B8A6;$navy:#0f172a;$navy3:#4B5563;$muted:#94A3B8;$ink:#111827;
+$bd:#e2e8f0;$white:#fff;$off:#F8FAFC;$off2:#f1f5f9;
+*{box-sizing:border-box}
+.legal-page{font-family:'Inter',system-ui,sans-serif;background:$off;min-height:100vh}
+
+/* Reading progress */
+.reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,$blue,$blue2);z-index:1200;transition:width .1s linear;box-shadow:0 1px 6px rgba($blue,.4)}
+
+/* Hero */
+.page-hero{background:linear-gradient(135deg,$blue,$blue2);padding:64px 0 52px;position:relative;overflow:hidden;&::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1.3px,transparent 1.3px);background-size:32px 32px}}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px;@media(max-width:640px){padding:0 20px}}
 .ph-inner{position:relative;z-index:1}
-.ph-back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.83rem;margin-bottom:22px;transition:color .15s;&:hover{color:white}}
-.ph-tag{display:inline-flex;align-items:center;background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.18)}
-.page-hero h1{font-family:"Playfair Display",serif;font-size:clamp(2rem,3.5vw,3rem);color:white;font-weight:700;line-height:1.12;letter-spacing:-.03em;margin-bottom:12px}
-.page-hero p{font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.72}
-.legal-body{padding:64px 0;background:$off;
-  .legal-card{background:$white;border:1.5px solid $bd;border-radius:18px;padding:44px 52px;box-shadow:0 4px 20px rgba(0,0,0,.05);
-    @media(max-width:600px){padding:28px 24px}}
-}
-.legal-card h2{font-family:"Playfair Display",serif;font-size:1.4rem;font-weight:700;color:$navy;margin:32px 0 12px;letter-spacing:-.01em;&:first-child{margin-top:0}}
-.legal-card h3{font-family:"Playfair Display",serif;font-size:1.05rem;font-weight:700;color:$navy;margin:22px 0 10px}
-.legal-card p{font-size:.9rem;color:$navy3;line-height:1.82;margin-bottom:14px}
-.legal-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;padding-left:4px;
-  li{font-size:.9rem;color:$navy3;line-height:1.7;display:flex;align-items:flex-start;gap:9px;
-    &::before{content:"✦";color:$blue3;font-size:.65rem;margin-top:5px;flex-shrink:0}}}
-.legal-card a{color:$blue2;text-decoration:none;&:hover{text-decoration:underline}}
-.legal-updated{display:inline-flex;align-items:center;gap:7px;background:$blue5;color:$blue2;font-size:.78rem;font-weight:600;padding:6px 14px;border-radius:8px;border:1px solid $blue4;margin-bottom:28px}
+.ph-crumb{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.6);font-size:.82rem;margin-bottom:16px;a{color:rgba(255,255,255,.85);text-decoration:none;&:hover{text-decoration:underline}}span{color:rgba(255,255,255,.45)}}
+.ph-tag{display:inline-flex;background:rgba(255,255,255,.14);color:rgba(255,255,255,.9);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.2)}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.4vw,2.9rem);color:$white;font-weight:800;letter-spacing:-.02em;margin:0 0 12px}
+.page-hero p{font-size:1.02rem;color:rgba(255,255,255,.72);line-height:1.7;max-width:600px;margin:0}
+.ph-updated{margin-top:16px;font-size:.8rem;color:rgba(255,255,255,.6)}
+
+/* Body layout */
+.legal-body{padding:56px 0 80px}
+.legal-layout{display:grid;grid-template-columns:250px 1fr;gap:44px;align-items:start;@media(max-width:900px){grid-template-columns:1fr;gap:28px}}
+
+/* Sticky TOC */
+.legal-toc{position:sticky;top:90px;@media(max-width:900px){position:static;top:auto}}
+.toc-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:$muted;margin-bottom:12px;padding-left:14px}
+.legal-toc nav{display:flex;flex-direction:column;gap:2px;border-left:2px solid $bd}
+.toc-link{display:block;width:100%;text-align:left;background:none;border:none;font-family:inherit;cursor:pointer;font-size:.86rem;font-weight:500;color:$navy3;padding:8px 14px;margin-left:-2px;border-left:2px solid transparent;transition:all .2s;line-height:1.4;&:hover{color:$blue2}&.active{color:$blue;font-weight:700;border-left-color:$blue}}
+
+/* Content */
+.legal-content{background:$white;border:1px solid $bd;border-radius:20px;padding:44px;box-shadow:0 4px 24px -16px rgba($blue,.25);@media(max-width:640px){padding:28px 22px}}
+.legal-section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid $off2;scroll-margin-top:100px;&:last-of-type{border-bottom:none}}
+.legal-section h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:$ink;margin:0 0 16px;letter-spacing:-.01em}
+.legal-section h3{font-size:1rem;font-weight:700;color:$ink;margin:22px 0 8px}
+.legal-section p{font-size:.95rem;color:$navy3;line-height:1.8;margin:0 0 14px}
+.legal-section ul{margin:0 0 16px;padding-left:22px;li{font-size:.94rem;color:$navy3;line-height:1.75;margin-bottom:8px;strong{color:$ink}}}
+.legal-section a{color:$blue2;font-weight:600;text-decoration:none;&:hover{text-decoration:underline}}
+.legal-highlight{background:$blue5;border:1px solid $blue4;border-left:4px solid $blue2;border-radius:0 12px 12px 0;padding:16px 20px;font-size:.92rem;color:$navy3;line-height:1.7;margin:18px 0}
+.legal-contact{background:$off;border:1px solid $bd;border-radius:16px;padding:26px;margin-top:8px;h3{font-size:1.05rem;font-weight:700;color:$ink;margin:0 0 8px}p{font-size:.93rem;color:$navy3;margin:0}a{color:$blue2;font-weight:600;text-decoration:none;&:hover{text-decoration:underline}}}
