@@ -1,0 +1,147 @@
+import { ServicePageData, ServiceFeature, RelatedLink } from './service-pages.data';
+
+const EXAM_FEATURES: ServiceFeature[] = [
+  { icon: '✅', title: 'Subject-Matched Experts', desc: 'Your exam is handled by a verified specialist in that exact subject — ready and prepared for your exam window.' },
+  { icon: '🔒', title: 'Total Confidentiality', desc: 'Your identity is encrypted, connections are region-matched and secure, and credentials are deleted right after.' },
+  { icon: '⏱️', title: 'Real-Time Handling', desc: 'Timed and proctored exams are completed live by an expert who is ready the moment your exam opens.' },
+  { icon: '💳', title: 'Flexible Payment', desc: 'Stripe-secured payment with clear pricing — reserve your expert ahead of the exam with no surprises.' },
+  { icon: '🎯', title: 'Strong, Reliable Results', desc: 'A 99.1% success rate across thousands of exams. We help you achieve the score you need with confidence.' },
+  { icon: '📞', title: '24/7 Live Support', desc: 'Real humans reply in under 5 minutes on WhatsApp, any timezone, every day — before, during, and after.' },
+];
+
+const EXAM_LINKS: RelatedLink[] = [
+  { label: 'Take My Online Exam', path: '/take-my-online-exam' },
+  { label: 'Proctored Exam Help', path: '/proctored-exam-help' },
+  { label: 'Midterm Exam Help', path: '/midterm-exam-help' },
+  { label: 'Final Exam Help', path: '/final-exam-help' },
+  { label: 'Online Test Help', path: '/online-test-help' },
+  { label: 'ProctorU Exam Help', path: '/proctoru-exam-help' },
+  { label: 'TEAS Exam Help', path: '/teas-exam-help' },
+  { label: 'GRE & GMAT Help', path: '/gre-gmat-exam-help' },
+];
+
+const CORE_LINKS: RelatedLink[] = [
+  { label: 'Online Exam Help', path: '/exam-help' },
+  { label: 'Online Quiz Help', path: '/quiz-help' },
+  { label: 'Online Class Help', path: '/online-class-help' },
+];
+
+function examRelated(slug: string): RelatedLink[] {
+  const siblings = EXAM_LINKS.filter(l => l.path !== `/${slug}`).slice(0, 4);
+  return [...siblings, ...CORE_LINKS.slice(0, 2)];
+}
+
+function makeExam(
+  slug: string, name: string, badge: string, h1: string, kw: string,
+  heroLead: string, introParas: string[], faqs: { q: string; a: string }[]
+): ServicePageData {
+  return {
+    slug,
+    title: `${name} | Secure, Expert ${badge}`,
+    metaDescription: `${badge} from verified experts. We handle timed, proctored, and online exams securely across Canvas, Blackboard & more. High scores, full confidentiality, pay per exam.`,
+    keywords: `${kw}, ${name.toLowerCase()}, online exam help, exam taker service`,
+    badge,
+    h1,
+    heroLead,
+    introH2: `Secure, Discreet ${badge}`,
+    introParas,
+    featuresH2: `Why Students Trust Our ${badge}`,
+    features: EXAM_FEATURES,
+    processH2: `How ${badge} Works`,
+    steps: [
+      { num: '01', title: 'Share Exam Details', desc: 'Tell us the subject, date, format, and platform — we confirm exactly what we can help with, free.' },
+      { num: '02', title: 'Reserve Your Expert', desc: 'Get a clear quote and lock in your subject-matched expert well ahead of the exam window.' },
+      { num: '03', title: 'Expert Handles It', desc: 'On exam day, your expert helps you achieve a strong result using strict security protocols.' },
+      { num: '04', title: 'Get Your Score', desc: 'Review your result with the peace of mind that your privacy was protected throughout.' },
+    ],
+    faqs,
+    related: examRelated(slug),
+    ctaH2: `Reserve Expert ${badge} Now`,
+    ctaText: 'Get a free quote and secure your expert before your exam window opens — discreet, reliable, and confidential.',
+  };
+}
+
+export const EXAM_PAGES: Record<string, ServicePageData> = {
+  'take-my-online-exam': makeExam('take-my-online-exam', 'Take My Online Exam', 'Online Exam Help',
+    'Take My Online Exam — Handled by Experts', 'take my online exam, pay someone to take my exam, do my online exam',
+    '“Can someone take my online exam?” Yes. A verified subject expert helps you achieve a strong result on timed and untimed online exams — securely and confidentially.',
+    ['Online exams are high-stakes and time-limited, and one bad result can undo a whole semester. EduPilotHelp connects you with a verified expert in your subject who is ready to help you perform when it counts.',
+     'We handle timed, open-book, and many proctored exam formats across Canvas, Blackboard, Moodle, and other platforms, following strict security practices to protect your identity.',
+     'With a 99.1% success rate across thousands of exams, we help you walk into every online exam with confidence and out with the score you need.'],
+    [{ q: 'Can you take my entire online exam?', a: 'Yes. A subject-matched expert completes your online exam in real time, whether it is timed, open-book, or many proctored formats.' },
+     { q: 'How do you keep it confidential?', a: 'Your identity is encrypted, experts use region-matched secure connections, and all credentials are deleted after the exam. No third party can detect our involvement.' },
+     { q: 'What subjects can you cover?', a: 'Over 200 subjects including nursing, math, statistics, business, computer science, and psychology — always matched to a specialist.' },
+     { q: 'How far ahead should I book?', a: 'The earlier the better, especially for timed exams, so we can reserve the right expert for your exact window. Same-day requests are sometimes possible.' }]),
+  'proctored-exam-help': makeExam('proctored-exam-help', 'Proctored Exam Help', 'Proctored Exam Help',
+    'Proctored Exam Help You Can Trust', 'proctored exam help, take my proctored exam, proctorio help, respondus help',
+    'Facing a proctored exam? Our experts assist with many proctored formats — including recorded and lockdown-browser exams — using secure methods that protect your privacy.',
+    ['Proctored exams add monitoring software and identity checks on top of the usual pressure. EduPilotHelp provides proctored exam help using careful, secure methods tailored to your specific setup.',
+     'We assist with many proctoring systems — including Proctorio, Respondus LockDown Browser, and recorded formats — and will always confirm honestly what is achievable for your exam before you commit.',
+     'Every proctored exam is handled with strict confidentiality and a subject-matched expert prepared for your exact exam window.'],
+    [{ q: 'Can you help with Proctorio or Respondus exams?', a: 'We assist with many proctored formats, including Proctorio and Respondus LockDown Browser, using secure methods. Share your exam details and we will confirm exactly what is possible for your setup.' },
+     { q: 'Is it safe?', a: 'Yes. We use region-matched secure connections and strict privacy protocols, and your credentials are deleted after the exam.' },
+     { q: 'What if my exam uses ID verification?', a: 'Some formats are more restrictive than others. Tell us the specifics and we will give you an honest answer about what we can and cannot help with.' },
+     { q: 'How do I get started?', a: 'Send your exam date, subject, and proctoring system for a free assessment and quote.' }]),
+  'midterm-exam-help': makeExam('midterm-exam-help', 'Midterm Exam Help', 'Midterm Exam Help',
+    'Midterm Exam Help From Subject Experts', 'midterm exam help, take my midterm, do my midterm exam',
+    'Midterms stacking up across several courses? Our subject experts help you achieve strong midterm results, securely and on schedule, so mid-semester never derails your GPA.',
+    ['Midterm season means multiple high-weight exams in a short window. EduPilotHelp provides midterm exam help from subject-matched experts ready for each of your exam times.',
+     'We handle timed and proctored midterms across Canvas, Blackboard, and other platforms, following strict security practices to protect your identity.',
+     'From a single tough midterm to several at once, we help you stay on track through the middle of the semester.'],
+    [{ q: 'Can you handle multiple midterms?', a: 'Yes. We can reserve subject-matched experts for several midterms across different courses in the same window.' },
+     { q: 'Do you handle timed midterms?', a: 'Yes, timed midterms are completed in real time by an expert ready during your exam window.' },
+     { q: 'Which subjects do you cover?', a: 'Over 200 subjects, always matched to a specialist in that field.' },
+     { q: 'Is it confidential?', a: 'Completely — encrypted identity, secure connections, and credentials deleted after each exam.' }]),
+  'final-exam-help': makeExam('final-exam-help', 'Final Exam Help', 'Final Exam Help',
+    'Final Exam Help When It Matters Most', 'final exam help, take my final exam, do my final exam',
+    'Finals decide your grade — do not leave them to chance. Our subject experts help you achieve strong final exam results, securely and confidentially, when the stakes are highest.',
+    ['Final exams carry the heaviest weight of the term, often across several courses at once. EduPilotHelp provides final exam help from subject-matched experts prepared for each of your exams.',
+     'We handle timed, comprehensive, and many proctored finals across every major platform, using strict security to protect your privacy.',
+     'With a 99.1% success rate, we help you finish the semester strong and protect the GPA you have worked all term for.'],
+    [{ q: 'Can you take my final exam?', a: 'Yes. A subject expert completes your final exam in real time, whether it is timed, comprehensive, or many proctored formats.' },
+     { q: 'Can you handle several finals?', a: 'Yes, we can reserve experts for multiple finals across different courses in the same exam period.' },
+     { q: 'How do you protect my privacy?', a: 'Your identity is encrypted, connections are region-matched and secure, and credentials are deleted after the exam.' },
+     { q: 'When should I book?', a: 'As early as possible during finals week so we can secure the right expert for each exam time.' }]),
+  'online-test-help': makeExam('online-test-help', 'Online Test Help', 'Online Test Help',
+    'Online Test Help for Every Course', 'online test help, take my online test, do my online test',
+    'Chapter tests and unit assessments piling up? Our experts complete your online tests accurately and on time across every subject and platform, so you never lose easy points.',
+    ['Online tests fall between quizzes and exams — frequent, weighted, and easy to miss in a busy schedule. EduPilotHelp provides online test help from subject-matched experts.',
+     'We handle timed and untimed tests directly in Canvas, Blackboard, Pearson, and other platforms, completing each accurately before it closes.',
+     'From a single unit test to a full term of them, we keep your test grades strong and consistent.'],
+    [{ q: 'Can you complete timed online tests?', a: 'Yes. Timed tests are completed in real time by an expert ready during your test window.' },
+     { q: 'Which platforms do you support?', a: 'Canvas, Blackboard, Moodle, Pearson MyLab, McGraw Hill Connect, and more.' },
+     { q: 'Can you handle recurring tests?', a: 'Yes, we can cover unit and chapter tests across your entire course.' },
+     { q: 'Is my account safe?', a: 'Yes — credentials are encrypted, used only for your work, and deleted within 48 hours.' }]),
+  'proctoru-exam-help': makeExam('proctoru-exam-help', 'ProctorU Exam Help', 'ProctorU Exam Help',
+    'ProctorU Exam Help From Verified Experts', 'proctoru exam help, take my proctoru exam, proctoru test help',
+    'Have a ProctorU-monitored exam coming up? Our experts assist with many ProctorU exam formats using secure, careful methods — and we will always tell you honestly what is possible.',
+    ['ProctorU adds live or recorded monitoring and identity checks to online exams. EduPilotHelp provides ProctorU exam help using secure methods tailored to your specific exam setup.',
+     'We assess each ProctorU exam individually and give you an honest answer about what we can help with, then match you with a prepared subject expert for your window.',
+     'Every exam is handled with strict confidentiality and careful attention to the monitoring involved.'],
+    [{ q: 'Can you help with ProctorU exams?', a: 'We assist with many ProctorU formats using secure methods. Because setups vary, share your exam details and we will confirm honestly what is possible for yours.' },
+     { q: 'Is it confidential?', a: 'Yes. We use secure, region-matched connections and strict privacy protocols, and delete credentials after the exam.' },
+     { q: 'What details do you need?', a: 'The exam date, subject, and the exact ProctorU format (live-proctored, record-and-review, or auto).' },
+     { q: 'How do I start?', a: 'Send your exam details for a free assessment and quote before you commit.' }]),
+  'teas-exam-help': makeExam('teas-exam-help', 'TEAS Exam Help', 'TEAS Exam Help',
+    'TEAS Exam Help for Nursing Applicants', 'teas exam help, take my teas exam, ati teas help, teas test help',
+    'Preparing for the ATI TEAS? Our nursing and science experts help you achieve a strong TEAS result across reading, math, science, and English — securely and confidentially.',
+    ['The ATI TEAS is a critical gateway to nursing programs, covering reading, math, science, and English usage under time pressure. EduPilotHelp provides TEAS exam help from experts across these areas.',
+     'We assist with TEAS exam formats using secure methods and will confirm honestly what is achievable for your specific testing setup and location.',
+     'Every TEAS exam is handled with strict confidentiality by experts prepared for the exact content areas the test covers.'],
+    [{ q: 'Can you help with the ATI TEAS exam?', a: 'Yes. Our experts help across all four TEAS sections — reading, math, science, and English — using secure methods. Share your test details for an honest assessment.' },
+     { q: 'Which TEAS sections do you cover?', a: 'Reading, mathematics, science, and English and language usage.' },
+     { q: 'Is it confidential?', a: 'Yes — encrypted identity, secure connections, and credentials deleted after the exam.' },
+     { q: 'How should I prepare to book?', a: 'Send your test date, format, and testing location so we can confirm what we can help with and reserve the right expert.' }]),
+  'gre-gmat-exam-help': makeExam('gre-gmat-exam-help', 'GRE & GMAT Exam Help', 'GRE & GMAT Help',
+    'GRE & GMAT Exam Help From Test Experts', 'gre exam help, gmat exam help, take my gre, take my gmat',
+    'Graduate admissions riding on your GRE or GMAT? Our test experts help you achieve a competitive score across quantitative, verbal, and analytical sections — securely and confidentially.',
+    ['The GRE and GMAT are pivotal for graduate and business school admissions, testing quantitative, verbal, and analytical skills under strict conditions. EduPilotHelp provides GRE and GMAT help from experienced test experts.',
+     'We assist with online and at-home GRE and GMAT formats using secure methods, and we will always confirm honestly what is possible for your specific testing arrangement.',
+     'Every exam is handled with strict confidentiality by an expert prepared for the exact sections and adaptive format involved.'],
+    [{ q: 'Can you help with the online GRE or GMAT?', a: 'We assist with many online and at-home GRE and GMAT formats using secure methods. Because monitoring varies, share your details for an honest assessment.' },
+     { q: 'Which sections do you cover?', a: 'GRE quantitative, verbal, and analytical writing; GMAT quantitative, verbal, integrated reasoning, and analytical writing.' },
+     { q: 'Is it confidential?', a: 'Yes — encrypted identity, secure connections, and credentials deleted after the exam.' },
+     { q: 'How far ahead should I book?', a: 'As early as possible so we can reserve an expert matched to the adaptive format and your test window.' }]),
+};
+
+export const EXAM_SLUGS = Object.keys(EXAM_PAGES);

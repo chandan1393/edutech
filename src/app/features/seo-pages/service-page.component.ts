@@ -5,6 +5,7 @@ import { SeoService } from '../../core/services/seo.service';
 import { SERVICE_PAGES, ServicePageData } from './service-pages.data';
 import { LMS_PAGES } from './lms-pages.data';
 import { SUBJECT_PAGES } from './subject-pages.data';
+import { EXAM_PAGES } from './exam-pages.data';
 
 @Component({
   selector: 'app-service-page',
@@ -24,7 +25,7 @@ export class ServicePageComponent implements OnInit {
     // Slug comes from route data (set per-route) or the URL path.
     const slug: string = this.route.snapshot.data['slug']
       || this.router.url.replace(/^\//, '').split(/[?#]/)[0];
-    const page = SERVICE_PAGES[slug] || LMS_PAGES[slug] || SUBJECT_PAGES[slug];
+    const page = SERVICE_PAGES[slug] || LMS_PAGES[slug] || SUBJECT_PAGES[slug] || EXAM_PAGES[slug];
     if (!page) { this.router.navigate(['/']); return; }
     this.data = page;
 

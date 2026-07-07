@@ -1,0 +1,2 @@
+# EduPilotHelp does not sell programmatic ad inventory.
+# This file exists to return a valid text/plain response.
