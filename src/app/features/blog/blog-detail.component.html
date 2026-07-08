@@ -1,0 +1,151 @@
+<div class="bd-page">
+  <!-- Reading progress -->
+  <div class="reading-progress" [style.width.%]="progress()" *ngIf="!loading() && post()"></div>
+
+  <!-- Loading skeleton -->
+  <div class="bd-loading" *ngIf="loading()">
+    <div class="skel skel-line w30"></div>
+    <div class="skel skel-title"></div>
+    <div class="skel skel-title w70"></div>
+    <div class="skel skel-meta"></div>
+    <div class="skel skel-block"></div>
+  </div>
+
+  <ng-container *ngIf="!loading() && post()">
+    <!-- Hero -->
+    <div class="bd-hero">
+      <div class="wrap-mid">
+        <nav class="bd-crumb" aria-label="Breadcrumb">
+          <a routerLink="/">Home</a> <span aria-hidden="true">›</span>
+          <a routerLink="/blog">Blog</a> <span aria-hidden="true">›</span>
+          <span>{{ post().category || 'Article' }}</span>
+        </nav>
+        <div class="bd-cat">{{ post().category || 'Online Class Help' }}</div>
+        <h1>{{ post().title }}</h1>
+        <div class="bd-meta">
+          <span>✍️ {{ post().author || 'EduPilotHelp Team' }}</span>
+          <span>⏱ {{ post().readTimeMinutes || 5 }} min read</span>
+          <span>📅 Published {{ formatDate(post().createdAt) }}</span>
+          <span *ngIf="post().updatedAt && post().updatedAt !== post().createdAt" class="bd-updated">🔄 Updated {{ formatDate(post().updatedAt) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body: TOC sidebar + article -->
+    <div class="bd-body">
+      <div class="wrap-mid">
+        <div class="bd-layout">
+
+          <!-- Sticky TOC -->
+          <aside class="bd-toc" *ngIf="toc().length > 1" aria-label="Table of contents">
+            <div class="toc-title">On this page</div>
+            <nav>
+              <button *ngFor="let t of toc()" class="toc-link"
+                      [class.lvl3]="t.level === 3"
+                      [class.active]="activeId() === t.id"
+                      (click)="scrollTo(t.id)">{{ t.text }}</button>
+            </nav>
+
+            <div class="toc-share">
+              <div class="toc-title">Share</div>
+              <div class="share-btns">
+                <button (click)="share('twitter')" aria-label="Share on X" title="Share on X">𝕏</button>
+                <button (click)="share('facebook')" aria-label="Share on Facebook" title="Share on Facebook">f</button>
+                <button (click)="share('linkedin')" aria-label="Share on LinkedIn" title="Share on LinkedIn">in</button>
+                <button (click)="share('whatsapp')" aria-label="Share on WhatsApp" title="Share on WhatsApp">✆</button>
+                <button (click)="copyLink()" aria-label="Copy link" title="Copy link">{{ copied() ? '✓' : '🔗' }}</button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Article -->
+          <article class="bd-article">
+            <div class="bd-content" [innerHTML]="post().content"></div>
+
+            <!-- Tags -->
+            <div class="bd-tags" *ngIf="tags().length">
+              <span class="tags-label">Tags:</span>
+              <span class="tag-chip" *ngFor="let t of tags()">{{ t }}</span>
+            </div>
+
+            <!-- Mobile share (visible when TOC hidden) -->
+            <div class="bd-share-inline">
+              <span>Share this article:</span>
+              <div class="share-btns">
+                <button (click)="share('twitter')" aria-label="Share on X">𝕏</button>
+                <button (click)="share('facebook')" aria-label="Share on Facebook">f</button>
+                <button (click)="share('linkedin')" aria-label="Share on LinkedIn">in</button>
+                <button (click)="share('whatsapp')" aria-label="Share on WhatsApp">✆</button>
+                <button (click)="copyLink()" aria-label="Copy link">{{ copied() ? '✓ Copied' : '🔗 Copy' }}</button>
+              </div>
+            </div>
+
+            <!-- Author box -->
+            <div class="bd-author">
+              <div class="author-av">EP</div>
+              <div class="author-body">
+                <div class="author-name">{{ post().author || 'EduPilotHelp Team' }}</div>
+                <p class="author-bio">Our academic team of verified subject-matter experts has helped 5,000+ students succeed in their online classes. We write practical guides to help you study smarter, stay on track, and protect your GPA.</p>
+                <a routerLink="/about" class="author-link">About EduPilotHelp →</a>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="bd-cta">
+              <div class="cta-icon">🎓</div>
+              <h3>Need Help With Your Online Class?</h3>
+              <p>Our verified experts handle everything from quizzes to final exams. Get a free custom quote within 24 hours — no upfront payment required.</p>
+              <div class="cta-btns">
+                <a routerLink="/" class="cta-btn-primary">Get a Free Quote →</a>
+                <a routerLink="/how-it-works" class="cta-btn-ghost">See How It Works</a>
+              </div>
+              <div class="cta-trust">
+                <span>✅ 5,000+ Classes Completed</span>
+                <span>⭐ 4.9/5 Rated</span>
+                <span>🔒 100% Confidential</span>
+              </div>
+            </div>
+
+            <!-- Related services internal links -->
+            <div class="bd-related-services">
+              <h3>Related Services</h3>
+              <div class="rs-grid">
+                <a routerLink="/online-class-help">Online Class Help →</a>
+                <a routerLink="/assignment-help">Assignment Help →</a>
+                <a routerLink="/exam-help">Online Exam Help →</a>
+                <a routerLink="/canvas-class-help">Canvas Class Help →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Related articles -->
+        <div class="bd-related" *ngIf="related().length">
+          <h2>Related Articles</h2>
+          <div class="rel-grid">
+            <a class="rel-card" *ngFor="let r of related()" [routerLink]="['/blog', r.slug]">
+              <div class="rel-cat">{{ r.category || 'Article' }}</div>
+              <h3>{{ r.title }}</h3>
+              <p>{{ r.excerpt }}</p>
+              <span class="rel-more">Read Article →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Not found / error -->
+  <div class="not-found" *ngIf="!loading() && !post() && !error()">
+    <div class="nf-icon">📄</div>
+    <h2>Article Not Found</h2>
+    <p>This article may have been moved or is not yet available.</p>
+    <a routerLink="/blog" class="back-btn">← Browse All Articles</a>
+  </div>
+  <div class="not-found error-state" *ngIf="!loading() && error()">
+    <div class="nf-icon">⚠️</div>
+    <h2>Unable to Load Article</h2>
+    <p>There was an error loading this article. Please check your connection and try again.</p>
+    <a routerLink="/blog" class="back-btn">← Browse All Articles</a>
+  </div>
+</div>

@@ -115,4 +115,30 @@ export class SeoService {
       }))
     };
   }
+
+  /** Helper: build a BlogPosting/Article schema. */
+  articleSchema(a: {
+    title: string; description: string; url: string; author: string;
+    datePublished?: string; dateModified?: string; category?: string; image?: string;
+  }) {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: a.title,
+      description: a.description,
+      url: `${this.BASE_URL}${a.url}`,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': `${this.BASE_URL}${a.url}` },
+      author: { '@type': 'Organization', name: a.author || this.SITE, url: this.BASE_URL },
+      publisher: {
+        '@type': 'Organization',
+        name: this.SITE,
+        url: this.BASE_URL,
+        logo: { '@type': 'ImageObject', url: `${this.BASE_URL}/favicon.svg` }
+      },
+      ...(a.datePublished ? { datePublished: a.datePublished } : {}),
+      ...(a.dateModified ? { dateModified: a.dateModified } : {}),
+      ...(a.category ? { articleSection: a.category } : {}),
+      ...(a.image ? { image: a.image } : {})
+    };
+  }
 }
