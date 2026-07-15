@@ -10,6 +10,7 @@ import { CountryService } from '../../core/services/country.service';
 import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
+import { WHATSAPP_DISPLAY, waLink, WA_MESSAGES } from '../../core/constants/contact.constants';
 
 @Component({
   selector: 'app-landing',
@@ -32,6 +33,19 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   querySubmitting   = signal(false);
   contactSubmitting = signal(false);
+  // ── WhatsApp contact (single source of truth in contact.constants.ts) ──
+  waDisplay = WHATSAPP_DISPLAY;
+  waGeneralLink = waLink(WA_MESSAGES.general);
+
+  /** Open a WhatsApp chat, pre-filling the user's typed number when we have it. */
+  openWhatsApp() {
+    const typed = this.textMePhone?.full;
+    const msg = typed
+      ? `${WA_MESSAGES.quote} My number is ${typed}.`
+      : WA_MESSAGES.quote;
+    window.open(waLink(msg), '_blank', 'noopener');
+  }
+
   textMeSubmitting  = signal(false);
   querySuccess      = signal('');
   contactSuccess    = signal('');

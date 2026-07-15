@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { SeoService } from '../../core/services/seo.service';
+import { waLink, WA_MESSAGES } from '../../core/constants/contact.constants';
 import { SERVICE_PAGES, ServicePageData } from './service-pages.data';
 import { LMS_PAGES } from './lms-pages.data';
 import { SUBJECT_PAGES } from './subject-pages.data';
@@ -19,6 +20,11 @@ export class ServicePageComponent implements OnInit {
   data!: ServicePageData;
   activeFaq = signal(-1);
   toggle(i: number) { this.activeFaq.set(this.activeFaq() === i ? -1 : i); }
+
+  /** WhatsApp link pre-filled with this specific service's name. */
+  get waHref(): string {
+    return waLink(this.data ? WA_MESSAGES.service(this.data.badge) : WA_MESSAGES.general);
+  }
 
   constructor(private route: ActivatedRoute, private router: Router, private seo: SeoService) {}
 

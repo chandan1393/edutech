@@ -252,6 +252,10 @@ form{padding:20px 24px 22px}
 .wa-err{background:rgba($er,.1);border:1px solid rgba($er,.2);color:#fca5a5;padding:10px;border-radius:8px;font-size:.82rem;margin-bottom:10px}
 .wa-btn{width:100%;background:#25D366;color:$white;border:none;border-radius:10px;padding:12px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:12px;transition:all .2s;&:hover{background:#1db954;transform:translateY(-1px)}&:disabled{opacity:.6;cursor:not-allowed}}
 .wa-note{font-size:.73rem;color:rgba(255,255,255,.25);text-align:center;margin-top:10px}
+.wa-or{display:flex;align-items:center;gap:10px;margin:14px 0 12px;&::before,&::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.12)}span{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em}}
+.wa-btn-direct{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:#25D366;border:1.5px solid rgba(37,211,102,.5);border-radius:10px;padding:11px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;&:hover{background:rgba(37,211,102,.12);border-color:#25D366;transform:translateY(-1px)}svg{flex-shrink:0}}
+.wa-number{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.5);text-align:center;margin-top:8px;letter-spacing:.02em}
+.waok-link{margin-top:16px;max-width:280px}
 .wa-ok{text-align:center;padding:28px;.waok-ico{font-size:2.2rem;margin-bottom:12px}h3{color:$white;font-size:1.05rem;font-weight:700;margin-bottom:7px;font-family:'Playfair Display',serif}p{color:rgba(255,255,255,.5);font-size:.86rem}}
 
 // FAQ — Two column
@@ -374,3 +378,13 @@ form{padding:20px 24px 22px}
 .disclaimer-bar{background:$navy;padding:20px 0;border-top:1px solid rgba(255,255,255,.06);
   p{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.7;text-align:center;max-width:900px;margin:0 auto;strong{color:rgba(255,255,255,.75)}}
 }
+
+/* ── Floating WhatsApp button ── */
+.wa-fab{position:fixed;right:22px;bottom:22px;z-index:900;display:inline-flex;align-items:center;gap:0;background:#25D366;color:#fff;border-radius:50px;padding:14px;text-decoration:none;box-shadow:0 10px 30px -6px rgba(37,211,102,.55);transition:all .3s cubic-bezier(.22,1,.36,1);overflow:hidden;
+  svg{flex-shrink:0}
+  .wa-fab-txt{max-width:0;opacity:0;white-space:nowrap;font-size:.9rem;font-weight:700;transition:all .3s cubic-bezier(.22,1,.36,1)}
+  &:hover{transform:translateY(-3px);box-shadow:0 16px 38px -6px rgba(37,211,102,.7);.wa-fab-txt{max-width:140px;opacity:1;margin-left:9px}}
+  &:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  @media(max-width:640px){right:16px;bottom:16px;padding:13px}
+}
+@media(prefers-reduced-motion:reduce){.wa-fab,.wa-fab .wa-fab-txt{transition:none}}
