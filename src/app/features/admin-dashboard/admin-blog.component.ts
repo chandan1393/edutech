@@ -79,7 +79,7 @@ import { environment } from '../../../environments/environment';
 .tc{strong{display:block;font-size:.84rem;color:#0f172a;font-weight:600}small{font-size:.74rem;color:#64748b}}
 .tm{font-size:.8rem;color:#64748b}
 .chip{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.69rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;&.s-progress{background:#dbeafe;color:#2563eb;border:1px solid rgba(37,99,235,.2)}&.s-pending{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}}
-.abtn{background:#f8fafc;border:1.5px solid #e2e8f0;color:#334155;padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:#2563eb;color:#2563eb}&.teal{background:#2563eb;border-color:#2563eb;color:#fff;&:hover{background:#1e3a8a}}&.danger{&:hover{border-color:#dc2626;color:#dc2626}}&:disabled{opacity:.6;cursor:not-allowed}}
+.abtn{background:#f8fafc;border:1.5px solid #e2e8f0;color:#334155;padding:5px 12px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;&:hover{border-color:#2563eb;color:#2563eb}&.teal{background:#2563eb;border-color:#2563eb;color:#fff;&:hover{background:#0F4C81}}&.danger{&:hover{border-color:#dc2626;color:#dc2626}}&:disabled{opacity:.6;cursor:not-allowed}}
 .empty-sm{text-align:center;padding:24px;font-size:.83rem;color:#64748b}
   `]
 })

@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MarketingTagsService } from '../../../core/services/marketing-tags.service';
 
 @Component({
   selector: 'app-cookie-banner',
@@ -10,7 +11,7 @@ import { RouterLink } from '@angular/router';
 <div class="cb" *ngIf="show()" [class.visible]="shown()">
   <div class="cb-inner">
     <span class="cb-icon">🍪</span>
-    <p>We use essential cookies for authentication and anonymous analytics to improve your experience.
+    <p>We use analytics cookies to understand how visitors use our site. Essential functionality never uses cookies.
        <a routerLink="/privacy-policy">Privacy Policy</a>
     </p>
     <div class="cb-btns">
@@ -37,18 +38,26 @@ import { RouterLink } from '@angular/router';
 p{flex:1;font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55;margin:0;
   a{color:#2563eb;text-decoration:none;&:hover{text-decoration:underline}}}
 .cb-btns{display:flex;gap:8px;flex-shrink:0}
-.cb-accept{background:#2563eb;color:white;border:none;padding:7px 16px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;&:hover{background:#1e3a8a}}
+.cb-accept{background:#2563eb;color:white;border:none;padding:7px 16px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap;&:hover{background:#0F4C81}}
 .cb-ess{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;white-space:nowrap;&:hover{background:rgba(255,255,255,.1)}}
 .cb-close{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:.9rem;padding:4px;flex-shrink:0;&:hover{color:rgba(255,255,255,.6)}}
 @media(max-width:560px){.cb-inner{flex-direction:column;align-items:flex-start}.cb-btns{align-self:stretch}.cb-accept,.cb-ess{flex:1;text-align:center}}
   `]
 })
 export class CookieBannerComponent {
-  show  = signal(!localStorage.getItem('cookie_consent'));
+  /**
+   * Only prompt when a third-party tag that actually sets cookies is configured.
+   * With no tags configured this site sets no cookies at all (auth uses
+   * localStorage, which is exempt as strictly necessary), so showing a consent
+   * banner would be both inaccurate and needless friction.
+   */
+  show  = signal(false);
   shown = signal(false);
 
-  constructor() {
-    if (this.show()) setTimeout(() => this.shown.set(true), 1200);
+  constructor(private tags: MarketingTagsService) {
+    const needsConsent = this.tags.hasCookieSettingTags && !localStorage.getItem('cookie_consent');
+    this.show.set(needsConsent);
+    if (needsConsent) setTimeout(() => this.shown.set(true), 1200);
   }
 
   accept()    { localStorage.setItem('cookie_consent','all');       this.dismiss(); }

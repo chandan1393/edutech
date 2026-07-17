@@ -18,7 +18,7 @@ export class PrivacyPolicyComponent implements OnInit, OnDestroy {
   sections: LegalSection[] = [
     { id: 'collect',   title: '1. Information We Collect' },
     { id: 'use',       title: '2. How We Use Your Information' },
-    { id: 'cookies',   title: '3. Cookies' },
+    { id: 'cookies',   title: '3. Cookies & Local Storage' },
     { id: 'sharing',   title: '4. Data Sharing' },
     { id: 'retention', title: '5. Data Retention' },
     { id: 'rights',    title: '6. Your Rights' },

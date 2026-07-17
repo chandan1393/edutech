@@ -11,7 +11,7 @@ $bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#f8fafc;$off2:#f1f5f9;$ok:#16a34a;$er:
 .act-btns{display:flex;gap:8px;button{padding:9px 20px;border-radius:9px;border:1.5px solid $bd;background:$off;color:$muted;font-size:.87rem;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;&.active,&:hover{background:$blue5;border-color:$blue4;color:$blue2;font-weight:600}}}
 
 // List header
-.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;.list-count{font-size:.86rem;color:$muted}.btn-add{background:$teal;border:none;color:$white;padding:9px 20px;border-radius:9px;font-size:.87rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;&:hover{background:#1e3a8a}}}
+.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;.list-count{font-size:.86rem;color:$muted}.btn-add{background:$teal;border:none;color:$white;padding:9px 20px;border-radius:9px;font-size:.87rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;&:hover{background:#0F4C81}}}
 
 // Panel (edit form)
 .panel{background:$white;border:1.5px solid $bd;border-radius:16px;overflow:hidden}

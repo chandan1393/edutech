@@ -29,6 +29,14 @@
       </button>
     </div>
   </div>
+  <div class="support-bar">
+    <div class="spb-inner">
+      <span class="spb-txt">🎧 Quick support, 24/7 — talk to an academic advisor now:</span>
+      <a [href]="waGeneralLink" target="_blank" rel="noopener" class="spb-num">💬 {{ waDisplay }}</a>
+      <span class="spb-sep" aria-hidden="true">·</span>
+      <a href="mailto:support@edupilothelp.com" class="spb-mail">support&#64;edupilothelp.com</a>
+    </div>
+  </div>
 </header>
 
 <main id="main-content">
@@ -149,15 +157,15 @@
 <!-- ═══ STATS BAR ═══ -->
 <div class="stats-bar">
   <div class="wrap">
-    <div class="sb-inner">
+    <div class="spb-inner">
       <div class="sb-item"><strong appCountUp>5,000+</strong><span>Students Helped</span></div>
-      <div class="sb-sep"></div>
+      <div class="spb-sep"></div>
       <div class="sb-item"><strong appCountUp>99.1%</strong><span>Success Rate</span></div>
-      <div class="sb-sep"></div>
+      <div class="spb-sep"></div>
       <div class="sb-item"><strong appCountUp>From $42/wk</strong><span>Starting Price</span></div>
-      <div class="sb-sep"></div>
+      <div class="spb-sep"></div>
       <div class="sb-item"><strong appCountUp>24 hrs</strong><span>First Response</span></div>
-      <div class="sb-sep"></div>
+      <div class="spb-sep"></div>
       <div class="sb-item"><strong appCountUp>40+</strong><span>Countries Served</span></div>
     </div>
   </div>
@@ -562,7 +570,7 @@
         </div>
         <p class="tgc-text">"{{ t.text }}"</p>
         <div class="tgc-author">
-          <div class="tgc-av" [style.background]="t.alt ? 'linear-gradient(135deg,#0d9488,#0f766e)' : 'linear-gradient(135deg,#1e3a8a,#2563eb)'">
+          <div class="tgc-av" [style.background]="t.alt ? 'linear-gradient(135deg,#14B8A6,#0f766e)' : 'linear-gradient(135deg,#0F4C81,#2563eb)'">
             {{ t.avatar }}
           </div>
           <div>
@@ -818,51 +826,61 @@
       </div>
     </div>
   </div>
-  <div class="ft-subjects">
+  <div class="ft-clusters">
     <div class="wrap">
-      <span class="fts-label">Popular Subjects:</span>
-      <a routerLink="/nursing-help">Nursing</a>
-      <a routerLink="/mathematics-help">Mathematics</a>
-      <a routerLink="/statistics-help">Statistics</a>
-      <a routerLink="/accounting-help">Accounting</a>
-      <a routerLink="/finance-help">Finance</a>
-      <a routerLink="/computer-science-help">Computer Science</a>
-      <a routerLink="/psychology-help">Psychology</a>
-      <a routerLink="/economics-help">Economics</a>
-      <a routerLink="/biology-help">Biology</a>
-      <a routerLink="/chemistry-help">Chemistry</a>
-      <a routerLink="/physics-help">Physics</a>
-      <a routerLink="/business-management-help">Business</a>
-      <a routerLink="/marketing-help">Marketing</a>
-      <a routerLink="/english-help">English</a>
-      <a routerLink="/law-help">Law</a>
-    </div>
-  </div>
-  <div class="ft-subjects">
-    <div class="wrap">
-      <span class="fts-label">Exam Help:</span>
-      <a routerLink="/take-my-online-exam">Take My Online Exam</a>
-      <a routerLink="/proctored-exam-help">Proctored Exam</a>
-      <a routerLink="/midterm-exam-help">Midterm Exam</a>
-      <a routerLink="/final-exam-help">Final Exam</a>
-      <a routerLink="/online-test-help">Online Test</a>
-      <a routerLink="/proctoru-exam-help">ProctorU</a>
-      <a routerLink="/teas-exam-help">TEAS Exam</a>
-      <a routerLink="/gre-gmat-exam-help">GRE &amp; GMAT</a>
-    </div>
-  </div>
-  <div class="ft-subjects">
-    <div class="wrap">
-      <span class="fts-label">Universities:</span>
-      <a routerLink="/arizona-state-university-help">ASU</a>
-      <a routerLink="/snhu-help">SNHU</a>
-      <a routerLink="/wgu-help">WGU</a>
-      <a routerLink="/purdue-global-help">Purdue Global</a>
-      <a routerLink="/liberty-university-help">Liberty</a>
-      <a routerLink="/university-of-phoenix-help">Phoenix</a>
-      <a routerLink="/grand-canyon-university-help">GCU</a>
-      <a routerLink="/capella-university-help">Capella</a>
-      <a routerLink="/walden-university-help">Walden</a>
+      <div class="ftc-grid">
+
+        <div class="ftc-col">
+          <h4>Popular Subjects</h4>
+          <div class="ftc-chips">
+            <a routerLink="/nursing-help">Nursing</a>
+            <a routerLink="/mathematics-help">Mathematics</a>
+            <a routerLink="/statistics-help">Statistics</a>
+            <a routerLink="/accounting-help">Accounting</a>
+            <a routerLink="/finance-help">Finance</a>
+            <a routerLink="/computer-science-help">Computer Science</a>
+            <a routerLink="/psychology-help">Psychology</a>
+            <a routerLink="/economics-help">Economics</a>
+            <a routerLink="/biology-help">Biology</a>
+            <a routerLink="/chemistry-help">Chemistry</a>
+            <a routerLink="/physics-help">Physics</a>
+            <a routerLink="/business-management-help">Business</a>
+            <a routerLink="/marketing-help">Marketing</a>
+            <a routerLink="/english-help">English</a>
+            <a routerLink="/law-help">Law</a>
+          </div>
+        </div>
+
+        <div class="ftc-col">
+          <h4>Exam Help</h4>
+          <div class="ftc-chips">
+            <a routerLink="/take-my-online-exam">Take My Online Exam</a>
+            <a routerLink="/proctored-exam-help">Proctored Exam</a>
+            <a routerLink="/midterm-exam-help">Midterm Exam</a>
+            <a routerLink="/final-exam-help">Final Exam</a>
+            <a routerLink="/online-test-help">Online Test</a>
+            <a routerLink="/proctoru-exam-help">ProctorU</a>
+            <a routerLink="/teas-exam-help">TEAS Exam</a>
+            <a routerLink="/gre-gmat-exam-help">GRE &amp; GMAT</a>
+          </div>
+        </div>
+
+        <div class="ftc-col">
+          <h4>Universities</h4>
+          <div class="ftc-chips">
+            <a routerLink="/arizona-state-university-help">ASU</a>
+            <a routerLink="/snhu-help">SNHU</a>
+            <a routerLink="/wgu-help">WGU</a>
+            <a routerLink="/purdue-global-help">Purdue Global</a>
+            <a routerLink="/liberty-university-help">Liberty</a>
+            <a routerLink="/university-of-phoenix-help">Phoenix</a>
+            <a routerLink="/grand-canyon-university-help">GCU</a>
+            <a routerLink="/capella-university-help">Capella</a>
+            <a routerLink="/walden-university-help">Walden</a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
   <div class="ft-bottom">

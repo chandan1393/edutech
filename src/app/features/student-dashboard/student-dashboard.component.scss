@@ -1,5 +1,5 @@
 // ── Palette: Clean white + teal + amber ────────────────────────────────────
-$teal:#2563eb;$teal2:#1e3a8a;$teal3:#dbeafe;$teal4:#eff6ff;
+$teal:#2563eb;$teal2:#0F4C81;$teal3:#dbeafe;$teal4:#eff6ff;
 $amber:#b45309;$amb2:#d97706;$amb3:#fde68a;$amb4:#fffbeb;
 $blue:#0F4C81;$blue2:#2563eb;$blue3:#dbeafe;$blue4:#eff6ff;
 $ok:#10b981;$ok3:#d1fae5;$er:#ef4444;$er3:#fee2e2;
@@ -228,7 +228,7 @@ $p: $teal;
   .ic-info { flex: 1; strong { display: block; font-size: .92rem; color: $tx; font-weight: 700; } span { font-size: .78rem; color: $muted; } }
 }
 .inst-status { font-size: .76rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; flex-shrink: 0;
-  &.ip-pending { background: $bg2; color: $muted; } &.ip-uploaded { background: #dbeafe; color: #1e3a8a; }
+  &.ip-pending { background: $bg2; color: $muted; } &.ip-uploaded { background: #dbeafe; color: #0F4C81; }
   &.ip-confirmed { background: $teal3; color: $teal2; } &.ip-overdue { background: #fee2e2; color: #e11d48; } }
 .ic-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
 .pay-link-btn { display: inline-flex; align-items: center; gap: 7px; background: $teal; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: .86rem; box-shadow: 0 4px 12px rgba($teal,.3); &:hover { background: $teal2; } }
