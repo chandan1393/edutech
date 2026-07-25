@@ -1,7 +1,9 @@
-import { SeoService } from '../../core/services/seo.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
+import { SeoService } from '../../shared/services/seo.service';
+import { HOME_SEO } from '../../shared/seo/seo.data';
 
 @Component({
   selector: 'app-services-page',
@@ -11,9 +13,16 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./services-page.component.scss']
 })
 export class ServicesPageComponent {
-  activeService = 0;
-  get current() { return this.services[this.activeService]; }
 
+  constructor(private seoService: SeoService) {
+    this.seoService.updateSEO(HOME_SEO);
+  }
+
+  activeService = 0;
+
+  get current() {
+    return this.services[this.activeService];
+  }
   services = [
     {
       icon: '📚', title: 'Full Online Class', color: '#2563eb', tag: 'Most Popular',
