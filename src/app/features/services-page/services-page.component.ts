@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { SeoService } from '../../shared/services/seo.service';
-import { HOME_SEO } from '../../shared/seo/seo.data';
+import { SERVICES_SEO } from '../../shared/seo/seo.data';
 
 @Component({
   selector: 'app-services-page',
@@ -15,8 +15,8 @@ import { HOME_SEO } from '../../shared/seo/seo.data';
 export class ServicesPageComponent {
 
   constructor(private seoService: SeoService) {
-    this.seoService.updateSEO(HOME_SEO);
-  }
+  this.seoService.updateSEO(SERVICES_SEO);
+}
 
   activeService = 0;
 
