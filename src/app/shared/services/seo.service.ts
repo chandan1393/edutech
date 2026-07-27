@@ -4,7 +4,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { SeoModel } from '../models/seo.model';
 import {
   ORGANIZATION_SCHEMA,
-  WEBSITE_SCHEMA
+  WEBSITE_SCHEMA,
+  FAQ_SCHEMA
 } from '../seo/structured-data';
 
 @Injectable({
@@ -80,7 +81,9 @@ export class SeoService {
     }
 
     // Canonical URL
-    let canonical = this.document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
+    let canonical = this.document.querySelector(
+      "link[rel='canonical']"
+    ) as HTMLLinkElement | null;
 
     if (!canonical) {
       canonical = this.document.createElement('link');
@@ -125,6 +128,7 @@ export class SeoService {
     // Structured Data (JSON-LD)
     this.addSchema('organization-schema', ORGANIZATION_SCHEMA);
     this.addSchema('website-schema', WEBSITE_SCHEMA);
+    this.addSchema('faq-schema', FAQ_SCHEMA);
   }
 
   private addSchema(id: string, schema: any): void {
