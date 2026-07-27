@@ -2,6 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, Inject } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { SeoModel } from '../models/seo.model';
+import {
+  ORGANIZATION_SCHEMA,
+  WEBSITE_SCHEMA
+} from '../seo/structured-data';
 
 @Injectable({
   providedIn: 'root'
