@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Injectable, Inject } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { SeoModel } from '../models/seo.model';
 
@@ -9,8 +10,9 @@ export class SeoService {
 
   constructor(
     private title: Title,
-    private meta: Meta
-  ) { }
+    private meta: Meta,
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
   updateSEO(seo: SeoModel): void {
 
@@ -65,7 +67,7 @@ export class SeoService {
       content: seo.canonical
     });
 
-    // Twitter
+    // Twitter Card
     if (seo.twitterCard) {
       this.meta.updateTag({
         name: 'twitter:card',
@@ -73,6 +75,47 @@ export class SeoService {
       });
     }
 
-  }
+    // Canonical URL
+    let canonical = this.document.querySelector("link[rel='canonical']");
 
+    if (!canonical) {
+      canonical = this.document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      this.document.head.appendChild(canonical);
+    }
+
+    canonical.setAttribute('href', seo.canonical);
+
+    // Author
+    if (seo.author) {
+      this.meta.updateTag({
+        name: 'author',
+        content: seo.author
+      });
+    }
+
+    // Published Time
+    if (seo.publishedTime) {
+      this.meta.updateTag({
+        property: 'article:published_time',
+        content: seo.publishedTime
+      });
+    }
+
+    // Modified Time
+    if (seo.modifiedTime) {
+      this.meta.updateTag({
+        property: 'article:modified_time',
+        content: seo.modifiedTime
+      });
+    }
+
+    // Image Alt
+    if (seo.imageAlt) {
+      this.meta.updateTag({
+        property: 'og:image:alt',
+        content: seo.imageAlt
+      });
+    }
+  }
 }
