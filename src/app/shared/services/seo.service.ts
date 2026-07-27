@@ -80,7 +80,7 @@ export class SeoService {
     }
 
     // Canonical URL
-    let canonical = this.document.querySelector("link[rel='canonical']");
+    let canonical = this.document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
 
     if (!canonical) {
       canonical = this.document.createElement('link');
@@ -121,5 +121,28 @@ export class SeoService {
         content: seo.imageAlt
       });
     }
+
+    // Structured Data (JSON-LD)
+    this.addSchema('organization-schema', ORGANIZATION_SCHEMA);
+    this.addSchema('website-schema', WEBSITE_SCHEMA);
   }
+
+  private addSchema(id: string, schema: any): void {
+
+    // Remove old schema
+    const existing = this.document.getElementById(id);
+
+    if (existing) {
+      existing.remove();
+    }
+
+    // Create new schema
+    const script = this.document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = id;
+    script.text = JSON.stringify(schema);
+
+    this.document.head.appendChild(script);
+  }
+
 }
