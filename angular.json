@@ -24,7 +24,7 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
+           "assets": [
   "src/favicon.ico",
   "src/favicon.svg",
   "src/assets",
@@ -32,7 +32,8 @@
   "src/sitemap.xml",
   "src/ads.txt",
   "src/llms.txt",
-  "src/google7337b9127bc80521.html"
+  "src/google7337b9127bc80521.html",
+  "src/google5b5a8e92e637766f.html"
 ],
             "styles": [
               "src/styles.scss"
