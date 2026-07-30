@@ -31,7 +31,8 @@
   "src/robots.txt",
   "src/sitemap.xml",
   "src/ads.txt",
-  "src/llms.txt"
+  "src/llms.txt",
+  "src/google7337b9127bc80521.html"
 ],
             "styles": [
               "src/styles.scss"
