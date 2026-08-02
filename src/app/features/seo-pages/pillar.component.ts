@@ -2,11 +2,12 @@ import { SeoService } from '../../core/services/seo.service';
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 @Component({
   selector: 'app-pillar',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './pillar.component.html',
   styleUrls: ['./pillar.component.scss']
 })

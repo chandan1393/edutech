@@ -4,9 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
-import { AnalyticsService } from '../../shared/services/analytics.service';
 import { FeedbackWidgetComponent } from '../../shared/components/feedback-widget/feedback-widget.component';
-import { BugReportComponent } from '../../shared/components/bug-report-widget/bug-report-widget.component';
 import { LocalDatePipe } from '../../shared/pipes/local-date.pipe';
 import { TimezoneService } from '../../core/services/timezone.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -17,7 +15,7 @@ import { ChatComponent } from '../../shared/components/chat/chat.component';
 @Component({
   selector: 'app-student-dashboard',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, StatusCountPipe, PaidCountPipe, ChatComponent, LocalDatePipe, FeedbackWidgetComponent, BugReportComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, StatusCountPipe, PaidCountPipe, ChatComponent, LocalDatePipe, FeedbackWidgetComponent],
   templateUrl: './student-dashboard.component.html',
   styleUrls: ['./student-dashboard.component.scss']
 })
@@ -39,7 +37,7 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
 
   enrollForm: FormGroup;
 
-  constructor(private api: ApiService, public auth: AuthService, private fb: FormBuilder, private zone: NgZone, private route: ActivatedRoute, public tz: TimezoneService, private analytics: AnalyticsService) {
+  constructor(private api: ApiService, public auth: AuthService, private fb: FormBuilder, private zone: NgZone, private route: ActivatedRoute, public tz: TimezoneService) {
     this.enrollForm = this.fb.group({
       courseName:         ['', [Validators.required, Validators.minLength(3)]],
       institutionName:    ['', Validators.required],
@@ -154,7 +152,6 @@ export class StudentDashboardComponent implements OnInit, OnDestroy {
   payInstallment(installmentId: number) {
     this.payingInstallmentId.set(installmentId);
     this.payError.set('');
-    this.analytics.trackPayment('start', installmentId);
     this.api.createStripeSession(installmentId).subscribe({
       next: (res: any) => {
         // Redirect to Stripe Checkout page

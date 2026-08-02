@@ -376,3 +376,16 @@ $tx:#0f172a;$tx2:#334155;$muted:#64748b;$bd:#e2e8f0;
 .tfc-replace-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:$muted;cursor:pointer;font-size:.75rem;text-decoration:underline;padding:0;font-family:inherit;&:hover{color:$teal}}
 .tif-admin-note{padding:8px 16px;font-size:.79rem;color:$muted;background:$amb4;border-top:1px solid $amb3}
 .fg-sel{background:$bg;border:1.5px solid $bd;border-radius:7px;padding:5px 9px;font-size:.79rem;color:$tx;cursor:pointer;outline:none;font-family:inherit;&:focus{border-color:$teal}}
+
+/* Create-order actions in Queries tab */
+.abtn-alt{background:#0F4C81;color:#fff;border-color:#0F4C81;&:hover{background:#2563EB;border-color:#2563EB}}
+.btn-alt{margin-top:10px;background:#fff;color:#0F4C81;border:1.5px solid #0F4C81;&:hover{background:#0F4C81;color:#fff}}
+.fcard .hint{display:block;margin-top:4px;font-size:.72rem;color:#94A3B8}
+.ph .sub{margin:4px 0 0;font-size:.85rem;color:#94A3B8}
+
+/* Student contact strip on Create Order */
+.order-contact{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;background:#eff6ff;border:1px solid #dbeafe;border-radius:10px;padding:10px 14px;margin-bottom:14px}
+.oc-lbl{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#0F4C81}
+.oc-val{font-size:.88rem;font-weight:600;color:#111827;text-decoration:none}
+.oc-phone:hover{color:#2563EB;text-decoration:underline}
+.oc-muted{color:#94A3B8;font-weight:500}

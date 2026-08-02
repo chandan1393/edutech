@@ -1,0 +1,44 @@
+$blue:#0F4C81;$blue2:#2563EB;$blue3:#3b82f6;$blue4:#dbeafe;$blue5:#eff6ff;
+$teal:#14B8A6;$teal2:#0f766e;$teal3:#5eead4;$teal4:#f0fdfa;
+$amber:#b45309;$amber2:#F59E0B;$amber4:#fffbeb;
+$navy:#0f172a;$navy2:#1e293b;$navy3:#4B5563;$muted:#94A3B8;
+$bd:#e2e8f0;$bd2:#cbd5e1;$white:#fff;$off:#F8FAFC;$off2:#f1f5f9;
+$ok:#16a34a;$er:#dc2626;
+// ── Option A: vibrant accent system (light base, punchy gradients) ──
+// ── Professional palette (brief) — tokens repurposed from vibrant to restrained ──
+$violet:#0F4C81;$violet2:#2563EB;$cyan:#14B8A6;$cyan2:#14B8A6;
+$grad-hero:linear-gradient(120deg,#0F4C81 0%,#2563EB 100%);
+$grad-btn:linear-gradient(135deg,#0F4C81,#2563EB);
+$grad-soft:linear-gradient(180deg,#FFFFFF,#F8FAFC);
+
+/* ── Shared site footer ── */
+.wrap{max-width:1360px;margin:0 auto;padding:0 40px;@media(max-width:640px){padding:0 20px}}
+.footer{background:#060d1a}
+.ft-main{padding:56px 0 44px;border-top:1px solid rgba(255,255,255,.05)}
+.ft-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr 1fr 1fr;gap:32px;@media(max-width:1080px){grid-template-columns:1fr 1fr 1fr;gap:32px}@media(max-width:620px){grid-template-columns:1fr 1fr}@media(max-width:420px){grid-template-columns:1fr}}
+.ft-brand p{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:16px}
+.ft-brand{@media(max-width:1080px){grid-column:1/-1;margin-bottom:8px}}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.ft-brand-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:$white;display:block}
+.ft-brand-tag{font-size:.62rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;display:block}
+.ft-seals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;span{font-size:.73rem;color:rgba(255,255,255,.22);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:3px 9px;border-radius:8px}}
+.ft-email{font-size:.81rem;color:rgba($teal3,.6);text-decoration:none;&:hover{color:$teal3}}
+.ft-col{h4{font-size:.76rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}display:flex;flex-direction:column;gap:2px;a,a:visited{font-size:.88rem;color:rgba(255,255,255,.55);text-decoration:none;cursor:pointer;transition:color .15s;padding:4px 0;background:none;border:none;font-family:inherit;&:hover{color:$teal3}}}
+.ft-clusters{padding:34px 0 30px;border-top:1px solid rgba(255,255,255,.07)}
+.ftc-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;@media(max-width:900px){grid-template-columns:1fr 1fr;gap:28px}@media(max-width:560px){grid-template-columns:1fr;gap:24px}}
+.ftc-col h4{font-size:.72rem;font-weight:800;color:$teal3;text-transform:uppercase;letter-spacing:.12em;margin:0 0 14px}
+.ftc-chips{display:flex;flex-wrap:wrap;gap:7px;a{font-size:.8rem;font-weight:500;color:rgba(255,255,255,.62);text-decoration:none;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:6px 12px;line-height:1.2;transition:all .2s cubic-bezier(.22,1,.36,1);&:hover{color:$white;background:rgba($teal,.16);border-color:rgba($teal,.45);transform:translateY(-2px)}}}
+@media(prefers-reduced-motion:reduce){.ftc-chips a{transition:none;&:hover{transform:none}}}
+.ft-bottom{background:#02060f;padding:16px 0;border-top:1px solid rgba(255,255,255,.04)}
+.ftb-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;span{font-size:.76rem;color:rgba(255,255,255,.16)}}
+
+
+.wa-fab{position:fixed;right:22px;bottom:22px;z-index:900;display:inline-flex;align-items:center;gap:0;background:#25D366;color:#fff;border-radius:50px;padding:14px;text-decoration:none;box-shadow:0 10px 30px -6px rgba(37,211,102,.55);transition:all .3s cubic-bezier(.22,1,.36,1);overflow:hidden;
+  svg{flex-shrink:0}
+  .wa-fab-txt{max-width:0;opacity:0;white-space:nowrap;font-size:.9rem;font-weight:700;transition:all .3s cubic-bezier(.22,1,.36,1)}
+  &:hover{transform:translateY(-3px);box-shadow:0 16px 38px -6px rgba(37,211,102,.7);.wa-fab-txt{max-width:140px;opacity:1;margin-left:9px}}
+  &:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  @media(max-width:640px){right:16px;bottom:16px;padding:13px}
+}
+@media(prefers-reduced-motion:reduce){.wa-fab,.wa-fab .wa-fab-txt{transition:none}}
+

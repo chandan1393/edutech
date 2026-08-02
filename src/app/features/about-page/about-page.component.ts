@@ -2,11 +2,12 @@ import { SeoService } from '../../core/services/seo.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './about-page.component.html',
   styleUrls: ['./about-page.component.scss']
 })

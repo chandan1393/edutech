@@ -19,7 +19,7 @@ import { ChatComponent } from '../../shared/components/chat/chat.component';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  activeTab = signal<'overview'|'enrollments'|'students'|'queries'|'writers'|'create-user'|'payments'|'stats'|'feedback'|'bugs'|'analytics'|'content'>('overview');
+  activeTab = signal<'overview'|'enrollments'|'students'|'queries'|'writers'|'create-user'|'create-order'|'payments'|'stats'|'feedback'|'content'>('overview');
   enrollStats = signal<any>({});
   enrollments = signal<any[]>([]);
   students    = signal<any[]>([]);
@@ -39,7 +39,7 @@ export class AdminDashboardComponent implements OnInit {
   selQuery      = signal<any>(null);
   cuSuccess     = signal(''); cuError   = signal('');
   writerSuccess = signal(''); writerError = signal('');
-  replyForm: FormGroup; cuForm: FormGroup; writerForm: FormGroup;
+  replyForm: FormGroup; cuForm: FormGroup; writerForm: FormGroup; orderForm: FormGroup;
   enrollUpdateForm: FormGroup;
   enrollUpdateError  = signal(''); updateSuccess = signal('');
   assignWriterSuccess = signal(''); assignWriterError = signal('');
@@ -58,6 +58,22 @@ export class AdminDashboardComponent implements OnInit {
     this.writerForm  = this.fb.group({
       fullName: ['', Validators.required], email: ['', [Validators.required, Validators.email]],
       phone: [''], bio: [''], expertise: ['']
+    });
+    this.orderForm = this.fb.group({
+      studentEmail:      ['', [Validators.required, Validators.email]],
+      courseName:        ['', Validators.required],
+      institutionName:   [''],
+      subject:           [''],
+      courseDescription: [''],
+      classStartDate:    [''],
+      classEndDate:      [''],
+      portalUrl:         [''],
+      portalUsername:    [''],
+      portalPassword:    [''],
+      studentNotes:      [''],
+      totalPrice:        [null],
+      adminNotes:        [''],
+      queryId:           [null],
     });
     this.enrollUpdateForm = this.fb.group({
       status: [''], adminReply: [''], adminNotes: [''], totalPrice: [null]
@@ -269,6 +285,65 @@ export class AdminDashboardComponent implements OnInit {
     this.api.createWriter(wData).subscribe({
       next: () => { this.writerSuccess.set('Writer created!'); this.writerForm.reset(); this.api.getAllWriters().subscribe({next:(w:any)=>this.writers.set(w)}); },
       error: (err:any) => this.writerError.set(err.error?.message||'Failed.')
+    });
+  }
+
+  orderError   = signal('');
+  orderSuccess = signal('');
+  orderSubmitting = signal(false);
+
+  /** Prefill the order form from a student's query (one-click from the Queries tab). */
+  /** Contact details of the student the order is being raised for (display only). */
+  orderStudentPhone = signal('');
+  orderStudentName  = signal('');
+
+  createOrderFromQuery(q: any) {
+    this.orderStudentPhone.set(q?.phone || '');
+    this.orderStudentName.set(q?.name || '');
+    this.orderForm.patchValue({
+      studentEmail: q?.email || '',
+      courseName: q?.subject || '',
+      courseDescription: q?.message || '',
+      queryId: q?.id ?? null,
+    });
+    this.orderError.set(''); this.orderSuccess.set('');
+    this.activeTab.set('create-order');
+  }
+
+  /** Resolve name/phone from the loaded students list when an email is typed in. */
+  onOrderEmailChange() {
+    const em = (this.orderForm.get('studentEmail')?.value || '').trim().toLowerCase();
+    const match = (this.students() || []).find((s: any) => (s.email || '').toLowerCase() === em);
+    this.orderStudentPhone.set(match?.phone || '');
+    this.orderStudentName.set(match?.fullName || '');
+  }
+
+  createOrder() {
+    this.orderForm.markAllAsTouched();
+    if (this.orderForm.invalid) return;
+    this.orderError.set(''); this.orderSuccess.set('');
+    this.orderSubmitting.set(true);
+
+    // Backend takes a flat Map<String,String>; send '' for anything empty.
+    const raw = this.orderForm.value;
+    const v: any = {};
+    Object.keys(raw).forEach(k => {
+      const val = (raw as any)[k];
+      v[k] = (val === null || val === undefined) ? '' : String(val);
+    });
+
+    this.api.createOrderForStudent(v).subscribe({
+      next: (res: any) => {
+        this.orderSuccess.set(res?.message || ('Enrollment created for ' + v.studentEmail));
+        this.orderForm.reset();
+        this.orderStudentPhone.set(''); this.orderStudentName.set('');
+        this.orderSubmitting.set(false);
+        this.loadAll();
+      },
+      error: (err: any) => {
+        this.orderError.set(err.error?.message || 'Failed to create order.');
+        this.orderSubmitting.set(false);
+      }
     });
   }
 
@@ -531,16 +606,11 @@ export class AdminDashboardComponent implements OnInit {
 
   // ── Feedback & Analytics ────────────────────────────────────────────────
   feedbackList = signal<any[]>([]);
-  bugReports   = signal<any[]>([]);
-  analytics    = signal<any>(null);
+
+
 
   loadFeedback()    { this.api.getAdminFeedback().subscribe({next:(d:any[])=>this.feedbackList.set(d),error:()=>{}}); }
-  loadBugReports()  { this.api.getAdminBugReports().subscribe({next:(d:any[])=>this.bugReports.set(d),error:()=>{}}); }
-  loadAnalytics()   { this.api.getAnalytics().subscribe({next:(d:any)=>this.analytics.set(d),error:()=>{}}); }
 
-  updateBugStatus(id: number, status: string) {
-    this.api.updateBugReport(id, {status}).subscribe({next:()=>this.loadBugReports()});
-  }
   avgRating(): number {
     const r = this.feedbackList();
     if (!r.length) return 0;

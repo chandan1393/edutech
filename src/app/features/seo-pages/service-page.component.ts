@@ -8,11 +8,12 @@ import { LMS_PAGES } from './lms-pages.data';
 import { SUBJECT_PAGES } from './subject-pages.data';
 import { EXAM_PAGES } from './exam-pages.data';
 import { UNIVERSITY_PAGES } from './university-pages.data';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 @Component({
   selector: 'app-service-page',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './service-page.component.html',
   styleUrls: ['./service-page.component.scss']
 })

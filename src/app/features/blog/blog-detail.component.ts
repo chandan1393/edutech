@@ -4,13 +4,14 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { SeoService } from '../../core/services/seo.service';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 interface TocItem { id: string; text: string; level: number; }
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './blog-detail.component.html',
   styleUrls: ['./blog-detail.component.scss']
 })

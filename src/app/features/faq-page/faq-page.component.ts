@@ -2,8 +2,9 @@ import { SeoService } from '../../core/services/seo.service';
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
-@Component({ selector: 'app-faq-page', standalone: true, imports: [CommonModule, RouterLink],
+@Component({ selector: 'app-faq-page', standalone: true, imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './faq-page.component.html', styleUrls: ['./faq-page.component.scss'] })
 export class FaqPageComponent {
   active = signal(-1);

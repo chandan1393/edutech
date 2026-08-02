@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 @Component({
   selector: 'app-reviews-page',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './reviews-page.component.html',
   styleUrls: ['./reviews-page.component.scss']
 })

@@ -2,7 +2,6 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
-import { AnalyticsService } from '../../shared/services/analytics.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -21,8 +20,7 @@ export class PaymentSuccessComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService,
-    private analytics: AnalyticsService
+    private api: ApiService
   ) {}
 
   ngOnInit() {
@@ -46,13 +44,11 @@ export class PaymentSuccessComponent implements OnInit {
     // Verify with backend
     this.api.verifyStripeSession(sessionId, Number(installmentId)).subscribe({
       next: (res: any) => {
-        this.analytics.trackPayment('success', Number(installmentId), res?.amount);
         this.state.set('success');
         this.details.set(res);
         this.startCountdown('/dashboard');
       },
       error: (err: any) => {
-        this.analytics.trackPayment('fail', Number(installmentId));
         this.state.set('error');
         this.message.set(err.error?.message || 'Payment verification failed. Contact support if money was deducted.');
       }

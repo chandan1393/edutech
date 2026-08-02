@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 interface LegalSection { id: string; title: string; }
 
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss']
 })

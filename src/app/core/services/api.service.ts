@@ -21,7 +21,7 @@ export class ApiService {
   markAllNotificationsRead(): Observable<any> { return this.http.post(`${this.base}/student/notifications/read-all`, {}); }
   getStudentDashboardStats(): Observable<any> { return this.http.get(`${this.base}/student/dashboard/stats`); }
 
-  // ── Stripe Checkout (installment-based, no Razorpay) ───────────────────
+  // ── Stripe Checkout (installment-based) ───────────────────
   createStripeSession(installmentId: number): Observable<any> {
     return this.http.post(`${this.base}/stripe/create-session/${installmentId}`, {});
   }
@@ -59,6 +59,7 @@ export class ApiService {
   toggleUserStatus(id: number): Observable<any> { return this.http.patch(`${this.base}/admin/users/${id}/toggle-status`, {}); }
   getAllWriters(): Observable<any> { return this.http.get(`${this.base}/admin/writers`); }
   createWriter(data: any): Observable<any> { return this.http.post(`${this.base}/admin/writers`, data); }
+  createOrderForStudent(data: any): Observable<any> { return this.http.post(`${this.base}/admin/orders`, data); }
   getAllQueries(page = 0, size = 50): Observable<any> { return this.http.get(`${this.base}/admin/queries`, { params: { page, size } }); }
   replyToQuery(id: number, reply: string): Observable<any> { return this.http.post(`${this.base}/admin/queries/${id}/reply`, { reply }); }
 
@@ -130,11 +131,7 @@ export class ApiService {
 
   // ── Feedback & Bug Report ────────────────────────────────────────────────
   submitFeedback(data: any): Observable<any> { return this.http.post(`${this.base}/feedback`, data); }
-  submitBugReport(data: any): Observable<any> { return this.http.post(`${this.base}/bug-report`, data); }
   getAdminFeedback(): Observable<any> { return this.http.get(`${this.base}/admin/feedback`); }
-  getAdminBugReports(): Observable<any> { return this.http.get(`${this.base}/admin/bug-reports`); }
-  updateBugReport(id: number, data: any): Observable<any> { return this.http.patch(`${this.base}/admin/bug-reports/${id}`, data); }
-  getAnalytics(): Observable<any> { return this.http.get(`${this.base}/admin/analytics`); }
 
   // ── File Downloads (all through authenticated /api/files/ endpoints) ────
   downloadSubmission(submissionId: number): Observable<Blob> {

@@ -2,11 +2,12 @@ import { SeoService } from '../../core/services/seo.service';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 
 @Component({
   selector: 'app-how-it-works',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, SiteFooterComponent],
   templateUrl: './how-it-works.component.html',
   styleUrls: ['./how-it-works.component.scss']
 })

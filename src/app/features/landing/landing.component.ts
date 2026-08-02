@@ -10,12 +10,13 @@ import { CountryService } from '../../core/services/country.service';
 import { PhoneInputComponent } from '../../shared/components/phone-input/phone-input.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { CountUpDirective } from '../../shared/directives/count-up.directive';
+import { SiteFooterComponent } from '../../shared/components/site-footer/site-footer.component';
 import { WHATSAPP_DISPLAY, waLink, WA_MESSAGES } from '../../core/constants/contact.constants';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PhoneInputComponent, LogoComponent, CountUpDirective],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, PhoneInputComponent, LogoComponent, CountUpDirective, SiteFooterComponent],
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
@@ -27,8 +28,16 @@ export class LandingComponent implements OnInit, OnDestroy {
   queryPhone   = { full: '', valid: true };
   contactPhone = { full: '', valid: true };
   textMePhone  = { full: '', valid: true };
-  onQueryPhone(e: any)   { this.queryPhone   = e; }
-  onContactPhone(e: any) { this.contactPhone = e; }
+  onQueryPhone(e: any)   {
+    this.queryPhone = e;
+    this.queryForm.get('phone')?.setValue(e?.valid ? (e.full || '') : '');
+    this.queryForm.get('phone')?.markAsTouched();
+  }
+  onContactPhone(e: any) {
+    this.contactPhone = e;
+    this.contactForm.get('phone')?.setValue(e?.valid ? (e.full || '') : '');
+    this.contactForm.get('phone')?.markAsTouched();
+  }
   onTextMePhone(e: any)  { this.textMePhone  = e; }
 
   querySubmitting   = signal(false);
@@ -241,14 +250,14 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.queryForm = this.fb.group({
       name:    ['', [Validators.required, Validators.minLength(2), Validators.maxLength(80)]],
       email:   ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-      phone:   [''],
+      phone:   ['', [Validators.required]],
       subject: ['', [Validators.required, Validators.maxLength(150)]],
       message: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(2000)]],
     });
     this.contactForm = this.fb.group({
       name:    ['', [Validators.required, Validators.minLength(2)]],
       email:   ['', [Validators.required, Validators.email]],
-      phone:   [''],
+      phone:   ['', [Validators.required]],
       message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
     });
     this.textMeForm = this.fb.group({ agree: [true] });
@@ -352,6 +361,10 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   submitQuery() {
     this.queryForm.markAllAsTouched();
+    if (!this.queryPhone.full || !this.queryPhone.valid) {
+      this.queryError.set('Please enter a valid phone number.');
+      return;
+    }
     if (this.queryForm.invalid) return;
     this.querySubmitting.set(true); this.queryError.set('');
     this.api.submitQuery({ ...this.queryForm.value, phone: this.queryPhone.full }).subscribe({
@@ -362,10 +375,14 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   submitContact() {
     this.contactForm.markAllAsTouched();
+    if (!this.contactPhone.full || !this.contactPhone.valid) {
+      this.contactError.set('Please enter a valid phone number.');
+      return;
+    }
     if (this.contactForm.invalid) return;
-    this.contactSubmitting.set(true);
+    this.contactSubmitting.set(true); this.contactError.set('');
     this.api.submitContact({ ...this.contactForm.value, phone: this.contactPhone.full }).subscribe({
-      next: (res: any) => { this.contactSuccess.set(res.message || 'Message received!'); this.contactForm.reset(); this.contactSubmitting.set(false); },
+      next: (res: any) => { this.contactSuccess.set(res.message || 'Message received! Check your email for login credentials.'); this.contactForm.reset(); this.contactSubmitting.set(false); },
       error: (err: any) => { this.contactError.set(err.error?.message || 'Failed. Please email us directly.'); this.contactSubmitting.set(false); }
     });
   }

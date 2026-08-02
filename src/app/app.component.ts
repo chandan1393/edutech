@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AnalyticsService } from './shared/services/analytics.service';
+import { MarketingTagsService } from './core/services/marketing-tags.service';
 import { CookieBannerComponent } from './shared/components/cookie-banner/cookie-banner.component';
 
 @Component({
@@ -14,6 +14,6 @@ import { CookieBannerComponent } from './shared/components/cookie-banner/cookie-
   `
 })
 export class AppComponent implements OnInit {
-  constructor(private analytics: AnalyticsService) {}
-  ngOnInit() { this.analytics.init(); }
+  constructor(private tags: MarketingTagsService) {}
+  ngOnInit() { this.tags.init(); }
 }

@@ -1,0 +1,133 @@
+<footer class="footer">
+  <div class="ft-main">
+    <div class="wrap">
+      <div class="ft-grid">
+        <div class="ft-brand">
+          <div class="ft-logo">
+            <div class="logo-mark sm"><app-logo [size]="30" variant="light"></app-logo></div>
+            <div><span class="ft-brand-name">EduPilotHelp</span><span class="ft-brand-tag">Academic Support</span></div>
+          </div>
+          <p>Professional academic assistance for modern students worldwide. Secure, confidential, and results-driven.</p>
+          <div class="ft-seals"><span>🔒 SSL Secure</span><span>💳 Stripe</span><span>🛡️ Private</span></div>
+          <a href="mailto:support@edupilothelp.com" class="ft-email">📧 support&#64;edupilothelp.com</a>
+          <a [href]="waGeneralLink" target="_blank" rel="noopener" class="ft-email">💬 {{ waDisplay }}</a>
+        </div>
+        <div class="ft-col">
+          <h4>Services</h4>
+          <a routerLink="/online-class-help">Online Class Help</a>
+          <a routerLink="/assignment-help">Assignment Help</a>
+          <a routerLink="/homework-help">Homework Help</a>
+          <a routerLink="/exam-help">Online Exam Help</a>
+          <a routerLink="/quiz-help">Online Quiz Help</a>
+          <a routerLink="/take-my-online-class">Take My Online Class</a>
+        </div>
+        <div class="ft-col">
+          <h4>More Help</h4>
+          <a routerLink="/discussion-post-help">Discussion Post Help</a>
+          <a routerLink="/essay-writing-help">Essay Writing Help</a>
+          <a routerLink="/online-course-help">Online Course Help</a>
+          <a routerLink="/pay-someone-to-do-my-online-class">Pay For My Online Class</a>
+          <a routerLink="/services">All Services</a>
+        </div>
+        <div class="ft-col">
+          <h4>Company</h4>
+          <a routerLink="/about">About EduPilotHelp</a>
+          <a routerLink="/how-it-works">How It Works</a>
+          <a routerLink="/reviews">Student Reviews</a>
+          <a routerLink="/faq">FAQ</a>
+          <a routerLink="/blog">Blog &amp; Resources</a>
+          <a (click)="goToLogin()">Student Login</a>
+        </div>
+        <div class="ft-col">
+          <h4>Platforms</h4>
+          <a routerLink="/canvas-class-help">Canvas Help</a>
+          <a routerLink="/blackboard-help">Blackboard Help</a>
+          <a routerLink="/moodle-help">Moodle Help</a>
+          <a routerLink="/pearson-mylab-help">Pearson MyLab Help</a>
+          <a routerLink="/mcgraw-hill-connect-help">McGraw Hill Connect</a>
+          <a routerLink="/aleks-help">ALEKS Help</a>
+        </div>
+        <div class="ft-col">
+          <h4>Legal</h4>
+          <a routerLink="/privacy-policy">Privacy Policy</a>
+          <a routerLink="/terms">Terms &amp; Conditions</a>
+          <a routerLink="/refund-policy">Refund Policy</a>
+          <a routerLink="/academic-integrity">Academic Integrity</a>
+          <a (click)="goToContact()">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ft-clusters">
+    <div class="wrap">
+      <div class="ftc-grid">
+
+        <div class="ftc-col">
+          <h4>Popular Subjects</h4>
+          <div class="ftc-chips">
+            <a routerLink="/nursing-help">Nursing</a>
+            <a routerLink="/mathematics-help">Mathematics</a>
+            <a routerLink="/statistics-help">Statistics</a>
+            <a routerLink="/accounting-help">Accounting</a>
+            <a routerLink="/finance-help">Finance</a>
+            <a routerLink="/computer-science-help">Computer Science</a>
+            <a routerLink="/psychology-help">Psychology</a>
+            <a routerLink="/economics-help">Economics</a>
+            <a routerLink="/biology-help">Biology</a>
+            <a routerLink="/chemistry-help">Chemistry</a>
+            <a routerLink="/physics-help">Physics</a>
+            <a routerLink="/business-management-help">Business</a>
+            <a routerLink="/marketing-help">Marketing</a>
+            <a routerLink="/english-help">English</a>
+            <a routerLink="/law-help">Law</a>
+          </div>
+        </div>
+
+        <div class="ftc-col">
+          <h4>Exam Help</h4>
+          <div class="ftc-chips">
+            <a routerLink="/take-my-online-exam">Take My Online Exam</a>
+            <a routerLink="/proctored-exam-help">Proctored Exam</a>
+            <a routerLink="/midterm-exam-help">Midterm Exam</a>
+            <a routerLink="/final-exam-help">Final Exam</a>
+            <a routerLink="/online-test-help">Online Test</a>
+            <a routerLink="/proctoru-exam-help">ProctorU</a>
+            <a routerLink="/teas-exam-help">TEAS Exam</a>
+            <a routerLink="/gre-gmat-exam-help">GRE &amp; GMAT</a>
+          </div>
+        </div>
+
+        <div class="ftc-col">
+          <h4>Universities</h4>
+          <div class="ftc-chips">
+            <a routerLink="/arizona-state-university-help">ASU</a>
+            <a routerLink="/snhu-help">SNHU</a>
+            <a routerLink="/wgu-help">WGU</a>
+            <a routerLink="/purdue-global-help">Purdue Global</a>
+            <a routerLink="/liberty-university-help">Liberty</a>
+            <a routerLink="/university-of-phoenix-help">Phoenix</a>
+            <a routerLink="/grand-canyon-university-help">GCU</a>
+            <a routerLink="/capella-university-help">Capella</a>
+            <a routerLink="/walden-university-help">Walden</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="wrap">
+      <div class="ftb-row">
+        <span>© 2026 EduPilotHelp · edupilothelp.com · All rights reserved</span>
+        <span>For academic guidance and support purposes only</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a [href]="waGeneralLink" target="_blank" rel="noopener" class="wa-fab"
+   aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="wa-fab-txt">Chat with us</span>
+</a>

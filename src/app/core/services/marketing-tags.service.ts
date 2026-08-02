@@ -8,7 +8,7 @@ declare global {
 }
 
 /**
- * Third-party marketing tags (GA4, Clarity). First-party event tracking lives in shared/services/analytics.service.ts.
+ * Third-party marketing tags (GA4, Clarity), loaded only when IDs are configured.
  * - Loads Google Analytics 4 only if environment.gaMeasurementId is set.
  * - Loads Microsoft Clarity only if environment.clarityProjectId is set.
  * - Tracks SPA route changes as page views.
